@@ -45,6 +45,9 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+
+  # Manage env variables with dotenv
+  gem 'dotenv-rails'
 end
 
 group :development do
