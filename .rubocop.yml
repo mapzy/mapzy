@@ -8,6 +8,8 @@ AllCops:
     - 'db/**/*'
     - 'script/**/*'
     - 'bin/**/*'
+    - 'node_modules/**/*'
+    - config/**/*
 
 Metrics/LineLength:
   Max: 100
