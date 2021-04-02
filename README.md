@@ -23,9 +23,9 @@ docker-compose up
 ### Development Setup without Docker
 
 Dependencies:
-- ruby ~3.0
-- rails ~6.1
-- postgres ~13.1
+- ruby ~3.0.0
+- rails ~6.1.3
+- postgres ^13.2
 
 Install the dependencies on your machine & set up an user in postgres. Then:
 ```
