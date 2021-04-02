@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'].gsub('?', '_development?') %>
+
+test:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'].gsub('?', '_test?') %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'].gsub('?', '_production?') %>
