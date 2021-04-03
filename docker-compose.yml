@@ -1,4 +1,8 @@
 version: '3.8'
+
+volumes:
+  pgdata:
+
 services:
   pg:
     image: postgres:13.2
@@ -9,16 +13,26 @@ services:
        - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+  webpack:
+    build: .
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "${WEBPACK_PORT}:${WEBPACK_PORT}"
+    environment:
+      NODE_ENV: "${NODE_ENV}"
+      RAILS_ENV: "${RAILS_ENV}"
+      WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
   app:
     build: .
     command: bundle exec rails s -b '0.0.0.0'
     volumes:
       - .:/rails-docker
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
     depends_on:
       - pg
+      - webpack
     tty: true
     stdin_open: true
-volumes:
-  pgdata:
