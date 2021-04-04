@@ -1,0 +1,13 @@
+<% content_for :head_additional do %>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+<% end %>
+
+<% content_for :main do %>
+  <%= javascript_pack_tag 'mapbox' %>
+
+
+  <%= content_tag(:div, nil, hidden: true, id: "map", data: {mapbox_access_token: ENV['MAPBOX_ACCESS_TOKEN']}) %>
+
+  <div class="w-12 h-16 bg-black">
+<% end %>
