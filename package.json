@@ -2,14 +2,14 @@
   "name": "mapzy",
   "private": true,
   "dependencies": {
+    "@hotwired/turbo-rails": "^7.0.0-beta.5",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "@tailwindcss/forms": "^0.3.2",
     "autoprefixer": "^9",
-    "tailwindcss": "^2.0.1-compat",
-    "turbolinks": "^5.2.0"
+    "tailwindcss": "^2.0.1-compat"
   },
   "version": "0.1.0",
   "devDependencies": {
