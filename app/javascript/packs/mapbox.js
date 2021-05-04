@@ -1,8 +1,8 @@
-document.addEventListener('turbolinks:load', function(event) { 
+document.addEventListener('turbo:load', function(event) { 
 
   // get access token
   mapboxgl.accessToken = document.getElementById('map').getAttribute("data-mapbox-access-token");
-
+  
   var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v11',
@@ -24,14 +24,28 @@ document.addEventListener('turbolinks:load', function(event) {
   // el.className = 'w-4 h-4 bg-black';
   // el.id = 'yolo';
 
-  var marker = defaultMapboxMarker();
-  marker.id = "yolo";
+  // var marker = defaultMapboxMarker();
+  // marker.id = "yolo";
 
-  marker.onclick = function(){
-    console.log("yood");
-  };
+  // var turboFrame = document.createElement('turbo-frame');
+  // turboFrame.id = "map_marker";
+  //turboFrame.target = "location_description";
+  //turboFrame.setAttribute("target", "location_description");
+  //turboFrame.setAttribute("data-turbo-frame", "location_description");
 
-  var marker2 = new mapboxgl.Marker({ element: marker })
+  var anchor = document.createElement('a');
+  anchor.href = "/maps_test";
+  anchor.setAttribute("data-turbo-frame", "location_description");
+
+  anchor.appendChild(defaultMapboxMarker())
+
+  //turboFrame.appendChild(anchor)
+
+  // marker.onclick = function(){
+  //   console.log("yood");
+  // };
+
+  var marker2 = new mapboxgl.Marker({ element: anchor })
   .setLngLat([12.65147, 55.608166])
   .addTo(map);
 
@@ -64,6 +78,7 @@ document.addEventListener('turbolinks:load', function(event) {
       collapsed: false,
       types: 'region,district,place,locality,neighborhood',
       marker: false,
+      zoom: 13,
     })
    );
 });
