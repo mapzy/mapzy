@@ -10,22 +10,42 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "output" ]
+  static targets = [ "permissionBox" ]
+  static values = { "mapboxAccessToken" : String }
 
-  connect() {
-    //console.log("Hello, Stimulus!", this.element)
-    this.initMapBox();
+  initialize() {
+    this.initMapbox();
+
+    if (!localStorage.getItem("hasSeenPermissionBox")) {
+      // show permission box only if the user hasn't seen it before
+      this.showPermissionBox();
+      localStorage.setItem("hasSeenPermissionBox", true);
+    }
   }
 
   requestPermission(){
     // request location permission from browser
+    this.geolocate.trigger();
+    this.hidePermissionBox();
   }
 
-  initMapBox() {
+  hidePermissionBox(){
+    // hides the permission box
+    this.permissionBoxTarget.style.display = "none";
+
+  }
+
+  showPermissionBox(){
+    // hides the permission box
+    this.permissionBoxTarget.style.display = "block";
+  }
+
+  initMapbox() {
     // get access token
-    mapboxgl.accessToken = document.getElementById('map').getAttribute("data-mapbox-access-token");
+    // mapboxgl.accessToken = document.getElementById('map').getAttribute("data-mapbox-access-token");
+    mapboxgl.accessToken = this.mapboxAccessTokenValue;
     
-    var map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [12.550343, 55.665957],
@@ -35,7 +55,7 @@ export default class extends Controller {
     // Create a default Marker and add it to the map.
     var marker1 = new mapboxgl.Marker()
     .setLngLat([12.554729, 55.70651])
-    .addTo(map);
+    .addTo(this.map);
      
     // Create a default Marker, colored black, rotated 45 degrees.
     // var marker2 = new mapboxgl.Marker({ color: 'black', rotation: 45 })
@@ -69,11 +89,11 @@ export default class extends Controller {
 
     var marker2 = new mapboxgl.Marker({ element: anchor })
     .setLngLat([12.65147, 55.608166])
-    .addTo(map);
+    .addTo(this.map);
 
     // Add geolocate control to the map.
     // we should set track user location false for desktop
-    var geolocate = new mapboxgl.GeolocateControl({
+    this.geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true
       },
@@ -83,7 +103,7 @@ export default class extends Controller {
       },
     });
 
-    map.addControl(geolocate);
+    this.map.addControl(this.geolocate);
 
     // get user's locations
     // map.on('load', function() {
@@ -92,9 +112,9 @@ export default class extends Controller {
 
     // add zoom buttons
     var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'bottom-right');
+    this.map.addControl(nav, 'bottom-right');
 
-    map.addControl(
+    this.map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,

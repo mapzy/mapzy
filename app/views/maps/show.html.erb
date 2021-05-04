@@ -13,7 +13,7 @@
 <% content_for :main do %>
   <%= javascript_pack_tag 'mapbox', 'data-turbolinks-track': 'reload'%>
 
-  <div class="w-full h-screen p-6" data-controller="maps">
+  <div class="w-full h-screen p-6" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
     <div class="relative w-full h-full flex flex-row">
       <div class="h-full w-96 bg-gray-200 shadow-md rounded ">
         <turbo-frame id="location_description">
@@ -26,14 +26,14 @@
           </div>
         </turbo-frame>
       </div>
-      <div class="h-full w-full rounded-r" id="map" data-mapbox-access-token="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"></div>
-      <div class="absolute bg-gray-100 bottom-0 inset-x-4 bottom-4 rounded p-4 flex flex-col justify-center items-center">
+      <div class="h-full w-full rounded-r" id="map"></div>
+      <div class="absolute bg-gray-100 bottom-0 inset-x-4 bottom-4 rounded p-4 flex flex-col justify-center items-center" data-map-target="permissionBox">
         <div class="py-2 text-lg">
           Please grant location permission so we can show stores in your area or search for your city on the top.
         </div>
         <div class="w-full flex justify-center items-center py-2">
-          <button class="bg-indigo-500 rounded py-4 px-6 text-white font-medium m-4 shadow" data-action="click->maps#requestPermission">Grant permission</button>
-          <button class="bg-indigo-100 rounded py-4 px-6">Hide</button>
+          <button class="bg-indigo-500 rounded py-4 px-6 text-white font-medium m-4 shadow" data-action="click->map#requestPermission">Grant permission</button>
+          <button class="bg-indigo-100 rounded py-4 px-6" data-action="click->map#hidePermissionBox">Hide</button>
         </div>
 
       </div>
