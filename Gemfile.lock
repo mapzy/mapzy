@@ -258,6 +258,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stimulus-rails (0.2.3)
+      rails (>= 6.0.0)
     thor (1.1.0)
     tilt (2.0.10)
     turbo-rails (0.5.9)
@@ -316,6 +318,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   spring
+  stimulus-rails
   turbo-rails
   tzinfo-data
   web-console (>= 4.1.0)
