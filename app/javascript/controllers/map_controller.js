@@ -11,10 +11,16 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = [ "permissionBox" ]
-  static values = { "mapboxAccessToken" : String }
+  static values = {
+    "mapboxAccessToken" : String,
+    "centerCoords": Array,
+    "markers": Object,
+    "bounds": Array
+  }
 
   initialize() {
     this.initMapbox();
+    this.fitToMarkers();
 
     if (!localStorage.getItem("hasSeenPermissionBox")) {
       // show permission box only if the user hasn't seen it before
@@ -40,56 +46,33 @@ export default class extends Controller {
     this.permissionBoxTarget.style.display = "block";
   }
 
+  fitToMarkers() {
+    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 10});
+   }
+
   initMapbox() {
     // get access token
-    // mapboxgl.accessToken = document.getElementById('map').getAttribute("data-mapbox-access-token");
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
     
     this.map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [12.550343, 55.665957],
-    zoom: 8
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      //center: this.centerCoordsValue,
+      //zoom: 8
     });
-     
-    // Create a default Marker and add it to the map.
-    var marker1 = new mapboxgl.Marker()
-    .setLngLat([12.554729, 55.70651])
-    .addTo(this.map);
-     
-    // Create a default Marker, colored black, rotated 45 degrees.
-    // var marker2 = new mapboxgl.Marker({ color: 'black', rotation: 45 })
-    // .setLngLat([12.65147, 55.608166])
-    // .addTo(map);
 
-    // var el = document.createElement('div');
-    // el.className = 'w-4 h-4 bg-black';
-    // el.id = 'yolo';
+    // create markers
+    for (var feature of this.markersValue.features) {
+      let anchor = document.createElement('a');
+      anchor.href = "/maps_test";
+      anchor.setAttribute("data-turbo-frame", "location_description");
 
-    // var marker = defaultMapboxMarker();
-    // marker.id = "yolo";
+      anchor.appendChild(this.defaultMapboxMarker())
 
-    // var turboFrame = document.createElement('turbo-frame');
-    // turboFrame.id = "map_marker";
-    //turboFrame.target = "location_description";
-    //turboFrame.setAttribute("target", "location_description");
-    //turboFrame.setAttribute("data-turbo-frame", "location_description");
-
-    var anchor = document.createElement('a');
-    anchor.href = "/maps_test";
-    anchor.setAttribute("data-turbo-frame", "location_description");
-
-    anchor.appendChild(this.defaultMapboxMarker())
-
-    //turboFrame.appendChild(anchor)
-
-    // marker.onclick = function(){
-    //   console.log("yood");
-    // };
-
-    var marker2 = new mapboxgl.Marker({ element: anchor })
-    .setLngLat([12.65147, 55.608166])
-    .addTo(this.map);
+      new mapboxgl.Marker({ element: anchor })
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(this.map);
+    }
 
     // Add geolocate control to the map.
     // we should set track user location false for desktop
