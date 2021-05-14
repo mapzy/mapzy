@@ -40,6 +40,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Set up default url
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Use letter opener in development
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -71,7 +78,6 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
   # Uncomment if you wish to allow Action Cable access from any origin.
