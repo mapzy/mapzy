@@ -10,14 +10,16 @@ The simplest way to get your development setup running is via [Docker](https://w
 # Set the .env files and fill in all env vars
 cp .env.example .env
 
-# Build docker image (only once)
-docker-compose build
+# Build docker image
+docker compose build
+
+# Run the project
+docker compose up -d
 
 # Create and migrate the database
-docker-compose run app rake db:create db:migrate
-
-# Finally, run the project
-docker-compose up
+docker compose exec app bash
+rails db:create db:migrats
+exit
 ```
 
 ### Development Setup without Docker
@@ -37,7 +39,7 @@ cp .env.example .env
 rails db:create db:migrate
 
 # Finally, run the app locally
-rails s -b 0.0.0.0
+rails s
 ```
 
 ## License
