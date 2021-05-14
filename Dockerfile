@@ -17,20 +17,19 @@ RUN node -v
 #RUN apt-get install yarn -y
 RUN npm install -g yarn
 
-
+# Add work directory
 ADD . /usr/src/app
 WORKDIR /usr/src/app
 
 # Install & run bundler
 RUN gem install bundler:'~> 2.1.4'
-
 RUN bundle
 
-# webpacker installation
+# Install webpack
 RUN bundle exec rails webpacker:install
 
-# install yarn packages
+# Install yarn packages
 RUN yarn install
 
-
-CMD rails server -b 0.0.0.0
+# Run
+CMD ./docker-entrypoint.sh
