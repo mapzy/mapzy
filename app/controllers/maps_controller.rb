@@ -1,37 +1,37 @@
-class MapsController < ApplicationController
+# frozen_string_literal: true
 
-  def index
-  end
+class MapsController < ApplicationController
+  def index; end
 
   def show
     markers = {
-      type: "FeatureCollection",
+      type: 'FeatureCollection',
       features: [
         {
-          type: "Feature",
+          type: 'Feature',
           geometry: {
-            type: "Point",
+            type: 'Point',
             coordinates: [12.554729, 55.70651]
           },
           properties: {
-            prop0: "value0"
+            prop0: 'value0'
           }
         },
         {
-          type: "Feature",
+          type: 'Feature',
           geometry: {
-            type: "Point",
+            type: 'Point',
             coordinates: [12.65147, 55.608166]
           },
           properties: {
-            prop0: "value0"
+            prop0: 'value0'
           }
-        },
+        }
       ]
     }
 
-    lats =  markers[:features].map {|f| f[:geometry][:coordinates][0]}
-    longs =  markers[:features].map {|f| f[:geometry][:coordinates][1]}
+    lats = markers[:features].map { |f| f[:geometry][:coordinates][0] }
+    longs = markers[:features].map { |f| f[:geometry][:coordinates][1] }
 
     west, east = lats.minmax
     south, north = longs.minmax
@@ -43,6 +43,6 @@ class MapsController < ApplicationController
   end
 
   def maps_test
-    return render :html => '<turbo-frame id="location_description">yuhhuuu</turbo-frame>'.html_safe
+    render html: '<turbo-frame id="location_description">yuhhuuu</turbo-frame>'.html_safe
   end
 end
