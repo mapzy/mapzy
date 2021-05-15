@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-    ports: 
+    ports:
        - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -26,11 +26,12 @@ services:
       WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
   app:
     build: .
-    command: bundle exec rails s -b '0.0.0.0'
     volumes:
       - .:/usr/src/app
     ports:
       - "${PORT}:${PORT}"
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpack
     depends_on:
       - pg
       - webpack
