@@ -13,7 +13,6 @@ export default class extends Controller {
   static targets = [ "permissionBox" ]
   static values = {
     "mapboxAccessToken" : String,
-    "centerCoords": Array,
     "markers": Object,
     "bounds": Array
   }
@@ -47,7 +46,7 @@ export default class extends Controller {
   }
 
   fitToMarkers() {
-    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 10});
+    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
    }
 
   initMapbox() {
@@ -57,8 +56,6 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      //center: this.centerCoordsValue,
-      //zoom: 8
     });
 
     // create markers

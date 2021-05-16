@@ -76,6 +76,8 @@ group :development do
 
   # Preview emails in the browser
   gem 'letter_opener'
+
+  gem 'annotate'
 end
 
 group :test do

@@ -13,7 +13,7 @@
 <% content_for :main do %>
   <%= javascript_pack_tag 'mapbox', 'data-turbolinks-track': 'reload'%>
 
-  <div class="w-full h-screen p-6" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>" data-map-center-coords-value="<%= @center_coords %>" data-map-markers-value="<%= @markers_json %>" data-map-bounds-value="<%= @bounds %>">
+  <div class="w-full h-screen p-6" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>" data-map-markers-value="<%= @markers_json %>" data-map-bounds-value="<%= @bounds %>">
     <div class="relative w-full h-full flex flex-row">
       <div class="h-full w-96 bg-gray-200 shadow-md rounded ">
         <turbo-frame id="location_description">

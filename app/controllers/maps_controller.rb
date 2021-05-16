@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
-  def index; end
-
   def show
     markers = {
       type: 'FeatureCollection',
@@ -38,7 +36,6 @@ class MapsController < ApplicationController
 
     @bounds = [[west, south], [east, north]]
 
-    @center_coords = [12.550343, 55.665957]
     @markers_json = markers.to_json
   end
 
