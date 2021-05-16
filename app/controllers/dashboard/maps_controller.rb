@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class MapsController < ApplicationController
-  def index; end
-
+class Dashboard::MapsController < DashboardController
   def show
     markers = {
       type: 'FeatureCollection',
@@ -14,7 +12,7 @@ class MapsController < ApplicationController
             coordinates: [12.554729, 55.70651]
           },
           properties: {
-            prop0: 'value0'
+            prop0: "value0"
           }
         },
         {
