@@ -34,7 +34,7 @@ class Location < ApplicationRecord
 
   before_save :country_code_to_upcase
   before_validation :convert_country_to_country_code
-  after_validation :geocode
+  after_validation :geocode, if: :address_changed?
 
   geocoded_by :address
 
@@ -58,5 +58,9 @@ class Location < ApplicationRecord
 
   def country_exists
     errors.add(:country_code, "needs to be an existing country") if ISO3166::Country.find_country_by_alpha2(self.country_code).nil?
+  end
+
+  def address_changed?
+    address_line_1_changed? || zip_code_changed? || city_changed? || state_changed? || country_code_changed?
   end
 end
