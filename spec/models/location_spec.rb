@@ -4,19 +4,20 @@
 #
 # Table name: locations
 #
-#  id            :bigint           not null, primary key
-#  addres_line_1 :string
-#  city          :string
-#  country_code  :string
-#  description   :text
-#  lat           :decimal(15, 10)
-#  long          :decimal(15, 10)
-#  name          :string
-#  street_number :string
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  map_id        :bigint           not null
+#  id             :bigint           not null, primary key
+#  address_line_1 :string
+#  address_line_2 :string
+#  city           :string
+#  country_code   :string
+#  description    :text
+#  latitude       :decimal(15, 10)
+#  longitude      :decimal(15, 10)
+#  name           :string
+#  state          :string
+#  zip_code       :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  map_id         :bigint           not null
 #
 # Indexes
 #
