@@ -12,8 +12,8 @@ Rails.application.routes.draw do
       passwords: 'users/passwords'
     }
 
-  authenticated do
-    root to: 'dashboard#index', as: :authenticated_root
+  authenticated :user do
+    root to: 'maps#index', as: :authenticated_root
   end
 
   resources :dashboard, only: [:index]
