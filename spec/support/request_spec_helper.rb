@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # This module is used to mock authorization in all controllers
 module RequestSpecHelper
   include Warden::Test::Helpers
 
   def self.included(base)
-    base.before(:each) { Warden.test_mode! }
-    base.after(:each) { Warden.test_reset! }
+    base.before { Warden.test_mode! }
+    base.after { Warden.test_reset! }
   end
 
   def sign_in(resource)

@@ -14,7 +14,7 @@ class User < ApplicationRecord
   # Create a default map for the user
   # @return [Map]
   def create_default_map
-    Map.create(user_id: id, name: "Default")
+    Map.create(user_id: id, name: 'Default')
   end
 
   # Find or create a default map for the user

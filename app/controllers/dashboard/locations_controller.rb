@@ -1,7 +1,11 @@
-class Dashboard::LocationsController < DashboardController
-  def new; end
+# frozen_string_literal: true
 
-  def create; end
+module Dashboard
+  class LocationsController < DashboardController
+    def new; end
 
-  def show; end
+    def create; end
+
+    def show; end
+  end
 end
