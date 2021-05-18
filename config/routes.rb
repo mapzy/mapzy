@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     namespace :development do
-      resources :tools
+      resources :design, only: [:index]
     end
   end
 end
