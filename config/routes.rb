@@ -25,4 +25,10 @@ Rails.application.routes.draw do
 
   # Tmp
   get '/maps_test' => 'maps#maps_test'
+
+  if Rails.env.development?
+    namespace :development do
+      resources :tools
+    end
+  end
 end
