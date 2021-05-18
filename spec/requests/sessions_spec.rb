@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Sessions' do
-  let(:user) { User.create }
+RSpec.describe 'Sessions', type: :request do
+  let(:user) { create(:user) }
 
   it 'signs user in' do
     sign_in user
