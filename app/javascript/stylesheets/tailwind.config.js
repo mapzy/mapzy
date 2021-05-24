@@ -6,7 +6,18 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   variants: {},
-  plugins: [],
+  plugins: [
+    // Use indigo-700 (#3730a3) as underline color
+    function ({addUtilities}) {
+      const extendUnderline = {
+          '.underline': {
+              'textDecoration': 'underline',
+              'text-decoration-color': '#3730a3',
+          },  
+      }
+      addUtilities(extendUnderline)
+    }
+  ],
   theme: {
     extend: {
     },
