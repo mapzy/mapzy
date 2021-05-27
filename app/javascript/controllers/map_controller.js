@@ -10,7 +10,10 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "permissionBox" ]
+  static targets = [
+  "permissionBox",
+  "locationDetailsView"
+  ]
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
@@ -28,21 +31,28 @@ export default class extends Controller {
     }
   }
 
-  requestPermission(){
+  requestPermission() {
     // request location permission from browser
     this.geolocate.trigger();
     this.hidePermissionBox();
   }
 
-  hidePermissionBox(){
+  hidePermissionBox() {
     // hides the permission box
     this.permissionBoxTarget.style.display = "none";
-
   }
 
-  showPermissionBox(){
+  showPermissionBox() {
     // hides the permission box
     this.permissionBoxTarget.style.display = "block";
+  }
+
+  showLocationDetailsView() {
+    this.locationDetailsViewTarget.classList.remove("hidden");
+  }
+
+  hideLocationDetailsView() {
+    this.locationDetailsViewTarget.classList.add("hidden");
   }
 
   fitToMarkers() {
@@ -61,8 +71,9 @@ export default class extends Controller {
     // create markers
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
-      anchor.href = "/maps_test";
+      anchor.href = `/locations/${feature.properties.id}/details`;
       anchor.setAttribute("data-turbo-frame", "location_description");
+      anchor.setAttribute("data-action", "click->map#showLocationDetailsView");
 
       anchor.appendChild(this.defaultMapboxMarker())
 
