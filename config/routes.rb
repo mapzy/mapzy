@@ -3,6 +3,10 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  authenticated :user do
+    root to: 'maps#index', as: :authenticated_root
+  end
+
   devise_for :users,
     path: 'account',
     path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
@@ -12,19 +16,12 @@ Rails.application.routes.draw do
       passwords: 'users/passwords'
     }
 
-  authenticated :user do
-    root to: 'maps#index', as: :authenticated_root
-  end
-
   resources :dashboard, only: [:index]
 
   scope module: 'dashboard' do
     resources :maps
     resources :locations
   end
-
-  # Tmp
-  get '/maps_test' => 'maps#maps_test'
 
   if Rails.env.development?
     namespace :development do

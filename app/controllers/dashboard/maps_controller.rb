@@ -46,9 +46,5 @@ module Dashboard
       @center_coords = [12.550343, 55.665957]
       @markers_json = markers.to_json
     end
-
-    def maps_test
-      render html: '<turbo-frame id="location_description">yuhhuuu</turbo-frame>'.html_safe
-    end
   end
 end
