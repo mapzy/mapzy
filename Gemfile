@@ -48,6 +48,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-support'
 
+  # Factories
+  gem 'factory_bot_rails'
+
   # Run specs automatically with guard
   gem 'guard-rspec', require: false
 
@@ -84,9 +87,6 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
-
-  # Factories for test
-  gem 'factory_bot_rails'
 
   # Helpers for test
   gem 'shoulda-matchers'
