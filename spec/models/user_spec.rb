@@ -27,16 +27,17 @@ describe User, type: :model do
     it { is_expected.to have_many(:maps) }
   end
 
-  describe "abilities" do
+  describe 'abilities' do
     subject(:ability) { Ability.new(user) }
-    let(:user) { User.new }
+
+    let(:user) { described_class.new }
     let(:map) { Map.new(user: user) }
 
-    context 'maps' do
+    context 'with maps' do
       it { is_expected.to be_able_to(:manage, Map.new) }
     end
 
-    context 'locations' do
+    context 'with locations' do
       it { is_expected.to be_able_to(:manage, Location.new(map: map)) }
     end
   end
