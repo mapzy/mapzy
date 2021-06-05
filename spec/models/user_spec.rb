@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'cancan/matchers'
 
 describe User, type: :model do
   describe 'factory' do
@@ -24,6 +25,20 @@ describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:maps) }
+  end
+
+  describe "abilities" do
+    subject(:ability) { Ability.new(user) }
+    let(:user) { User.new }
+    let(:map) { Map.new(user: user) }
+
+    context 'maps' do
+      it { is_expected.to be_able_to(:manage, Map.new) }
+    end
+
+    context 'locations' do
+      it { is_expected.to be_able_to(:manage, Location.new(map: map)) }
+    end
   end
 
   describe '.create_default_map' do
