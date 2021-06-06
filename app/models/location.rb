@@ -43,7 +43,8 @@ class Location < ApplicationRecord
   attr_accessor :country
 
   def address
-    [address_line1, zip_code, city, state, ISO3166::Country.find_country_by_alpha2(country_code)].compact.join(', ')
+    [address_line1, zip_code, city, state,
+     ISO3166::Country.find_country_by_alpha2(country_code)].compact.join(', ')
   end
 
   def country
@@ -62,7 +63,10 @@ class Location < ApplicationRecord
   end
 
   def country_exists?
-    errors.add(:country_code, "needs to be an existing country") if ISO3166::Country.find_country_by_alpha2(country_code).nil?
+    if ISO3166::Country.find_country_by_alpha2(country_code).nil?
+      errors.add(:country_code,
+                 'needs to be an existing country')
+    end
   end
 
   def address_changed?
