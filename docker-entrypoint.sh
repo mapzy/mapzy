@@ -20,10 +20,8 @@ yarn install
 # Set up dev database
 bundle exec rake db:create 
 bundle exec rake db:migrate
-bundle exec rake db:seed
 
 # Set up test database
-bundle exec rake db:drop RAILS_ENV=test
 bundle exec rake db:create RAILS_ENV=test
 bundle exec rake db:schema:load RAILS_ENV=test
 bundle exec rake db:test:prepare RAILS_ENV=test
