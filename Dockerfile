@@ -28,8 +28,5 @@ RUN bundle
 # Install webpack
 RUN bundle exec rails webpacker:install
 
-# Install yarn packages
-RUN yarn install
-
 # Run
 CMD ./docker-entrypoint.sh

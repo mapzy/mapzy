@@ -31,6 +31,9 @@ gem 'redis', '~> 4.0'
 # Authentication
 gem 'devise'
 
+# Authorization
+gem 'cancancan', '~> 3.2'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
@@ -49,6 +52,9 @@ group :development, :test do
   gem 'rspec-mocks'
   gem 'rspec-rails'
   gem 'rspec-support'
+
+  # Factories
+  gem 'factory_bot_rails'
 
   # Run specs automatically with guard
   gem 'guard-rspec', require: false
@@ -88,9 +94,6 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
-
-  # Factories for test
-  gem 'factory_bot_rails'
 
   # Helpers for test
   gem 'shoulda-matchers'

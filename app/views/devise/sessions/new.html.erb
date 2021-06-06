@@ -1,26 +1,25 @@
-<h2>Log in</h2>
+<%= render 'devise/shared/signup_login' do %>
+  <h2 class="text-xl md:text-2xl font-bold leading-tight mt-8">Log into your account</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field mt-4">
+      <%= f.label :email, class: 'block text-gray-700' %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",
+      required: true,
+        class: 'w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none' %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+    <div class="field mt-4">
+      <%= f.label :password, class: 'block text-gray-700' %>
+      <%= f.password_field :password, autocomplete: "current-password",
+        required: true,
+        class: 'w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none' %>
+    </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="actions mt-8 mb-4">
+      <%= f.submit "Log in", class: 'w-full button-main' %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+  <%= render "devise/shared/links" %>
 <% end %>
-
-<%= render "devise/shared/links" %>

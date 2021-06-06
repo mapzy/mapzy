@@ -9,12 +9,12 @@
     <%= stylesheet_pack_tag  'application',  media: 'all',  'data-turbolinks-track': 'reload'  %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <%= yield :head_additional %>
+    <%= yield :head %>
   </head>
 
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield :main %>
+    <%= yield %>
   </body>
 </html>

@@ -10,8 +10,8 @@
 #  city          :string
 #  country_code  :string
 #  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
+#  latitude      :float
+#  longitude     :float
 #  name          :string
 #  state         :string
 #  zip_code      :string
@@ -37,6 +37,6 @@ RSpec.describe Location, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:map) }
+    it { is_expected.to belong_to(:map).without_validating_presence }
   end
 end

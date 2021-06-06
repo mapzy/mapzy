@@ -10,8 +10,8 @@
 #  city          :string
 #  country_code  :string
 #  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
+#  latitude      :float
+#  longitude     :float
 #  name          :string
 #  state         :string
 #  zip_code      :string
@@ -31,13 +31,12 @@ FactoryBot.define do
   factory :location do
     name { 'Mapzy HQ' }
     description { 'The coolest place to be' }
-    street_name { 'Hohlstrasse' }
-    street_number { '117' }
+    address_line1 { 'Hohlstrasse 117' }
     city { 'Zürich' }
     zip_code { '8004' }
     country_code { 'CH' }
-    lat { 12.222211 }
-    long { 8.433332 }
+    latitude { 12.222211 }
+    longitude { 8.433332 }
     association :map
   end
 end

@@ -12,7 +12,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [
   "permissionBox",
-  "locationDetailsView"
+  "locationView"
   ]
   static values = {
     "mapboxAccessToken" : String,
@@ -47,12 +47,12 @@ export default class extends Controller {
     this.permissionBoxTarget.style.display = "block";
   }
 
-  showLocationDetailsView() {
-    this.locationDetailsViewTarget.classList.remove("hidden");
+  showLocationView() {
+    this.locationViewTarget.classList.remove("hidden");
   }
 
-  hideLocationDetailsView() {
-    this.locationDetailsViewTarget.classList.add("hidden");
+  hideLocationView() {
+    this.locationViewTarget.classList.add("hidden");
   }
 
   fitToMarkers() {
@@ -71,9 +71,9 @@ export default class extends Controller {
     // create markers
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
-      anchor.href = `/locations/${feature.properties.id}/details`;
+      anchor.href = `/locations/${feature.properties.id}`;
       anchor.setAttribute("data-turbo-frame", "location_description");
-      anchor.setAttribute("data-action", "click->map#showLocationDetailsView");
+      anchor.setAttribute("data-action", "click->map#showLocationView");
 
       anchor.appendChild(this.defaultMapboxMarker())
 

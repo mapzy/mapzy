@@ -26,3 +26,10 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+   - app/controllers/users/**/*
