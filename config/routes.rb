@@ -9,5 +9,8 @@ Rails.application.routes.draw do
       registrations: 'users/registrations',
       passwords: 'users/passwords'
     }
+  
   resources :maps
+
+  get '/locations/:id/details', to: 'locations#details', as: :location_detais
 end
