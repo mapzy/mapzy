@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+
+  <!-- Promise polyfill script is required -->
+  <!-- to use Mapbox GL Geocoder in IE 11. -->
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<% end %>
+
+<%= javascript_pack_tag 'mapbox', 'data-turbolinks-track': 'reload'%>
+
+<div class="w-full h-screen p-6" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>" data-map-center-coords-value="<%= @center_coords %>" data-map-markers-value="<%= @markers_json %>" data-map-bounds-value="<%= @bounds %>">
+  <div class="relative w-full h-full flex flex-row">
+    <div class="h-full w-96 bg-gray-200 shadow-md rounded ">
+      <turbo-frame id="location_description">
+        <div class="text-lg text-center">
+          Sag's Love Den
+        </div>
+        <div class="text-base mt-8">
+          Rue de la Popo 12 <br />
+          12390 Paris
+        </div>
+      </turbo-frame>
+    </div>
+    <div class="h-full w-full rounded-r" id="map"></div>
+    <div class="absolute bg-gray-100 bottom-0 inset-x-4 bottom-4 rounded p-4 flex flex-col justify-center items-center hidden" data-map-target="permissionBox">
+      <div class="py-2 text-lg">
+        Please grant location permission so we can show stores in your area or search for your city on the top.
+      </div>
+      <div class="w-full flex justify-center items-center py-2">
+        <button class="bg-indigo-500 rounded py-4 px-6 text-white font-medium m-4 shadow" data-action="click->map#requestPermission">Grant permission</button>
+        <button class="bg-indigo-100 rounded py-4 px-6" data-action="click->map#hidePermissionBox">Hide</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
