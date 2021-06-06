@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :dashboard, only: [:index]
 
   scope module: 'dashboard' do
-    resources :maps
+    resources :maps, only: [:index, :show]
     resources :locations
   end
 

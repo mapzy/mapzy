@@ -10,10 +10,12 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ "permissionBox" ]
+  static targets = [
+  "permissionBox",
+  "locationDetailsView"
+  ]
   static values = {
     "mapboxAccessToken" : String,
-    "centerCoords": Array,
     "markers": Object,
     "bounds": Array
   }
@@ -29,25 +31,32 @@ export default class extends Controller {
     }
   }
 
-  requestPermission(){
+  requestPermission() {
     // request location permission from browser
     this.geolocate.trigger();
     this.hidePermissionBox();
   }
 
-  hidePermissionBox(){
+  hidePermissionBox() {
     // hides the permission box
     this.permissionBoxTarget.style.display = "none";
-
   }
 
-  showPermissionBox(){
+  showPermissionBox() {
     // hides the permission box
     this.permissionBoxTarget.style.display = "block";
   }
 
+  showLocationDetailsView() {
+    this.locationDetailsViewTarget.classList.remove("hidden");
+  }
+
+  hideLocationDetailsView() {
+    this.locationDetailsViewTarget.classList.add("hidden");
+  }
+
   fitToMarkers() {
-    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 10});
+    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
    }
 
   initMapbox() {
@@ -57,15 +66,14 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      //center: this.centerCoordsValue,
-      //zoom: 8
     });
 
     // create markers
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
-      anchor.href = "/maps_test";
+      anchor.href = `/locations/${feature.properties.id}/details`;
       anchor.setAttribute("data-turbo-frame", "location_description");
+      anchor.setAttribute("data-action", "click->map#showLocationDetailsView");
 
       anchor.appendChild(this.defaultMapboxMarker())
 

@@ -37,6 +37,8 @@ gem 'cancancan', '~> 3.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'countries'
+gem 'geocoder'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 
@@ -82,6 +84,8 @@ group :development do
 
   # Preview emails in the browser
   gem 'letter_opener'
+
+  gem 'annotate'
 end
 
 group :test do

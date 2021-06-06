@@ -9,41 +9,22 @@ module Dashboard
     end
 
     def show
-      markers = {
-        type: 'FeatureCollection',
-        features: [
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [12.554729, 55.70651]
-            },
-            properties: {
-              prop0: 'value0'
-            }
-          },
-          {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [12.65147, 55.608166]
-            },
-            properties: {
-              prop0: 'value0'
-            }
-          }
-        ]
-      }
+      locations = Location.where(map_id: params[:id])
 
-      lats = markers[:features].map { |f| f[:geometry][:coordinates][0] }
-      longs = markers[:features].map { |f| f[:geometry][:coordinates][1] }
+      raise ActiveRecord::RecordNotFound if locations.empty?
 
-      west, east = lats.minmax
-      south, north = longs.minmax
+      markers = LocationServices::LocationServicesGeoJson
+                .new(Location.where(map_id: params[:id]))
+                .convert_to_geo_json_hash
+
+      lats = markers[:features].map { |f| f[:geometry][:coordinates][1] }
+      longs = markers[:features].map { |f| f[:geometry][:coordinates][0] }
+
+      west, east = longs.minmax
+      south, north = lats.minmax
 
       @bounds = [[west, south], [east, north]]
 
-      @center_coords = [12.550343, 55.665957]
       @markers_json = markers.to_json
     end
   end

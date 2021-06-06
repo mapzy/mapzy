@@ -6,6 +6,8 @@ module Dashboard
 
     def create; end
 
-    def show; end
+    def show
+      @location = Location.find(params[:id])
+    end
   end
 end
