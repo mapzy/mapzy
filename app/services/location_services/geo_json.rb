@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LocationServices
-  class LocationServicesGeoJson
+  class GeoJson
     def initialize(locations)
       @locations = locations
     end

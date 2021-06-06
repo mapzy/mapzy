@@ -13,7 +13,7 @@ module Dashboard
     def show
       locations = Location.where(map_id: params[:id])
 
-      markers = LocationServices::LocationServicesGeoJson
+      markers = LocationServices::GeoJson
                 .new(locations)
                 .convert_to_geo_json_hash
 
