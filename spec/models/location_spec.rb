@@ -37,6 +37,6 @@ RSpec.describe Location, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:map) }
+    it { is_expected.to belong_to(:map).without_validating_presence }
   end
 end
