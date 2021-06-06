@@ -19,17 +19,17 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - "${WEBPACK_PORT}:${WEBPACK_PORT}"
+      - '3035:3035'
     environment:
-      NODE_ENV: "${NODE_ENV}"
-      RAILS_ENV: "${RAILS_ENV}"
+      NODE_ENV: 'development'
+      RAILS_ENV: 'development'
       WEBPACKER_DEV_SERVER_HOST: '0.0.0.0'
   app:
     build: .
     volumes:
       - .:/usr/src/app
     ports:
-      - "${PORT}:${PORT}"
+      - '3000:3000'
     environment:
       WEBPACKER_DEV_SERVER_HOST: webpack
     depends_on:
