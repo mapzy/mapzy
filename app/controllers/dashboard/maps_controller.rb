@@ -13,10 +13,8 @@ module Dashboard
     def show
       locations = Location.where(map_id: params[:id])
 
-      raise ActiveRecord::RecordNotFound if locations.empty?
-
       markers = LocationServices::LocationServicesGeoJson
-                .new(Location.where(map_id: params[:id]))
+                .new(locations)
                 .convert_to_geo_json_hash
 
       lats = markers[:features].map { |f| f[:geometry][:coordinates][1] }
