@@ -2,6 +2,8 @@
 
 module Dashboard
   class MapsController < DashboardController
+    load_and_authorize_resource
+
     def index
       # Currently an user can have a single map
       # Thus, we redirect the user to her default map
