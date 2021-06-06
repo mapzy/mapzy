@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 2021_05_27_154027) do
     t.string "city"
     t.string "zip_code"
     t.string "country_code"
-    t.decimal "latitude", precision: 15, scale: 10
-    t.decimal "longitude", precision: 15, scale: 10
+    t.float "latitude"
+    t.float "longitude"
     t.bigint "map_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
