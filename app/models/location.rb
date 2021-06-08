@@ -10,8 +10,8 @@
 #  city          :string
 #  country_code  :string
 #  description   :text
-#  latitude      :float
-#  longitude     :float
+#  latitude      :decimal(15, 10)
+#  longitude     :decimal(15, 10)
 #  name          :string
 #  state         :string
 #  zip_code      :string
@@ -40,22 +40,22 @@ class Location < ApplicationRecord
 
   geocoded_by :address
 
-  attr_accessor :country
-
   def address
-    [address_line1, zip_code, city, state,
-     ISO3166::Country.find_country_by_alpha2(country_code)].compact.join(', ')
+    [
+      address_line1, zip_code, city, state,
+      ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
+    ].compact.join(', ')
   end
 
   def country
-    ISO3166::Country.find_country_by_alpha2(country_code).unofficial_names[0]
+    ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
   end
 
   def convert_country_to_country_code
-    if country
-      country_alpha2 = ISO3166::Country.find_country_by_name(country)
-      country_code = country_alpha2.alpha2 if country_alpha2
-    end
+    return unless country
+
+    country_alpha2 = ISO3166::Country.find_country_by_name(country)
+    self.country_code = country_alpha2.alpha2 if country_alpha2
   end
 
   def country_code_to_upcase
@@ -63,13 +63,13 @@ class Location < ApplicationRecord
   end
 
   def country_exists?
-    if ISO3166::Country.find_country_by_alpha2(country_code).nil?
-      errors.add(:country_code,
-                 'needs to be an existing country')
-    end
+    return unless ISO3166::Country.find_country_by_alpha2(country_code).nil?
+
+    errors.add(:country_code, 'needs to be an existing country')
   end
 
   def address_changed?
-    address_line1_changed? || zip_code_changed? || city_changed? || state_changed? || country_code_changed?
+    address_line1_changed? || zip_code_changed? || city_changed? ||
+      state_changed? || country_code_changed?
   end
 end
