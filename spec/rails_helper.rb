@@ -12,6 +12,9 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'cancan/matchers'
 
+require 'capybara/rails'
+require 'capybara/rspec'
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -73,6 +76,7 @@ RSpec.configure do |config|
 
   # Custom helper to mock authenticate_user
   config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper, type: :feature
 end
 
 # Config for Shoulda Matchers
@@ -82,3 +86,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.default_driver = :selenium

@@ -10,17 +10,17 @@ RSpec.describe 'Maps', type: :request do
     sign_in user
   end
 
-  describe 'GET maps/:id' do
-    it 'responds with a HTTP 200' do
-      get "/maps/#{map.id}"
-      expect(response).to have_http_status(:ok)
+  describe 'GET index' do
+    it 'responds with a HTTP 302 Redirect' do
+      get maps_path
+      expect(response).to have_http_status(:found)
     end
   end
 
-  describe 'GET index' do
-    it 'responds with a HTTP 302 Redirect' do
-      get '/maps'
-      expect(response).to have_http_status(:found)
+  describe 'GET maps/:id' do
+    it 'responds with a HTTP 200' do
+      get map_path(map.id)
+      expect(response).to be_successful
     end
   end
 end
