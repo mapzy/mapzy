@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'home#index'
-
-  authenticated :user do
-    root to: 'maps#index', as: :authenticated_root
+  devise_scope :user do
+    authenticated do
+      root to: 'dashboard/maps#index', as: :authenticated_root_url
+    end
+    unauthenticated do
+      root to: 'home#index'
+    end
   end
 
   devise_for :users,
