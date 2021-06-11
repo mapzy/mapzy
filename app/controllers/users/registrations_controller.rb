@@ -16,5 +16,16 @@ module Users
     def configure_account_update_params
       devise_parameter_sanitizer.permit(:account_update, keys: [:name])
     end
+
+    # Redirect after sign up
+    def after_sign_up_path_for(resource)
+      maps_path
+    end
+
+    private
+
+    def remove_notice
+      flash.discard(:notice)
+    end
   end
 end
