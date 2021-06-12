@@ -43,10 +43,10 @@ class Location < ApplicationRecord
   geocoded_by :address
 
   def address
-    [address_line1, zip_code, city, state, country_name_from_country_code].compact.join(', ')
+    [address_line1, zip_code, city, state, country_name].compact.join(', ')
   end
 
-  def country_name_from_country_code
+  def country_name
     ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
   end
 
@@ -62,7 +62,7 @@ class Location < ApplicationRecord
   end
 
   def country_exists?
-    return unless country_name_from_country_code.nil?
+    return unless country_name.nil?
 
     errors.add(:country_code, 'needs to be an existing country')
   end
