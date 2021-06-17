@@ -20,8 +20,10 @@ Rails.application.routes.draw do
     }
 
   resources :dashboard, only: [:index]
+  resources :maps, only: [:index, :show]
+  resources :locations
 
-  scope module: 'dashboard' do
+  scope namespace: 'dashboard' do
     resources :maps, only: [:index, :show]
     resources :locations
   end
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     namespace :development do
       resources :design, only: [:index]
+      resources :embed_mock, only: [:index]
     end
   end
 end
