@@ -23,12 +23,10 @@
 /* Buttons */
 .button-main {
   @apply cursor-pointer rounded bg-indigo-700 text-white font-medium shadow
-  h-12 m-2 py-4 px-6
-  flex items-center justify-center
+  h-12 flex items-center justify-center
 }
 
 .button-secondary {
 	@apply cursor-pointer rounded bg-indigo-50 text-indigo-700
-	 h-12 m-2 py-4 px-6
-	 flex items-center justify-center
+	 h-12 flex items-center justify-center
 }
