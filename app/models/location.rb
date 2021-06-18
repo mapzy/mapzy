@@ -10,8 +10,8 @@
 #  city          :string
 #  country_code  :string
 #  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
+#  latitude      :float
+#  longitude     :float
 #  name          :string
 #  state         :string
 #  zip_code      :string
