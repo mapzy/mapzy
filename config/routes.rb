@@ -19,11 +19,10 @@ Rails.application.routes.draw do
       passwords: 'users/passwords'
     }
 
-  resources :dashboard, only: [:index]
   resources :maps, only: [:index, :show]
   resources :locations
 
-  scope namespace: 'dashboard' do
+  namespace :dashboard do
     resources :maps, only: [:index, :show]
     resources :locations
   end

@@ -6,7 +6,7 @@ module Users
 
     # Redirect after sign in
     def after_sign_in_path_for(resource)
-      maps_path
+      authenticated_root_url_path
     end
 
     private

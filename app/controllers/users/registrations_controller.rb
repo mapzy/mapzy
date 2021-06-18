@@ -19,7 +19,7 @@ module Users
 
     # Redirect after sign up
     def after_sign_up_path_for(resource)
-      maps_path
+      authenticated_root_url_path
     end
 
     private
