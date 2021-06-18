@@ -2,10 +2,10 @@
 
 module Users
   class SessionsController < Devise::SessionsController
-    after_action :remove_notice, only: [:destroy, :create]
+    after_action :remove_notice, only: %i[destroy create]
 
     # Redirect after sign in
-    def after_sign_in_path_for(resource)
+    def after_sign_in_path_for(_resource)
       authenticated_root_url_path
     end
 

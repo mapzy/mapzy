@@ -2,7 +2,7 @@
 
 class MapsController < ApplicationController
   include MapsControllable
-  
+
   def index
     # Currently an user can have a single map
     # Thus, we redirect the user to her default map
