@@ -29,14 +29,20 @@
 #
 FactoryBot.define do
   factory :location do
-    name { 'Mapzy HQ' }
-    description { 'The coolest place to be' }
+    sequence :name do |n|
+      "King's Landing #{n}"
+    end
+
+    description {
+      'Founded by King Aegon I Targaryen, King of the Andals and the First Men.'
+    }
     address_line1 { 'Hohlstrasse 117' }
     city { 'Zürich' }
     zip_code { '8004' }
     country_code { 'CH' }
     latitude { 12.222211 }
     longitude { 8.433332 }
+
     association :map
   end
 end

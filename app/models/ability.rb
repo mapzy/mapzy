@@ -5,6 +5,7 @@ class Ability
 
   def initialize(user)
     can :read, Map
+    can :read, Location
 
     if user.present?
       can :manage, Map, user_id: user.id
