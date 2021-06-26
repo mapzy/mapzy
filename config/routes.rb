@@ -23,8 +23,9 @@ Rails.application.routes.draw do
   resources :locations
 
   namespace :dashboard do
-    resources :maps, only: [:index, :show]
-    resources :locations
+    resources :maps, only: [:index, :show] do
+      resources :locations
+    end
   end
 
   if Rails.env.development?
