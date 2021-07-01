@@ -76,7 +76,7 @@ RSpec.describe Location, type: :model do
     let(:location) { create(:location) }
 
     it 'has the correct country' do
-      expect(location.country_name_from_country_code).to eq 'Switzerland'
+      expect(location.country_name).to eq 'Switzerland'
     end
   end
 
