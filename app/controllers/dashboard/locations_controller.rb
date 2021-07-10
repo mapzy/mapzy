@@ -13,6 +13,7 @@ module Dashboard
     end
 
     private
+
     def set_map
       @map = Map.find(params[:map_id])
     end
