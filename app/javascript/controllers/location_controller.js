@@ -8,6 +8,8 @@ export default class extends Controller {
     "country",
     "lat",
     "lng",
+    "adjustMarkerLink",
+    "adjustMarkerBlock",
   ]
 
   static values = {
@@ -17,15 +19,6 @@ export default class extends Controller {
   get fullAddress() {
     const zipCodeCity = [this.zipCodeTarget.value, this.cityTarget.value].join(' ')
     return [this.addressTarget.value, zipCodeCity, this.countryTarget.value].join(',');
-  }
-
-  isReadyToGeocode() {
-    return (
-      this.addressTarget.value &&
-      this.zipCodeTarget.value &&
-      this.cityTarget.value &&
-      this.countryTarget.value
-    )
   }
 
   initialize() {
@@ -40,12 +33,21 @@ export default class extends Controller {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [13.419506188839986, 52.4942909415001],
-      zoom: 10,
+      zoom: 12,
     });
   }
 
   initMapboxSdk() {
     this.mapboxClient = mapboxSdk({ accessToken: this.mapboxAccessTokenValue });
+  }
+
+  isReadyToGeocode() {
+    return (
+      this.addressTarget.value &&
+      this.zipCodeTarget.value &&
+      this.cityTarget.value &&
+      this.countryTarget.value
+    )
   }
 
   addMarker(center) {
@@ -84,21 +86,47 @@ export default class extends Controller {
               response.body.features &&
               response.body.features.length
             ) {
-                const feature = response.body.features[0];
+              const feature = response.body.features[0];
 
+              if (!this.marker) {
                 this.addMarker(feature.center);
+
+                this.lngTarget.value = feature.center[0];
+                this.latTarget.value = feature.center[1];
 
                 this.map.flyTo({
                   center: feature.center,
-                  zoom: 13,
+                  zoom: 15,
                   bearing: 0,
                   essential: true
-                })
+                });
 
+                this.showAdjustMarkerLink();
+              }
             }
           });
 
-      }, 3000)
+      }, 1000)
     }
+  }
+
+  zoomOnMarker() {
+    if (this.marker) {
+      this.map.flyTo({
+        center: this.marker.getLngLat(),
+        zoom: 20,
+        bearing: 0,
+        essential: true
+      })
+    }
+  }
+
+  showAdjustMarkerLink() {
+    this.adjustMarkerLinkTarget.classList.remove("hidden");
+  }
+
+  showAdjustMarkerBlock() {
+    this.adjustMarkerLinkTarget.classList.add("hidden");
+    this.adjustMarkerBlockTarget.classList.remove("hidden");
   }
 }

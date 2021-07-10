@@ -1,12 +1,12 @@
   <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
-  <div class="absolute w-full md:w-96 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-12">
-    <h1 class="text-3xl pb-6">Add Location</h1>
+  <div class="absolute w-full md:w-96 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
+    <h1 class="text-2xl pb-6">New Location</h1>
 
       <div data-controller="location" data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
 
         <!-- Location name -->
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="-mx-3 mb-6">
           <div class="w-full px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Name
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Location description -->
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="-mx-3 mb-6">
           <div class="w-full px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Description
@@ -27,8 +27,8 @@
           </div>
         </div>
 
-        <!-- Full address -->
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <!-- Address -->
+        <div class="-mx-3 mb-6">
           <div class="w-full px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Address
@@ -36,9 +36,10 @@
             <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="address" autocomplete="street-address" data-location-target="address" data-action="location#forwardGeocode">
           </div>
         </div>
+
         <div class="flex flex-wrap -mx-3 mb-6">
           <!-- Zip code  -->
-          <div class="w-full md:w-1/2 px-3 mb-6">
+          <div class="w-full md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Zip Code
             </label>
@@ -46,36 +47,51 @@
           </div>
 
           <!-- City -->
-          <div class="w-full md:w-1/2 px-3 mb-6">
+          <div class="w-full md:w-1/2 px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               City
             </label>
             <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="city" autocomplete="address-level2" data-location-target="city" data-action="location#forwardGeocode">
           </div>
+        </div>
 
-          <div class="w-full md:w px-3 mb-6">
+        <!-- Country -->
+        <div class="-mx-3">
+          <div class="w-full px-3 mb-6">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Country
             </label>
             <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="country" autocomplete="country" data-location-target="country" data-action="location#forwardGeocode">
           </div>
+        </div>
 
-          <a href="#">The marker is not exactly where it should be?</a>
+        <!-- Toggle lat / long -->
+        <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerLink">
+          <div class="w-full px-3">
+            <a class="cursor-pointer underline" data-action="location#zoomOnMarker location#showAdjustMarkerBlock">Need to adjust the marker?</a>
+          </div>
         </div>
 
         <!-- Lat / Long  -->
-        <div class="flex flex-wrap -mx-3 mb-6">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Latitude
-            </label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-location-target="lat">
+        <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerBlock">
+          <div class="w-full px-3 mb-3">
+            <p class="text-gray-700 text-sm mb-2">
+              Drag the marker on the map to adjust its position
+            </p>
           </div>
-          <div class="w-full md:w-1/2 px-3 mb-6">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-              Longitude
-            </label>
-            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-location-target="lng">
+          <div class="flex flex-wrap w-full mb-3">
+            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Latitude
+              </label>
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-location-target="lat">
+            </div>
+            <div class="w-full md:w-1/2 px-3 mb-6">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Longitude
+              </label>
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" data-location-target="lng">
+            </div>
           </div>
         </div>
 
