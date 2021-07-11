@@ -4,20 +4,19 @@
 #
 # Table name: locations
 #
-#  id            :bigint           not null, primary key
-#  address_line1 :string
-#  address_line2 :string
-#  city          :string
-#  country_code  :string
-#  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
-#  name          :string
-#  state         :string
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  map_id        :bigint           not null
+#  id           :bigint           not null, primary key
+#  address      :string
+#  city         :string
+#  country_code :string
+#  description  :text
+#  latitude     :decimal(15, 10)
+#  longitude    :decimal(15, 10)
+#  name         :string
+#  state        :string
+#  zip_code     :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  map_id       :bigint           not null
 #
 # Indexes
 #
@@ -43,8 +42,8 @@ RSpec.describe Location, type: :model do
   describe 'validations' do
     before { create(:location) }
 
-    context 'with address_line1' do
-      it { is_expected.to validate_presence_of :address_line1 }
+    context 'with address' do
+      it { is_expected.to validate_presence_of :address }
     end
 
     context 'with city' do
@@ -86,7 +85,7 @@ RSpec.describe Location, type: :model do
 
       it 'updates latitude' do
         prev_latitude = location.latitude
-        location.address_line1 = 'Käshaldenstrasse 41'
+        location.address = 'Käshaldenstrasse 41'
         location.zip_code = '8052'
         location.save
 
@@ -95,7 +94,7 @@ RSpec.describe Location, type: :model do
 
       it 'updates longitude' do
         prev_longitude = location.longitude
-        location.address_line1 = 'Käshaldenstrasse 41'
+        location.address = 'Käshaldenstrasse 41'
         location.zip_code = '8052'
         location.save
 
@@ -107,14 +106,14 @@ RSpec.describe Location, type: :model do
       let(:location) { create(:location) }
 
       it 'does not update adress_line1' do
-        prev_address_line1 = location.address_line1
+        prev_address = location.address
 
         location.latitude = 52.4937207
         location.longitude = 13.4171431
 
         location.save
 
-        expect(location.address_line1).to eq prev_address_line1
+        expect(location.address).to eq prev_address
       end
     end
   end

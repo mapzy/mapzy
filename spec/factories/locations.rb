@@ -4,20 +4,19 @@
 #
 # Table name: locations
 #
-#  id            :bigint           not null, primary key
-#  address_line1 :string
-#  address_line2 :string
-#  city          :string
-#  country_code  :string
-#  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
-#  name          :string
-#  state         :string
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  map_id        :bigint           not null
+#  id           :bigint           not null, primary key
+#  address      :string
+#  city         :string
+#  country_code :string
+#  description  :text
+#  latitude     :decimal(15, 10)
+#  longitude    :decimal(15, 10)
+#  name         :string
+#  state        :string
+#  zip_code     :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  map_id       :bigint           not null
 #
 # Indexes
 #
@@ -36,7 +35,7 @@ FactoryBot.define do
     description {
       'Founded by King Aegon I Targaryen, King of the Andals and the First Men.'
     }
-    address_line1 { 'Hohlstrasse 117' }
+    address { 'Hohlstrasse 117' }
     city { 'Zürich' }
     zip_code { '8004' }
     country_code { 'CH' }

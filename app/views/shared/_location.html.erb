@@ -8,12 +8,9 @@
       <%= @location.description %>
     </div>
     <div class="w-full text-left text-base mt-8">
-      <%= @location.address_line1 %><br>
-      <% if @location.address_line2 %>
-        <%= @location.address_line2 %><br>
-      <% end %>
+      <%= @location.address %><br>
       <%= @location.zip_code %> <%= @location.city %><br>
-      <% if @location.address_line2 %>
+      <% if @location.state %>
         <%= @location.state %><br>
       <% end %>
       <%= @location.country %><br>

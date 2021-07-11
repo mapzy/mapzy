@@ -4,20 +4,19 @@
 #
 # Table name: locations
 #
-#  id            :bigint           not null, primary key
-#  address_line1 :string
-#  address_line2 :string
-#  city          :string
-#  country_code  :string
-#  description   :text
-#  latitude      :decimal(15, 10)
-#  longitude     :decimal(15, 10)
-#  name          :string
-#  state         :string
-#  zip_code      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  map_id        :bigint           not null
+#  id           :bigint           not null, primary key
+#  address      :string
+#  city         :string
+#  country_code :string
+#  description  :text
+#  latitude     :decimal(15, 10)
+#  longitude    :decimal(15, 10)
+#  name         :string
+#  state        :string
+#  zip_code     :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  map_id       :bigint           not null
 #
 # Indexes
 #
@@ -30,7 +29,7 @@
 class Location < ApplicationRecord
   belongs_to :map
 
-  validates :address_line1, :city, :zip_code, :country_code, :name, presence: true
+  validates :address, :city, :zip_code, :country_code, :name, presence: true
   validate :country_exists?
 
   before_validation :convert_country_to_country_code
@@ -40,10 +39,10 @@ class Location < ApplicationRecord
 
   attr_accessor :country
 
-  geocoded_by :address
+  geocoded_by :full_address
 
-  def address
-    [address_line1, zip_code, city, state, country_name].compact.join(', ')
+  def full_address
+    [address, zip_code, city, state, country_name].compact.join(', ')
   end
 
   def country_name
@@ -67,8 +66,8 @@ class Location < ApplicationRecord
     errors.add(:country_code, 'needs to be an existing country')
   end
 
-  def address_changed?
-    address_line1_changed? || zip_code_changed? || city_changed? ||
+  def full_address_changed?
+    address_changed? || zip_code_changed? || city_changed? ||
       state_changed? || country_code_changed?
   end
 end
