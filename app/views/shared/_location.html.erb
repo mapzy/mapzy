@@ -1,19 +1,16 @@
-<turbo-frame id="location_description">
-  <div class="flex flex-col justify-center align-start p-8">
-    <button class="text-right pointer text-sm" data-action="click->map#hideLocationView">Close</button>
-    <div class="text-lg text-center">
-      <%= @location.name %>
-    </div>
-    <div class="w-full text-left text-base mt-8">
-      <%= @location.description %>
-    </div>
-    <div class="w-full text-left text-base mt-8">
-      <%= @location.address %><br>
-      <%= @location.zip_code %> <%= @location.city %><br>
-      <% if @location.state %>
-        <%= @location.state %><br>
-      <% end %>
-      <%= @location.country %><br>
-    </div>
+<div>
+  <div class="text-lg text-center">
+    <%= @location.name %>
   </div>
-</turbo-frame>
+  <div class="w-full text-left text-base mt-8">
+    <%= @location.description %>
+  </div>
+  <div class="w-full text-left text-base mt-8">
+    <%= @location.address %><br>
+    <%= @location.zip_code %> <%= @location.city %><br>
+    <% if @location.state %>
+      <%= @location.state %><br>
+    <% end %>
+    <%= @location.country %><br>
+  </div>
+<div>
