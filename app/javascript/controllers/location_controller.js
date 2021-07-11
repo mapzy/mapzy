@@ -6,8 +6,8 @@ export default class extends Controller {
     "zipCode",
     "city",
     "country",
-    "lat",
-    "lng",
+    "latitude",
+    "longitude",
     "adjustMarkerLink",
     "adjustMarkerBlock",
   ]
@@ -63,8 +63,8 @@ export default class extends Controller {
   onDragEnd() {
     const lngLat = this.marker.getLngLat(); 
 
-    this.latTarget.value = lngLat.lat;
-    this.lngTarget.value = lngLat.lng;
+    this.latitudeTarget.value = lngLat.lat;
+    this.longitudeTarget.value = lngLat.lng;
   }
 
   forwardGeocode() {
@@ -91,8 +91,8 @@ export default class extends Controller {
               if (!this.marker) {
                 this.addMarker(feature.center);
 
-                this.lngTarget.value = feature.center[0];
-                this.latTarget.value = feature.center[1];
+                this.longitudeTarget.value = feature.center[0];
+                this.latitudeTarget.value = feature.center[1];
 
                 this.map.flyTo({
                   center: feature.center,

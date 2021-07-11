@@ -5,7 +5,7 @@
 
       <div data-controller="location" data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
 
-        <%= form_with model: [:dashboard, :map, @location], local: true do |f| %>
+        <%= form_with model: [:dashboard, @map, @location], local: true do |f| %>
 
         <!-- Name -->
         <div class="-mx-3 mb-6">
@@ -15,7 +15,8 @@
 
             <%= f.text_field :name,
                   class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                  placeholder: "Yeti Store" %>
+                  placeholder: "Yeti Store",
+                  required: true %>
 
             <p class="text-gray-600 text-xs italic">Keep it short & crispy</p>
           </div>
@@ -44,8 +45,8 @@
 
             <%= f.text_field :address,
                   class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                  name: "address",
                   autocomplete: "street-address",
+                  required: true,
                   "data-location-target": "address",
                   "data-action": "location#forwardGeocode" %>
           </div>
@@ -60,7 +61,7 @@
 
             <%= f.text_field :zip_code,
                   class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                  name: "zip",
+                  required: true,
                   autocomplete: "postal-code",
                   "data-location-target": "zipCode",
                   "data-action": "location#forwardGeocode" %>
@@ -73,7 +74,7 @@
 
             <%= f.text_field :city,
                   class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                  name: "city",
+                  required: true,
                   autocomplete: "address-level2",
                   "data-location-target": "city",
                   "data-action": "location#forwardGeocode" %>
@@ -88,7 +89,7 @@
 
             <%= f.text_field :country,
                   class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                  name: "country",
+                  required: true,
                   autocomplete: "country",
                   "data-location-target": "country",
                   "data-action": "location#forwardGeocode" %>
@@ -111,20 +112,20 @@
           </div>
           <div class="flex flex-wrap w-full mb-3">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <%= f.label :lat,
+              <%= f.label :latitude,
                     class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
 
-              <%= f.text_field :lat,
+              <%= f.text_field :latitude,
                     class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                    "data-location-target": "lat" %>
+                    "data-location-target": "latitude" %>
             </div>
             <div class="w-full md:w-1/2 px-3 mb-6">
-              <%= f.label :lng,
+              <%= f.label :longitude,
                     class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
 
-              <%= f.text_field :lng,
+              <%= f.text_field :longitude,
                     class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                    "data-location-target": "lng" %>
+                    "data-location-target": "longitude" %>
             </div>
           </div>
         </div>
@@ -133,7 +134,7 @@
         <!-- TODO -->
 
         <!-- Submit -->
-        <div class="flex-auto flex space-x-6 mt-12">
+        <div class="flex-auto flex space-x-6 mt-6">
           <button class="w-1/2 button--secondary">
             <%= link_to "Cancel" %>
           </button>
