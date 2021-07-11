@@ -29,17 +29,17 @@
 class Location < ApplicationRecord
   belongs_to :map
 
+  attr_accessor :country
+
+  geocoded_by :full_address
+
   validates :address, :city, :zip_code, :country_code, :name, presence: true
   validate :country_exists?
 
   before_validation :convert_country_to_country_code
-  after_validation :geocode, if: :address_changed?
+  after_validation :geocode, if: :eligible_for_geocoding?
 
   before_save :country_code_to_upcase
-
-  attr_accessor :country
-
-  geocoded_by :full_address
 
   def full_address
     [address, zip_code, city, state, country_name].compact.join(', ')
@@ -66,7 +66,11 @@ class Location < ApplicationRecord
     errors.add(:country_code, 'needs to be an existing country')
   end
 
-  def full_address_changed?
+  def eligible_for_geocoding?
+    full_address_has_changes? && !latitude && !longitude
+  end
+
+  def full_address_has_changes?
     address_changed? || zip_code_changed? || city_changed? ||
       state_changed? || country_code_changed?
   end
