@@ -2,7 +2,11 @@
 
 module Dashboard
   class MapsController < DashboardController
-    include MapsControllable
+    def show
+      @map = Map.find(params[:id])
+      @bounds = @map.bounds
+      @markers_json = @map.markers.to_json
+    end
 
     def index
       # Currently an user can have a single map
