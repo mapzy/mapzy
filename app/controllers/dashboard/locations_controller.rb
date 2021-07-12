@@ -19,8 +19,12 @@ module Dashboard
       @location = @map.locations.find(params[:id])
     end
 
+    def update
+      # TODO
+    end
+
     def show
-      @location = Location.find(params[:id])
+      @location = @map.locations.find(params[:id])
     end
 
     private
