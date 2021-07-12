@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-center align-start p-8">
     <div class="flex flex-row justify-between mb-8">
       <button class="text-left pointer text-sm underline">
-        <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id) %>
+        <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id), target: '_top' %>
       </button>
       <button class="text-right pointer text-sm underline" data-action="click->map#hideLocationView">Close</button>
     </div>
