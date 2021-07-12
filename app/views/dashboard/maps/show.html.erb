@@ -1,4 +1,7 @@
 <%= render 'dashboard/layouts/main' do %>
   <%= render 'shared/map' %>
-  <%= render 'dashboard/locations/new_button' %>
+
+  <% content_for :bottom_menu do %>
+    <% render 'dashboard/locations/new_button' %>
+  <% end %>
 <% end %>
