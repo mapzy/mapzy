@@ -72,7 +72,7 @@ export default class extends Controller {
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
       anchor.href = `/locations/${feature.properties.id}`;
-      anchor.setAttribute("data-turbo-frame", "location_description");
+      anchor.setAttribute("data-turbo-frame", "location_view");
       anchor.setAttribute("data-action", "click->map#showLocationView");
 
       anchor.appendChild(this.defaultMapboxMarker())
