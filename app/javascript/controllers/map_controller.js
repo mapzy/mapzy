@@ -17,7 +17,8 @@ export default class extends Controller {
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
-    "bounds": Array
+    "bounds": Array,
+    "locationBaseUrl": String
   }
 
   initialize() {
@@ -71,7 +72,10 @@ export default class extends Controller {
     // create markers
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
-      anchor.href = `/locations/${feature.properties.id}`;
+
+      console.log(this.locationBaseUrlValue);
+      console.log(feature.properties.id);
+      anchor.href = `${this.locationBaseUrlValue}${feature.properties.id}`;
       anchor.setAttribute("data-turbo-frame", "location_view");
       anchor.setAttribute("data-action", "click->map#showLocationView");
 

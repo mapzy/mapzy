@@ -6,6 +6,7 @@ module Dashboard
       @map = Map.find(params[:id])
       @bounds = @map.bounds
       @markers_json = @map.markers.to_json
+      @location_base_url = "/dashboard/maps/#{@map.id}/locations/"
     end
 
     def index

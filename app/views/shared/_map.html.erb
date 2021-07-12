@@ -1,4 +1,4 @@
-<div class="w-full h-screen pb-24" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>" data-map-markers-value="<%= @markers_json %>" data-map-bounds-value="<%= @bounds %>">
+<div class="w-full h-screen pb-24" data-controller="map" data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>" data-map-markers-value="<%= @markers_json %>" data-map-bounds-value="<%= @bounds %>" data-map-location-base-url-value="<%= @location_base_url %>">
   <div class="relative w-full h-full flex flex-row">
     <div class="absolute w-full md:w-96 bg-white shadow-md rounded md:inset-x-4 bottom-0 md:bottom-4 md:top-4 h-1/2 md:h-auto z-20 hidden" data-map-target="locationView">
       <turbo-frame id="location_view">
