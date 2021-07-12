@@ -22,21 +22,21 @@
 
 /* Buttons */
 .button--main {
-  @apply cursor-pointer rounded bg-indigo-700 text-white font-medium shadow
+  @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
   h-12 flex items-center justify-center
 }
 
 .button--secondary {
-	@apply cursor-pointer rounded bg-indigo-50 text-indigo-700
+	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
 	 h-12 flex items-center justify-center
 }
 
 .button--sticky {
-  @apply cursor-pointer rounded bg-indigo-700 text-white font-medium shadow
+  @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
   h-20 flex items-center justify-center
 }
 
 .button--top-menu {
-	@apply cursor-pointer rounded text-gray-800 hover:bg-indigo-700 hover:text-gray-100
+	@apply cursor-pointer rounded-full text-gray-800 hover:bg-indigo-700 hover:text-gray-100
 	py-2 px-2 md:mx-2
 }
