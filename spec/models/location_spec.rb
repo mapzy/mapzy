@@ -63,11 +63,11 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'address' do
+  describe '.full_address' do
     let(:location) { create(:location) }
 
-    it 'has the correct address' do
-      expect(location.address).to eq 'Hohlstrasse 117, 8004, Zürich, Switzerland'
+    it 'has the correct full address' do
+      expect(location.full_address).to eq 'Hohlstrasse 117, 8004, Zürich, Switzerland'
     end
   end
 
@@ -79,41 +79,52 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'address_changed?' do
-    context 'when the address changes' do
-      let(:location) { create(:location) }
+  describe '.eligible_for_geocoding?' do
+    context 'when latitude & longitude are present' do
+      let(:location) { create(:location, latitude: 52.4937207, longitude: 13.4171431) }
 
-      it 'updates latitude' do
-        prev_latitude = location.latitude
-        location.address = 'Käshaldenstrasse 41'
-        location.zip_code = '8052'
-        location.save
+      context 'when address changes' do
+        it 'does not update latitude' do
+          prev_latitude = location.latitude
+          location.address = 'Käshaldenstrasse 41'
+          location.zip_code = '8052'
+          location.save
 
-        expect(location.latitude).not_to eq prev_latitude
-      end
+          expect(location.latitude).to eq prev_latitude
+        end
 
-      it 'updates longitude' do
-        prev_longitude = location.longitude
-        location.address = 'Käshaldenstrasse 41'
-        location.zip_code = '8052'
-        location.save
+        it 'updates longitude' do
+          prev_longitude = location.longitude
+          location.address = 'Käshaldenstrasse 41'
+          location.zip_code = '8052'
+          location.save
 
-        expect(location.longitude).not_to eq prev_longitude
+          expect(location.longitude).to eq prev_longitude
+        end
       end
     end
 
-    context 'when latitude and longitude change' do
-      let(:location) { create(:location) }
+    context 'when latitude or latitude are missing' do
+      let(:location) { build(:location, latitude: nil, longitude: nil) }
 
-      it 'does not update adress_line1' do
-        prev_address = location.address
+      context 'when address changes' do
+        it 'updates latitude' do
+          prev_latitude = location.latitude
+          location.address = 'Käshaldenstrasse 41'
+          location.zip_code = '8052'
+          location.save
 
-        location.latitude = 52.4937207
-        location.longitude = 13.4171431
+          expect(location.latitude).not_to eq prev_latitude
+        end
 
-        location.save
+        it 'updates longitude' do
+          prev_longitude = location.longitude
+          location.address = 'Käshaldenstrasse 41'
+          location.zip_code = '8052'
+          location.save
 
-        expect(location.address).to eq prev_address
+          expect(location.longitude).not_to eq prev_longitude
+        end
       end
     end
   end
