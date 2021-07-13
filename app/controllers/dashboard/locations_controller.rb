@@ -15,6 +15,10 @@ module Dashboard
       end
     end
 
+    def show
+      @location = @map.locations.find(params[:id])
+    end
+
     def edit
       @location = @map.locations.find(params[:id])
     end
@@ -30,8 +34,12 @@ module Dashboard
       end
     end
 
-    def show
+    def destroy
       @location = @map.locations.find(params[:id])
+      @location.destroy
+
+      redirect_to dashboard_map_path(@map), notice: \
+        "The location #{@location.name} has been successfully deleted."
     end
 
     private
