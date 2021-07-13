@@ -24,6 +24,8 @@ export default class extends Controller {
   initialize() {
     this.initMapbox();
     this.initMapboxSdk();
+    this.initMarker();
+    this.showAdjustMarkerLink();
   }
 
   initMapbox() {
@@ -41,23 +43,27 @@ export default class extends Controller {
     this.mapboxClient = mapboxSdk({ accessToken: this.mapboxAccessTokenValue });
   }
 
-  isReadyToGeocode() {
-    return (
-      this.addressTarget.value &&
-      this.zipCodeTarget.value &&
-      this.cityTarget.value &&
-      this.countryTarget.value
-    )
-  }
-
-  addMarker(center) {
+  initMarker() {
     this.marker = new mapboxgl.Marker({
       draggable: true
-    })
-    .setLngLat(center)
-    .addTo(this.map);
+    });
 
     this.marker.on('dragend', () => this.onDragEnd());
+  }
+
+  moveMarker(center) {
+    this.marker.setLngLat(center);
+    this.marker.addTo(this.map);
+    this.moveMapTo(center);
+  }
+
+  moveMapTo(center) {
+    this.map.flyTo({
+      center: center,
+      zoom: 15,
+      bearing: 0,
+      essential: true
+    });
   }
 
   onDragEnd() {
@@ -65,6 +71,15 @@ export default class extends Controller {
 
     this.latitudeTarget.value = lngLat.lat;
     this.longitudeTarget.value = lngLat.lng;
+  }
+
+  isReadyToGeocode() {
+    return (
+      this.addressTarget.value &&
+      this.zipCodeTarget.value &&
+      this.cityTarget.value &&
+      this.countryTarget.value
+    )
   }
 
   forwardGeocode() {
@@ -88,21 +103,12 @@ export default class extends Controller {
             ) {
               const feature = response.body.features[0];
 
-              if (!this.marker) {
-                this.addMarker(feature.center);
+              this.moveMarker(feature.center);
 
-                this.longitudeTarget.value = feature.center[0];
-                this.latitudeTarget.value = feature.center[1];
+              this.longitudeTarget.value = feature.center[0];
+              this.latitudeTarget.value = feature.center[1];
 
-                this.map.flyTo({
-                  center: feature.center,
-                  zoom: 15,
-                  bearing: 0,
-                  essential: true
-                });
-
-                this.showAdjustMarkerLink();
-              }
+              this.showAdjustMarkerLink();
             }
           });
 
@@ -122,11 +128,17 @@ export default class extends Controller {
   }
 
   showAdjustMarkerLink() {
-    this.adjustMarkerLinkTarget.classList.remove("hidden");
+    if (this.latitudeTarget.value && this.longitudeTarget.value && !this.adjustMarkerBlockHidden()) {
+      this.adjustMarkerLinkTarget.classList.remove("hidden");
+    }
   }
 
   showAdjustMarkerBlock() {
     this.adjustMarkerLinkTarget.classList.add("hidden");
     this.adjustMarkerBlockTarget.classList.remove("hidden");
+  }
+
+  adjustMarkerBlockHidden() {
+    this.adjustMarkerBlockTarget.classList.contains("hidden");
   }
 }
