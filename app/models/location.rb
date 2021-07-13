@@ -42,10 +42,10 @@ class Location < ApplicationRecord
   before_save :country_code_to_upcase
 
   def full_address
-    [address, zip_code, city, state, country].compact.join(', ')
+    [address, zip_code, city, state, country_name].compact.join(', ')
   end
 
-  def country
+  def country_name
     ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
   end
 
@@ -61,7 +61,7 @@ class Location < ApplicationRecord
   end
 
   def country_exists?
-    return unless country.nil?
+    return unless country_name.nil?
 
     errors.add(:country_code, 'needs to be an existing country')
   end
