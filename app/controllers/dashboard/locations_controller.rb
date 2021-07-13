@@ -11,7 +11,7 @@ module Dashboard
         redirect_to dashboard_map_path(@map)
       else
         flash[:error] = @location.errors.full_messages
-        render 'new', status: :unprocessable_entity
+        render action: :new, status: :unprocessable_entity
       end
     end
 
@@ -20,7 +20,14 @@ module Dashboard
     end
 
     def update
-      # TODO
+      @location = @map.locations.find(params[:id])
+
+      if @location.update(location_params)
+        redirect_to dashboard_map_path(@map)
+      else
+        flash[:error] = @location.errors.full_messages
+        render action: :edit, status: :unprocessable_entity
+      end
     end
 
     def show

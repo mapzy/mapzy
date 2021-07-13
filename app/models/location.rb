@@ -29,6 +29,8 @@
 class Location < ApplicationRecord
   belongs_to :map
 
+  attr_accessor :country
+
   geocoded_by :full_address
 
   validates :address, :city, :zip_code, :country_code, :name, presence: true
