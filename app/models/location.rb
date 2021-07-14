@@ -29,27 +29,28 @@
 class Location < ApplicationRecord
   belongs_to :map
 
-  attr_accessor :country
-
   geocoded_by :full_address
 
   validates :address, :city, :zip_code, :country_code, :name, presence: true
-  validate :country_exists?
 
-  before_validation :convert_country_to_country_code
+  before_validation :country_to_country_code
   after_validation :geocode, if: :eligible_for_geocoding?
 
   before_save :country_code_to_upcase
 
   def full_address
-    [address, zip_code, city, state, country_name].compact.join(', ')
+    [address, zip_code, city, state, country].compact.join(', ')
   end
 
-  def country_name
-    ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
+  def country
+    @country ||= ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
   end
 
-  def convert_country_to_country_code
+  def country=(name)
+    @country = name
+  end
+
+  def country_to_country_code
     return unless country
 
     country_alpha2 = ISO3166::Country.find_country_by_name(country)
@@ -58,12 +59,6 @@ class Location < ApplicationRecord
 
   def country_code_to_upcase
     country_code.upcase!
-  end
-
-  def country_exists?
-    return unless country_name.nil?
-
-    errors.add(:country_code, 'needs to be an existing country')
   end
 
   def eligible_for_geocoding?
