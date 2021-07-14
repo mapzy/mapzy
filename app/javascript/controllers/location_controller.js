@@ -16,6 +16,7 @@ export default class extends Controller {
     "mapboxAccessToken": String,
     "typingTimer": Number,
     "typingInterval": Number,
+    "bounds": Array,
   }
 
   get fullAddress() {
@@ -38,8 +39,7 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [13.419506188839986, 52.4942909415001],
-      zoom: 12,
+      bounds: this.boundsValue,
     });
   }
 

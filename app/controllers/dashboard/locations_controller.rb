@@ -4,6 +4,10 @@ module Dashboard
   class LocationsController < DashboardController
     before_action :set_map
 
+    def new
+      @bounds = @map.bounds
+    end
+
     def create
       @location = @map.locations.build(location_params)
 
@@ -20,6 +24,7 @@ module Dashboard
     end
 
     def edit
+      @bounds = @map.bounds
       @location = @map.locations.find(params[:id])
     end
 

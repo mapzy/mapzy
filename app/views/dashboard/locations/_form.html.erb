@@ -1,7 +1,9 @@
 <div class="absolute w-full md:w-96 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
   <h1 class="text-xl pb-6 text-center"><%= title %></h1>
 
-    <div data-controller="location" data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>">
+    <div data-controller="location"
+         data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
+         data-location-bounds-value="<%= @bounds %>" >
 
       <%= form_with model: [:dashboard, @map, @location], local: true do |f| %>
 
