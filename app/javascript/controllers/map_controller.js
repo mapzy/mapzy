@@ -11,21 +11,22 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = [
-  "permissionBox",
-  "locationView"
+    "permissionBox",
+    "locationView"
   ]
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
     "bounds": Array,
-    "locationBaseUrl": String
+    "locationBaseUrl": String,
+    "askLocationPermission": Boolean,
   }
 
   initialize() {
     this.initMapbox();
     this.fitToMarkers();
 
-    if (!localStorage.getItem("hasSeenPermissionBox")) {
+    if (this.askLocationPermissionValue == true && !localStorage.getItem("hasSeenPermissionBox")) {
       // show permission box only if the user hasn't seen it before
       this.showPermissionBox();
       localStorage.setItem("hasSeenPermissionBox", true);
