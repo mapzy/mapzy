@@ -24,6 +24,10 @@ export default class extends Controller {
     return [this.addressTarget.value, zipCodeCity, this.countryTarget.value].join(',');
   }
 
+  get adjustMarkerBlockHidden() {
+    return this.adjustMarkerBlockTarget.classList.contains("hidden");
+  }
+
   initialize() {
     this.initMapbox();
     this.initMapboxSdk();
@@ -122,7 +126,9 @@ export default class extends Controller {
         this.longitudeTarget.value = feature.center[0];
         this.latitudeTarget.value = feature.center[1];
 
-        this.showAdjustMarkerLink();
+        if (this.adjustMarkerBlockHidden) {
+          this.showAdjustMarkerLink();
+        }
       }
     });
   }
@@ -139,7 +145,7 @@ export default class extends Controller {
   }
 
   showAdjustMarkerLink() {
-    if (this.latitudeTarget.value && this.longitudeTarget.value && !this.adjustMarkerBlockHidden()) {
+    if (this.latitudeTarget.value && this.longitudeTarget.value) {
       this.adjustMarkerLinkTarget.classList.remove("hidden");
     }
   }
@@ -147,9 +153,5 @@ export default class extends Controller {
   showAdjustMarkerBlock() {
     this.adjustMarkerLinkTarget.classList.add("hidden");
     this.adjustMarkerBlockTarget.classList.remove("hidden");
-  }
-
-  adjustMarkerBlockHidden() {
-    this.adjustMarkerBlockTarget.classList.contains("hidden");
   }
 }
