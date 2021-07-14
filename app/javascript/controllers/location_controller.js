@@ -53,6 +53,10 @@ export default class extends Controller {
     });
 
     this.marker.on('dragend', () => this.onDragEnd());
+
+    if (this.latitudeTarget.value && this.longitudeTarget.value) {
+      this.moveMarker([this.longitudeTarget.value, this.latitudeTarget.value])
+    }
   }
 
   moveMarker(center) {
