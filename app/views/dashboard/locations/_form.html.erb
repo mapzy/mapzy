@@ -46,7 +46,7 @@
                 autocomplete: "street-address",
                 required: true,
                 "data-location-target": "address",
-                "data-action": "location#forwardGeocode" %>
+                "data-action": "keyup->location#searchByAddress" %>
         </div>
       </div>
 
@@ -62,7 +62,7 @@
                 required: true,
                 autocomplete: "postal-code",
                 "data-location-target": "zipCode",
-                "data-action": "location#forwardGeocode" %>
+                "data-action": "keyup->location#searchByAddress" %>
         </div>
 
         <!-- City -->
@@ -75,7 +75,7 @@
                 required: true,
                 autocomplete: "address-level2",
                 "data-location-target": "city",
-                "data-action": "location#forwardGeocode" %>
+                "data-action": "keyup->location#searchByAddress" %>
         </div>
       </div>
 
@@ -90,7 +90,7 @@
                 required: true,
                 autocomplete: "country",
                 "data-location-target": "country",
-                "data-action": "location#forwardGeocode" %>
+                "data-action": "keyup->location#searchByAddress" %>
         </div>
       </div>
 

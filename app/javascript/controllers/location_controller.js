@@ -13,7 +13,9 @@ export default class extends Controller {
   ]
 
   static values = {
-    "mapboxAccessToken": String
+    "mapboxAccessToken": String,
+    "typingTimer": Number,
+    "typingInterval": Number,
   }
 
   get fullAddress() {
@@ -26,6 +28,8 @@ export default class extends Controller {
     this.initMapboxSdk();
     this.initMarker();
     this.showAdjustMarkerLink();
+
+    this.typingIntervalValue = 1000;
   }
 
   initMapbox() {
@@ -82,38 +86,41 @@ export default class extends Controller {
     )
   }
 
-  forwardGeocode() {
+  // Wait until the user has (probably) finished typing the address fields
+  searchByAddress() {
+    clearTimeout(this.typingTimerValue);
     if (this.isReadyToGeocode()) {
-      setTimeout(() => {
-        const query = this.fullAddress;
-
-        this.mapboxClient.geocoding
-          .forwardGeocode({
-            query: query,
-            autocomplete: false,
-            limit: 1
-          })
-          .send()
-          .then((response) => {
-            if (
-              response &&
-              response.body &&
-              response.body.features &&
-              response.body.features.length
-            ) {
-              const feature = response.body.features[0];
-
-              this.moveMarker(feature.center);
-
-              this.longitudeTarget.value = feature.center[0];
-              this.latitudeTarget.value = feature.center[1];
-
-              this.showAdjustMarkerLink();
-            }
-          });
-
-      }, 1000)
+      this.typingTimerValue = setTimeout(() => this.forwardGeocode(), this.typingIntervalValue);
     }
+  }
+
+  forwardGeocode() {
+    const query = this.fullAddress;
+
+    this.mapboxClient.geocoding
+    .forwardGeocode({
+      query: query,
+      autocomplete: false,
+      limit: 1
+    })
+    .send()
+    .then((response) => {
+      if (
+        response &&
+        response.body &&
+        response.body.features &&
+        response.body.features.length
+      ) {
+        const feature = response.body.features[0];
+
+        this.moveMarker(feature.center);
+
+        this.longitudeTarget.value = feature.center[0];
+        this.latitudeTarget.value = feature.center[1];
+
+        this.showAdjustMarkerLink();
+      }
+    });
   }
 
   zoomOnMarker() {
