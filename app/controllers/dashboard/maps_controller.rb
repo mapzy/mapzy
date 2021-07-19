@@ -4,8 +4,6 @@ module Dashboard
   class MapsController < DashboardController
     def show
       @map = Map.find(params[:id])
-      @bounds = @map.bounds
-      @markers_json = @map.markers.to_json
       @location_base_url = "/dashboard/maps/#{@map.id}/locations/"
       @ask_location_permission = false
     end

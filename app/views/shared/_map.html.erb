@@ -1,8 +1,8 @@
 <div class="relative w-full h-full"
   data-controller="map"
   data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
-  data-map-markers-value="<%= @markers_json %>"
-  data-map-bounds-value="<%= @bounds %>"
+  data-map-markers-value="<%= @map.markers.to_json %>"
+  data-map-bounds-value="<%= @map.bounds %>"
   data-map-location-base-url-value="<%= @location_base_url %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>">
 
