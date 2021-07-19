@@ -2,9 +2,9 @@
   <div class="w-full h-full p-8 flex flex-col">
     <div class="relative w-full">
       <div class="flex flex-row justify-between mb-8">
-        <button class="text-left pointer text-sm underline py-1">
-          <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id), target: '_top' %>
-        </button>
+        <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id),
+              target: '_top',
+              class: "text-left pointer text-sm underline py-1" %>
         <button class="text-right pointer text-sm underline" data-action="click->map#hideLocationView">Close</button>
       </div>
     </div>
@@ -14,12 +14,11 @@
     </div>
 
     <div class="relative w-full">
-      <button class="text-left pointer text-sm underline">
-        <%= link_to "Delete", dashboard_map_location_path(map_id: @map.id, id: @location.id),
+      <%= link_to "Delete", dashboard_map_location_path(map_id: @map.id, id: @location.id),
             data: { confirm: "Once deleted, it's deleted! Are you sure you want to delete this location?" },
             method: :delete,
-            target: '_top' %>
-      </button>
+            target: '_top',
+            class: "text-left pointer text-sm underline" %>
     </div>
   </div>
 </turbo-frame>

@@ -135,9 +135,8 @@
 
       <!-- Submit -->
       <div class="flex-auto flex space-x-6 mt-6">
-        <button class="w-1/2 button--secondary">
-          <%= link_to "Cancel", dashboard_map_path(@map) %>
-        </button>
+        <%= link_to "Cancel", dashboard_map_path(@map),
+              class: "w-1/2 button--secondary" %>
 
         <%= f.submit "Save", class: 'w-1/2 button--main' %>
       </div>
