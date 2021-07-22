@@ -21,4 +21,26 @@
 class Map < ApplicationRecord
   belongs_to :user
   has_many :locations, dependent: :destroy
+
+  # Define the geographical limits in which the map can be shown fully, given its locations
+  #
+  # @return [Array] Containing the bottom-right (west, south) & top-left (east, north) limits
+  def bounds
+    lats = markers[:features].map { |f| f[:geometry][:coordinates][1] }
+    longs = markers[:features].map { |f| f[:geometry][:coordinates][0] }
+
+    west, east = longs.minmax
+    south, north = lats.minmax
+
+    [[west, south], [east, north]]
+  end
+
+  # Markers for every location of the map, using GeoJson format
+  #
+  # @return [Hash] GeoJson format
+  def markers
+    @markers ||= LocationServices::GeoJson
+                 .new(locations)
+                 .convert_to_geo_json_hash
+  end
 end

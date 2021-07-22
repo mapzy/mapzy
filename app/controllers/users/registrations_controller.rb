@@ -18,8 +18,8 @@ module Users
     end
 
     # Redirect after sign up
-    def after_sign_up_path_for(resource)
-      maps_path
+    def after_sign_up_path_for(_resource)
+      authenticated_root_url_path
     end
 
     private

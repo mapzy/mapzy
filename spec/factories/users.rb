@@ -21,8 +21,13 @@
 #
 FactoryBot.define do
   factory :user do
-    name { 'John Doe' }
-    email { 'email@email.com' }
-    password { 'password' }
+    sequence :name do |n|
+      "Dothraki #{n}"
+    end
+    sequence :email do |n|
+      "#{n}@dothrakis.com"
+    end
+
+    password { 'secure_password' }
   end
 end

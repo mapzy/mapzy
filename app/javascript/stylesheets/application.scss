@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/screens";
 
-/*Headings*/
+/* Headings */
 .h1 {
 	@apply text-4xl leading-7 font-bold
 }
@@ -21,12 +21,23 @@
 }
 
 /* Buttons */
-.button-main {
-  @apply cursor-pointer h-9 flex items-center justify-center rounded-full
-  	bg-indigo-800 text-white
+.button--main {
+  @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
+  h-12 flex items-center justify-center
 }
 
-.button-secondary {
-	@apply cursor-pointer h-9 flex items-center justify-center rounded-full
-    bg-indigo-50 text-indigo-800
+.button--secondary {
+	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
+	 h-12 flex items-center justify-center
+}
+
+
+.button--top-menu {
+	@apply cursor-pointer rounded-full text-gray-800 hover:bg-indigo-700 hover:text-gray-100
+	py-2 px-2 md:mx-2
+}
+
+.button--bottom-menu {
+	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
+	hover:bg-indigo-700 hover:text-gray-100 h-12 flex items-center justify-center
 }

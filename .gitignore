@@ -37,3 +37,6 @@ yarn-debug.log*
 
 # Ignore local .env files
 .env
+
+# Ignore DS store files
+.DS_Store

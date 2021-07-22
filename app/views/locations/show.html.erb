@@ -1,1 +1,7 @@
-<%= render "shared/location" %>
+<turbo-frame id="location_view">
+  <div class="flex flex-col justify-center align-start p-8">
+    <button class="text-right pointer text-sm" data-action="click->map#hideLocationView">Close</button>
+
+    <%= render "shared/location" %>
+  </div>
+</turbo-frame>

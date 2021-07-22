@@ -37,10 +37,15 @@ gem 'cancancan', '~> 3.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'countries'
-gem 'geocoder'
-gem 'stimulus-rails'
-gem 'turbo-rails'
+# Useful information for every country in the ISO 3166 standard
+gem 'countries', '~> 3.1'
+
+# Forward & reverse geocoder
+gem 'geocoder', '~> 1.6'
+
+# Hotwired
+gem 'stimulus-rails', '~> 0.2'
+gem 'turbo-rails', '~> 0.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
