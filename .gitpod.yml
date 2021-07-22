@@ -1,0 +1,33 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  # Rails server
+  - port: 3000
+    onOpen: ignore
+  # PostgreSQL server
+  - port: 5432
+    onOpen: ignore
+  # Webpack dev server
+  - port: 3035
+    onOpen: ignore
+  # Redis server
+  - port: 6379
+    onOpen: ignore
+
+tasks:
+  - init: >
+      bundle install &&
+      rails db:setup RAILS_ENV=development &&
+      rails db:setup RAILS_ENV=test &&
+      yarn install
+
+github:
+  prebuilds:
+    branches: true
+    pullRequests: true
+
+vscode:
+  extensions:
+    - rebornix.ruby
+    - wingrunr21.vscode-ruby

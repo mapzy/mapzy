@@ -15,6 +15,8 @@ class Ability
 
       # TODO: fix this
       # can :manage, Location, map: { user_id: user.id }
+
+      can :manage, Account
     end
   end
 end

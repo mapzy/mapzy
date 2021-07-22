@@ -40,3 +40,6 @@ yarn-debug.log*
 
 # Ignore DS store files
 .DS_Store
+
+# Redis dump
+dump.rdb

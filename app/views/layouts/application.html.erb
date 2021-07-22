@@ -14,7 +14,7 @@
 
   <body>
     <% flash.each do |key, value| %>
-      <%= content_tag :div, value, :class => "flash #{key}" unless value.blank? %>
+      <%= content_tag :div, value.html_safe, :class => "flash #{key}" unless value.blank? %>
     <% end %>
 
     <%= yield %>

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_scope :user do
     authenticated do
@@ -26,6 +28,15 @@ Rails.application.routes.draw do
     resources :maps, only: [:index, :show] do
       resources :locations
     end
+
+    get '/settings', to: 'accounts#settings', as: 'account_settings'
+  end
+
+  scope '/stripe' do
+    get '/checkout_session/', to: 'stripe#checkout_session', as: 'stripe_checkout_session'
+    get '/success_callback/', to: 'stripe#success_callback', as: 'stripe_success_callback'
+    get '/customer_portal/', to: 'stripe#customer_portal', as: 'stripe_customer_portal'
+    post '/webhooks/', to: 'stripe#webhooks', as: 'stripe_webhooks'
   end
 
   if Rails.env.development?
@@ -34,4 +45,6 @@ Rails.application.routes.draw do
       resources :embed_mock, only: [:index]
     end
   end
+
+  mount Sidekiq::Web => "/sidekiq"
 end
