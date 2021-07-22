@@ -1,19 +1,13 @@
-<div class="flex p-44">
-  <div class="w-9/12 pl-6">
-    <div class="flex flex-wrap items-baseline">
+<div class="w-full h-screen flex justify-center items-center">
+  <div>
+    <div class="flex flex-wrap">
       <h1 class="h1--indigo">
         Create a beautiful store locator in <span class="text-yellow-500">5 minutes</span>.
       </h1>
     </div>
-    <div class="text-sm font-semibold my-8">
-      <div class="flex-auto flex space-x-6">
-        <button class="w-1/4 button-main" type="submit">
-          <%= link_to "Get started", new_user_registration_path %>
-        </button>
-        <button class="w-1/4 button-secondary" type="button">
-          <%= link_to "Log in", new_user_session_path %>
-        </button>
-      </div>
+    <div class="flex justify-center my-8 space-x-6">
+      <%= link_to "Get started", new_user_registration_path, class: "w-1/4 button--main" %>
+      <%= link_to "Log in", new_user_session_path, class: "w-1/4 button--secondary" %>
     </div>
   </div>
 </div>

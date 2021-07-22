@@ -1,1 +1,7 @@
-<%= render "shared/location" %>
+<%= render 'dashboard/layouts/main' do %>
+  <%= render 'shared/map' %>
+
+  <% content_for :bottom_menu do %>
+    <% render 'dashboard/maps/bottom_menu' %>
+  <% end %>
+<% end %>

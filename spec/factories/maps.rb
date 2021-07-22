@@ -20,7 +20,10 @@
 #
 FactoryBot.define do
   factory :map do
-    name { 'My beautiful map' }
+    sequence :name do |n|
+      "Awesome Map #{n}"
+    end
+
     association :user
   end
 end

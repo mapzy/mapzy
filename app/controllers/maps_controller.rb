@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
-  include MapsControllable
-  
-  def index
-    # Currently an user can have a single map
-    # Thus, we redirect the user to her default map
-    redirect_to map_path(current_user.find_or_create_default_map)
+  def show
+    @map = Map.find(params[:id])
+    @location_base_url = locations_path
+    @ask_location_permission = true
   end
 end

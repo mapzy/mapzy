@@ -11,20 +11,22 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = [
-  "permissionBox",
-  "locationView"
+    "permissionBox",
+    "locationView"
   ]
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
-    "bounds": Array
+    "bounds": Array,
+    "locationBaseUrl": String,
+    "askLocationPermission": Boolean,
   }
 
   initialize() {
     this.initMapbox();
     this.fitToMarkers();
 
-    if (!localStorage.getItem("hasSeenPermissionBox")) {
+    if (this.askLocationPermissionValue == true && !localStorage.getItem("hasSeenPermissionBox")) {
       // show permission box only if the user hasn't seen it before
       this.showPermissionBox();
       localStorage.setItem("hasSeenPermissionBox", true);
@@ -71,8 +73,9 @@ export default class extends Controller {
     // create markers
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
-      anchor.href = `/locations/${feature.properties.id}`;
-      anchor.setAttribute("data-turbo-frame", "location_description");
+
+      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.id}`;
+      anchor.setAttribute("data-turbo-frame", "location_view");
       anchor.setAttribute("data-action", "click->map#showLocationView");
 
       anchor.appendChild(this.defaultMapboxMarker())

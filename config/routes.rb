@@ -19,13 +19,13 @@ Rails.application.routes.draw do
       passwords: 'users/passwords'
     }
 
-  resources :dashboard, only: [:index]
   resources :maps, only: [:index, :show]
   resources :locations
 
-  scope namespace: 'dashboard' do
-    resources :maps, only: [:index, :show]
-    resources :locations
+  namespace :dashboard do
+    resources :maps, only: [:index, :show] do
+      resources :locations
+    end
   end
 
   if Rails.env.development?
