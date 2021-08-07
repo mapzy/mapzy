@@ -5,21 +5,26 @@ module.exports = {
     "./app/javascript/**/*.js",
   ],
   darkMode: false, // or 'media' or 'class'
-  variants: {},
+  theme: {
+    extend: {
+      colors: {
+        'mapzy-orange': '#F99B46',
+        'mapzy-violet': '#704DCC',
+        'mapzy-red': '#E74D67',
+        'mapzy-blue': '#62CFFF'
+      },
+    },
+  },
   plugins: [
-    // Use indigo-700 (#3730a3) as underline color
+    // Use mapzy-violet as underline color
     function ({addUtilities}) {
       const extendUnderline = {
           '.underline': {
               'textDecoration': 'underline',
-              'text-decoration-color': '#3730a3',
+              'text-decoration-color': '#704DCC',
           },  
       }
       addUtilities(extendUnderline)
     }
-  ],
-  theme: {
-    extend: {
-    },
-  }
+  ]
 }

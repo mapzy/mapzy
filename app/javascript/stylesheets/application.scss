@@ -5,7 +5,7 @@
 
 /* Flash messages */
 .flash {
-  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-indigo-700 bg-indigo-50
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-indigo-50
 }
 
 /* Headings */
@@ -14,7 +14,7 @@
 }
 
 .h1--indigo {
-  @apply text-4xl leading-7 font-bold text-indigo-700
+  @apply text-4xl leading-7 font-bold text-mapzy-violet
 }
 
 .h2 {
@@ -22,28 +22,28 @@
 }
 
 .h2--indigo {
-  @apply text-2xl leading-7 font-bold text-indigo-700
+  @apply text-2xl leading-7 font-bold text-mapzy-violet
 }
 
 /* Buttons */
 .button--main {
-  @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
+  @apply cursor-pointer rounded-full bg-mapzy-violet text-white font-medium shadow
   h-12 flex items-center justify-center
 }
 
 .button--secondary {
-  @apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
+  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
    h-12 flex items-center justify-center
 }
 
 .button--top-menu {
-  @apply cursor-pointer rounded-full text-gray-800 hover:bg-indigo-700 hover:text-gray-100
+  @apply cursor-pointer rounded-full text-gray-800 hover:bg-mapzy-violet hover:text-gray-100
   py-2 px-2 md:mx-2
 }
 
 .button--bottom-menu {
-  @apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
-  hover:bg-indigo-700 hover:text-gray-100 h-12 flex items-center justify-center
+  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
+  hover:bg-mapzy-violet hover:text-gray-100 h-12 flex items-center justify-center
 }
 
 /* Utils */
