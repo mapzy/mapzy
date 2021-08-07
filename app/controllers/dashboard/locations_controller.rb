@@ -2,9 +2,14 @@
 
 module Dashboard
   class LocationsController < DashboardController
+    skip_authorize_resource only: [:new]
+
     before_action :set_map
 
     def new
+      @location = @map.locations.new
+      authorize! :new, @location
+
       @bounds = @map.bounds
     end
 
