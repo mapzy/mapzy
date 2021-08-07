@@ -3,6 +3,11 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/screens";
 
+/* Flash messages */
+.flash {
+	@apply flex flex-row items-center justify-between w-full p-4 border-2 text-indigo-700 bg-indigo-50
+}
+
 /* Headings */
 .h1 {
 	@apply text-4xl leading-7 font-bold
@@ -31,7 +36,6 @@
 	 h-12 flex items-center justify-center
 }
 
-
 .button--top-menu {
 	@apply cursor-pointer rounded-full text-gray-800 hover:bg-indigo-700 hover:text-gray-100
 	py-2 px-2 md:mx-2
@@ -40,4 +44,10 @@
 .button--bottom-menu {
 	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
 	hover:bg-indigo-700 hover:text-gray-100 h-12 flex items-center justify-center
+}
+
+/* Utils */
+
+.hidden {
+  display: none;
 }
