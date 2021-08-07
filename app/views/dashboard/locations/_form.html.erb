@@ -97,17 +97,17 @@
       </div>
 
       <!-- Toggle lat / long -->
-      <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerLink">
+      <div class="-mx-3 mt-6 hidden" data-location-target="adjustMarkerLink">
         <div class="w-full px-3">
           <a class="cursor-pointer underline" data-action="location#zoomOnMarker location#showAdjustMarkerBlock">Need to adjust the marker?</a>
         </div>
       </div>
 
       <!-- Lat / Long  -->
-      <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerBlock">
+      <div class="-mx-3 mt-6 hidden" data-location-target="adjustMarkerBlock">
         <div class="w-full px-3 mb-3">
-          <p class="text-gray-700 text-sm mb-2">
-            Drag the marker on the map to adjust its position
+          <p class="text-gray-700 text-sm font-bold text-indigo-700 mb-2">
+            Drag the marker on the map to the exact position 👉
           </p>
         </div>
         <div class="flex flex-wrap w-full mb-3">
@@ -116,7 +116,8 @@
                   class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
 
             <%= f.text_field :latitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 cursor-not-allowed",
+                  disabled: true,
                   "data-location-target": "latitude" %>
           </div>
           <div class="w-full md:w-1/2 px-3 mb-6">
@@ -124,7 +125,8 @@
                   class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
 
             <%= f.text_field :longitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 cursor-not-allowed",
+                  disabled: true,
                   "data-location-target": "longitude" %>
           </div>
         </div>
