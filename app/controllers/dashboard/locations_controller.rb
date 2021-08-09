@@ -2,7 +2,7 @@
 
 module Dashboard
   class LocationsController < DashboardController
-    skip_authorize_resource only: [:new]
+    skip_authorize_resource only: [:new, :create]
 
     before_action :set_map
 
@@ -15,9 +15,11 @@ module Dashboard
 
     def create
       @location = @map.locations.build(location_params)
+      authorize! :create, @location
 
       if @location.save
         redirect_to dashboard_map_path(@map)
+        flash[:notice] = "Yippie! The location #{@location.name} has been successfully created."
       else
         flash[:error] = @location.errors.full_messages
         render action: :new, status: :unprocessable_entity
@@ -37,6 +39,7 @@ module Dashboard
       @location = @map.locations.find(params[:id])
 
       if @location.update(location_params)
+        flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
         flash[:error] = @location.errors.full_messages
