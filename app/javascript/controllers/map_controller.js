@@ -113,7 +113,6 @@ export default class extends Controller {
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         collapsed: false,
-        types: 'region,district,place,locality,neighborhood',
         marker: false,
         zoom: 13,
       })
