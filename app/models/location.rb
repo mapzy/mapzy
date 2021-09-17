@@ -28,15 +28,15 @@
 #
 class Location < ApplicationRecord
   belongs_to :map
-
-  geocoded_by :full_address
+  has_many :opening_times, dependent: :destroy
 
   validates :address, :city, :zip_code, :country_code, :name, presence: true
 
   before_validation :country_to_country_code
   after_validation :geocode, if: :eligible_for_geocoding?
-
   before_save :country_code_to_upcase
+
+  geocoded_by :full_address
 
   def full_address
     [address, zip_code, city, state, country].compact.join(', ')
