@@ -29,5 +29,5 @@ class OpeningTime < ApplicationRecord
 
   validates :weekday, presence: true
   validates :weekday, uniqueness: { scope: :location_id }
-  validates_inclusion_of :open_24h, in: [true, false]
+  validates :open_24h, inclusion: { in: [true, false] }
 end

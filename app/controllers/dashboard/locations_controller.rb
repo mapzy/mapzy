@@ -2,7 +2,7 @@
 
 module Dashboard
   class LocationsController < DashboardController
-    skip_authorize_resource only: [:new, :create]
+    skip_authorize_resource only: %i[new create]
 
     before_action :set_map
 

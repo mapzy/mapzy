@@ -46,9 +46,7 @@ class Location < ApplicationRecord
     @country ||= ISO3166::Country.find_country_by_alpha2(country_code)&.unofficial_names&.first
   end
 
-  def country=(name)
-    @country = name
-  end
+  attr_writer :country
 
   def country_to_country_code
     return unless country

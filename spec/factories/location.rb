@@ -32,9 +32,9 @@ FactoryBot.define do
       "King's Landing #{n}"
     end
 
-    description {
+    description do
       'Founded by King Aegon I Targaryen, King of the Andals and the First Men.'
-    }
+    end
     address { 'Hohlstrasse 117' }
     city { 'Zürich' }
     zip_code { '8004' }
