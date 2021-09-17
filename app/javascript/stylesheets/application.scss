@@ -51,3 +51,8 @@
 .hidden {
   display: none;
 }
+
+/* Mapbox */
+.mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+}
