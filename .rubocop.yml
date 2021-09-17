@@ -30,6 +30,9 @@ Style/Documentation:
 RSpec/MessageSpies:
   EnforcedStyle: receive
 
+RSpec/ImplicitSubject:
+  EnforcedStyle: single_statement_only
+
 Rails/LexicallyScopedActionFilter:
   Exclude:
    - app/controllers/users/**/*
