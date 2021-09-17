@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_11_170339) do
+ActiveRecord::Schema.define(version: 2021_09_17_122314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 2021_07_11_170339) do
     t.index ["user_id"], name: "index_maps_on_user_id"
   end
 
+  create_table "opening_times", force: :cascade do |t|
+    t.integer "weekday", null: false
+    t.time "opening_time"
+    t.time "closing_time"
+    t.boolean "open_24h", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_opening_times_on_location_id"
+    t.index ["weekday", "location_id"], name: "index_opening_times_on_weekday_and_location_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -54,4 +66,5 @@ ActiveRecord::Schema.define(version: 2021_07_11_170339) do
 
   add_foreign_key "locations", "maps"
   add_foreign_key "maps", "users"
+  add_foreign_key "opening_times", "locations"
 end
