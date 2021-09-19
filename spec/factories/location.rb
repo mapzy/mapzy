@@ -32,13 +32,8 @@ FactoryBot.define do
       "King's Landing #{n}"
     end
 
-    description do
-      'Founded by King Aegon I Targaryen, King of the Andals and the First Men.'
-    end
-    address { 'Hohlstrasse 117' }
-    city { 'Zürich' }
-    zip_code { '8004' }
-    country_code { 'CH' }
+    description { 'Founded by King Aegon I Targaryen, King of the Andals and the First Men.' }
+    address { 'Hohlstrasse 117, 8004 Zürich, Switzerland' }
     latitude { 12.222211 }
     longitude { 8.433332 }
 

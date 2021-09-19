@@ -4,19 +4,15 @@
 #
 # Table name: locations
 #
-#  id           :bigint           not null, primary key
-#  address      :string
-#  city         :string
-#  country_code :string
-#  description  :text
-#  latitude     :decimal(15, 10)
-#  longitude    :decimal(15, 10)
-#  name         :string
-#  state        :string
-#  zip_code     :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  map_id       :bigint           not null
+#  id          :bigint           not null, primary key
+#  address     :string
+#  description :text
+#  latitude    :decimal(15, 10)
+#  longitude   :decimal(15, 10)
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  map_id      :bigint           not null
 #
 # Indexes
 #
@@ -40,36 +36,8 @@ RSpec.describe Location, type: :model do
       it { is_expected.to validate_presence_of :address }
     end
 
-    context 'with city' do
-      it { is_expected.to validate_presence_of :city }
-    end
-
-    context 'with zip_code' do
-      it { is_expected.to validate_presence_of :zip_code }
-    end
-
-    context 'with country_code' do
-      it { is_expected.to validate_presence_of :country_code }
-    end
-
     context 'with name' do
       it { is_expected.to validate_presence_of :name }
-    end
-  end
-
-  describe '.full_address' do
-    let(:location) { create(:location) }
-
-    it 'has the correct full address' do
-      expect(location.full_address).to eq 'Hohlstrasse 117, 8004, Zürich, Switzerland'
-    end
-  end
-
-  describe 'country' do
-    let(:location) { create(:location) }
-
-    it 'has the correct country' do
-      expect(location.country).to eq 'Switzerland'
     end
   end
 
@@ -80,8 +48,7 @@ RSpec.describe Location, type: :model do
       context 'when address changes' do
         it 'does not update latitude' do
           prev_latitude = location.latitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
+          location.address = 'Käshaldenstrasse 41, 8052'
           location.save
 
           expect(location.latitude).to eq prev_latitude
@@ -89,8 +56,7 @@ RSpec.describe Location, type: :model do
 
         it 'updates longitude' do
           prev_longitude = location.longitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
+          location.address = 'Käshaldenstrasse 41, 8052'
           location.save
 
           expect(location.longitude).to eq prev_longitude
@@ -104,8 +70,7 @@ RSpec.describe Location, type: :model do
       context 'when address changes' do
         it 'updates latitude' do
           prev_latitude = location.latitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
+          location.address = 'Käshaldenstrasse 41, 8052'
           location.save
 
           expect(location.latitude).not_to eq prev_latitude
@@ -113,8 +78,7 @@ RSpec.describe Location, type: :model do
 
         it 'updates longitude' do
           prev_longitude = location.longitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
+          location.address = 'Käshaldenstrasse 41, 8052'
           location.save
 
           expect(location.longitude).not_to eq prev_longitude
