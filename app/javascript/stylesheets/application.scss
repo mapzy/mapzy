@@ -46,6 +46,22 @@
   hover:bg-mapzy-violet hover:text-gray-100 h-12 flex items-center justify-center
 }
 
+/* Forms */
+
+.label--default {
+  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
+}
+
+.input--default {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+  @apply block w-full rounded py-3 px-4 mb-1 leading-tight
+}
+
+.input--default:focus {
+  box-shadow: none;
+  outline: thin dotted;
+}
+
 /* Utils */
 
 .hidden {
@@ -55,4 +71,5 @@
 /* Mapbox */
 .mapboxgl-ctrl-geocoder {
   width: 100% !important;
+  box-shadow: none !important;
 }

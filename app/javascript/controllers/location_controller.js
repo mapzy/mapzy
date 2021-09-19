@@ -24,7 +24,7 @@ export default class extends Controller {
     this.initMapbox();
     this.initMarker();
     this.initGeocoder();
-    this.associateGeocoderToAddress();
+    this.prepareAddressInputField();
     this.handleAdjustMarkerLink();
   }
 
@@ -60,15 +60,19 @@ export default class extends Controller {
 
     // When geocoder is cleared
     geocoder.on('clear', () => {
-      //
+      this.clearLngLat();
     });
   }
 
-  associateGeocoderToAddress() {
+  prepareAddressInputField() {
     const input = this.addressTarget.firstChild.getElementsByTagName('input')[0];
 
+    // Add form attributes
     input.setAttribute("id", "location_address");
     input.setAttribute("name", "location[address]");
+
+    // Suit up bro
+    input.classList.add('input--default')
   }
 
   initMarker() {
@@ -91,6 +95,11 @@ export default class extends Controller {
   updateLngLat(lng, lat) {
     this.longitudeTarget.value = lng;
     this.latitudeTarget.value = lat;
+  }
+
+  clearLngLat() {
+    this.longitudeTarget.value = "";
+    this.latitudeTarget.value = "";
   }
 
   moveMarker(center) {
