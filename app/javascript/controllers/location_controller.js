@@ -61,6 +61,7 @@ export default class extends Controller {
     // When geocoder is cleared
     geocoder.on('clear', () => {
       this.clearLngLat();
+      this.clearMarker();
     });
   }
 
@@ -106,6 +107,10 @@ export default class extends Controller {
     this.marker.setLngLat(center);
     this.marker.addTo(this.map);
     this.moveMapTo(center);
+  }
+
+  clearMarker() {
+    this.marker.remove();
   }
 
   moveMapTo(center) {
