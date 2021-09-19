@@ -63,8 +63,7 @@ module Dashboard
 
     def location_params
       params.require(:location)
-            .permit(:name, :description, :address, :zip_code, :city,
-                    :state, :country, :latitude, :longitude)
+            .permit(:name, :description, :address, :latitude, :longitude)
     end
   end
 end

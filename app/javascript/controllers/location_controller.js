@@ -3,10 +3,6 @@ import { Controller } from "stimulus";
 export default class extends Controller {
   static targets = [
     "address",
-    "geocoder",
-    "zipCode",
-    "city",
-    "country",
     "latitude",
     "longitude",
     "adjustMarkerLink",
@@ -28,6 +24,7 @@ export default class extends Controller {
     this.initMapbox();
     this.initMarker();
     this.initGeocoder();
+    this.associateGeocoderToAddress();
     this.handleAdjustMarkerLink();
   }
 
@@ -45,10 +42,12 @@ export default class extends Controller {
 
   initGeocoder() {
     const geocoder = new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken
+      accessToken: mapboxgl.accessToken,
+      types:'address',
+      placeholder: 'Start typing...'
     });
 
-    geocoder.addTo(this.geocoderTarget);
+    geocoder.addTo(this.addressTarget);
 
     // When geocoder result is selected by user
     geocoder.on('result', (e) => {
@@ -63,6 +62,13 @@ export default class extends Controller {
     geocoder.on('clear', () => {
       //
     });
+  }
+
+  associateGeocoderToAddress() {
+    const input = this.addressTarget.firstChild.getElementsByTagName('input')[0];
+
+    input.setAttribute("id", "location_address");
+    input.setAttribute("name", "location[address]");
   }
 
   initMarker() {
@@ -132,56 +138,4 @@ export default class extends Controller {
     this.adjustMarkerBlockTarget.classList.remove("hidden");
     this.handleAdjustMarkerLink();
   }
-
-  // get fullAddress() {
-  //   const zipCodeCity = [this.zipCodeTarget.value, this.cityTarget.value].join(' ')
-  //   return [this.addressTarget.value, zipCodeCity, this.countryTarget.value].join(',');
-  // }
-
-  // isReadyToGeocode() {
-  //   return (
-  //     this.addressTarget.value &&
-  //     this.zipCodeTarget.value &&
-  //     this.cityTarget.value &&
-  //     this.countryTarget.value
-  //   )
-  // }
-
-  // Wait until the user has (probably) finished typing the address fields
-  // searchByAddress() {
-  //   clearTimeout(this.typingTimerValue);
-  //   if (this.isReadyToGeocode()) {
-  //     this.typingTimerValue = setTimeout(() => this.forwardGeocode(), this.typingIntervalValue);
-  //   }
-  // }
-
-  // forwardGeocode() {
-  //   const query = this.fullAddress;
-
-  //   this.mapboxClient.geocoding
-  //   .forwardGeocode({
-  //     query: query,
-  //     autocomplete: false,
-  //     limit: 1
-  //   })
-  //   .send()
-  //   .then((response) => {
-  //     if (
-  //       response &&
-  //       response.body &&
-  //       response.body.features &&
-  //       response.body.features.length
-  //     ) {
-  //       const feature = response.body.features[0];
-
-  //       this.moveMarker(feature.center);
-  //       updateLngLat(feature.center[0], feature.center[1]);
-
-  //       if (this.adjustMarkerBlockHidden) {
-  //         this.showAdjustMarkerLink();
-  //       }
-  //     }
-  //   });
-  // }
-
 }

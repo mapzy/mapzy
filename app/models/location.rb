@@ -27,6 +27,7 @@ class Location < ApplicationRecord
   has_many :opening_times, dependent: :destroy
 
   validates :address, presence: true
+  validates :name, presence: true
 
   after_validation :geocode, if: :eligible_for_geocoding?
   geocoded_by :address
