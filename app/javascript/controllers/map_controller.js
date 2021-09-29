@@ -114,7 +114,7 @@ export default class extends Controller {
         mapboxgl: mapboxgl,
         collapsed: false,
         marker: false,
-        zoom: 13,
+        zoom: 15,
       })
      );
   }
