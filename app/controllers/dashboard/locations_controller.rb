@@ -36,8 +36,6 @@ module Dashboard
     end
 
     def update
-      @location = @map.locations.find(params[:id])
-
       if @location.update(location_params)
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
