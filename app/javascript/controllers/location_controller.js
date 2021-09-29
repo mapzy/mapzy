@@ -36,6 +36,9 @@ export default class extends Controller {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       bounds: this.boundsValue,
+      fitBoundsOptions: {
+        maxZoom: 12,
+      },
     });
 
     this.mapboxClient = mapboxSdk({ accessToken: this.mapboxAccessTokenValue });

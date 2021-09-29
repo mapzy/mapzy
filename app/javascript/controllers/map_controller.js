@@ -93,7 +93,7 @@ export default class extends Controller {
       },
       trackUserLocation: false,
       fitBoundsOptions: {
-        maxZoom: 13,
+        maxZoom: 12,
       },
     });
 
