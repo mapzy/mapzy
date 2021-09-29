@@ -39,11 +39,12 @@
       </div>
 
       <!-- Geocoded Address -->
-      <div class="-mx-3 mb-6">
+      <div class="-mx-3 mb-3">
         <div class="w-full px-3 mb-6 md:mb-0">
           <%= f.label :address,
                 class:"block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-          <div data-location-target="address"></div>
+          <div data-location-target="addressWrapper"></div>
+          <p class="text-red-500 mt-1 text-xs italic" data-location-target="addressError"></p>
         </div>
       </div>
 
@@ -55,8 +56,8 @@
       </div>
 
       <!-- Lat / Long  -->
-      <div class="-mx-3 mt-6 hidden" data-location-target="adjustMarkerBlock">
-        <div class="w-full px-3 mb-3">
+      <div class="-mx-3 mt-3 hidden" data-location-target="adjustMarkerBlock">
+        <div class="w-full px-3">
           <p class="text-gray-700 text-sm font-bold text-mapzy-violet mb-2">
             Drag the marker directly on the map to its exact position 👉
           </p>
@@ -71,7 +72,7 @@
                   readonly: true,
                   "data-location-target": "latitude" %>
           </div>
-          <div class="w-full md:w-1/2 px-3 mb-6">
+          <div class="w-full md:w-1/2 px-3">
             <%= f.label :longitude,
                   class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
 
@@ -87,11 +88,13 @@
       <!-- TODO -->
 
       <!-- Submit -->
-      <div class="flex-auto flex space-x-6 mt-6">
+      <div class="flex-auto flex space-x-6 mt-8">
         <%= link_to "Cancel", dashboard_map_path(@map),
               class: "w-1/2 button--secondary" %>
 
-        <%= f.submit "Save", class: 'w-1/2 button--main' %>
+        <%= f.submit "Save",
+              class: 'w-1/2 button--main',
+              "data-action": "location#validateAddress" %>
       </div>
 
       <% end %> <!-- Form end -->

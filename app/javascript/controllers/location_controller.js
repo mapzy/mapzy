@@ -2,7 +2,8 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = [
-    "address",
+    "addressWrapper",
+    "addressError",
     "latitude",
     "longitude",
     "adjustMarkerLink",
@@ -25,7 +26,7 @@ export default class extends Controller {
     this.initMapbox();
     this.initMarker();
     this.initGeocoder();
-    this.prepareAddressInputField();
+    this.prepareAddressInput();
     this.handleAdjustMarkerLink();
   }
 
@@ -51,12 +52,11 @@ export default class extends Controller {
       placeholder: 'Start typing...'
     });
 
-    geocoder.addTo(this.addressTarget);
+    geocoder.addTo(this.addressWrapperTarget);
 
     // When geocoder result is selected by user
     geocoder.on('result', (e) => {
-      console.log(JSON.stringify(e.result, null, 2));
-
+      this.addressErrorTarget.textContent = '';
       this.moveMarker(e.result.center);
       this.updateLngLat(e.result.center[0], e.result.center[1]);
       this.handleAdjustMarkerLink();
@@ -69,23 +69,26 @@ export default class extends Controller {
     });
   }
 
-  prepareAddressInputField() {
-    const input = this.addressTarget.firstChild.getElementsByTagName('input')[0];
+  prepareAddressInput() {
+    this.addressInput = this.addressWrapperTarget.firstChild.getElementsByTagName('input')[0];
 
     // Add form attributes
-    input.setAttribute("id", "location_address");
-    input.setAttribute("name", "location[address]");
+    this.addressInput.setAttribute("id", "location_address");
+    this.addressInput.setAttribute("name", "location[address]");
 
     // Add value if exists
     if (this.addressValue) {
-      input.value = this.addressValue;
+      this.addressInput.value = this.addressValue;
     }
 
     // Make it required
-    input.required = true;
+    this.addressInput.required = true;
+
+    // Turn off autocomplete
+    this.addressInput.autocomplete = "off";
 
     // Suit up bro
-    input.classList.add('input--default')
+    this.addressInput.classList.add('input--default')
   }
 
   initMarker() {
@@ -163,5 +166,17 @@ export default class extends Controller {
   showAdjustMarkerBlock() {
     this.adjustMarkerBlockTarget.classList.remove("hidden");
     this.handleAdjustMarkerLink();
+  }
+
+  validateAddress(e) {
+    const valid = !!this.addressInput.value && !!this.latitudeTarget.value && !!this.longitudeTarget.value
+
+    console.log("this.addressErrorTarget", this.addressErrorTarget)
+
+    if (!valid) {
+      this.addressErrorTarget.textContent = "Please make sure that the address is valid"
+      e.preventDefault();
+      return false;
+    }
   }
 }
