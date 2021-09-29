@@ -78,6 +78,9 @@ export default class extends Controller {
       input.value = this.addressValue;
     }
 
+    // Make it required
+    input.required = true;
+
     // Suit up bro
     input.classList.add('input--default')
   }
