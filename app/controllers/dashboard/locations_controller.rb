@@ -33,6 +33,7 @@ module Dashboard
     def edit
       @bounds = @map.bounds
       @location = @map.locations.find(params[:id])
+      @address = @location.address
     end
 
     def update

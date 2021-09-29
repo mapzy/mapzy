@@ -14,6 +14,7 @@ export default class extends Controller {
     "typingTimer": Number,
     "typingInterval": Number,
     "bounds": Array,
+    "address": String,
   }
 
   get adjustMarkerBlockHidden() {
@@ -71,6 +72,11 @@ export default class extends Controller {
     // Add form attributes
     input.setAttribute("id", "location_address");
     input.setAttribute("name", "location[address]");
+
+    // Add value if exists
+    if (this.addressValue) {
+      input.value = this.addressValue;
+    }
 
     // Suit up bro
     input.classList.add('input--default')

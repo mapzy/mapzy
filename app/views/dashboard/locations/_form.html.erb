@@ -3,7 +3,8 @@
 
     <div data-controller="location"
          data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
-         data-location-bounds-value="<%= @bounds %>" >
+         data-location-bounds-value="<%= @bounds %>"
+         data-location-address-value="<%= @address %>">
 
       <%= form_with model: [:dashboard, @map, @location], local: true do |f| %>
 
