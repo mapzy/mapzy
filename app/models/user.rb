@@ -20,7 +20,10 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  include Sidekiq::Worker
+
   has_many :maps, dependent: :destroy
+  has_one :account, dependent: :destroy
 
   # Active devise modules below. Other available modules:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -44,5 +47,20 @@ class User < ApplicationRecord
     else
       create_default_map
     end
+  end
+
+  def create_account
+    Account.create(user: self)
+  end
+
+  def setup_email_workers
+    EmailWorker.perform_at(7.days.from_now, 'reminder_email1', id)
+    EmailWorker.perform_at(13.days.from_now, 'reminder_email2', id)
+    EmailWorker.perform_at(14.days.from_now, 'account_inactivated_email', id)
+    AccountWorker.perform_at(14.days.from_now, id)
+  end
+
+  def send_welcome_email
+    AccountMailer.with(email: email).welcome_email.deliver_later
   end
 end

@@ -43,6 +43,7 @@ describe User, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:maps) }
+    it { is_expected.to have_one(:account) }
   end
 
   describe '.create_default_map' do

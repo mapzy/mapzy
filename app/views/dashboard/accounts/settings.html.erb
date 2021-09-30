@@ -1,0 +1,27 @@
+<%= render "dashboard/layouts/main" do %>
+  <div class="flex flex-col justify-center items-center p-4 w-full text-lg">
+    <h2 class="mb-6">Settings</h2>
+
+    <div class="max-w-3xl">
+      <%= render "account_box" do %>
+        <h3>Subscription Settings</h3>
+        <% if current_user.account.trial? || current_user.account.inactive? %>
+          <%= render "subscription" %>
+        <% else %>
+          <%= render "subscription_management" %>
+        <% end %>
+      <% end %>
+
+      <%= render 'account_box' do %>
+        <h3>Account Settings</h3>
+        <div>Name</div>
+        <div class="font-medium mb-4"><%= current_user.name %></div>
+        <div>Email</div>
+        <div class="font-medium mb-4"><%= current_user.email %></div>
+    
+        <%= link_to "Change Name, Email or Password", edit_user_registration_path %> <br />
+        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

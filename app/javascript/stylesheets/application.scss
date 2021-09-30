@@ -4,31 +4,39 @@
 @import "tailwindcss/screens";
 
 /* Headings */
-.h1 {
+h1 {
 	@apply text-4xl leading-7 font-bold
 }
 
-.h1--indigo {
+h1--indigo {
 	@apply text-4xl leading-7 font-bold text-indigo-700
 }
 
-.h2 {
+h2 {
 	@apply text-2xl leading-7 font-bold
 }
 
-.h2--indigo {
+h2--indigo {
 	@apply text-2xl leading-7 font-bold text-indigo-700
+}
+
+h3 {
+	@apply text-xl leading-7 font-medium mb-4
+}
+
+i {
+	@apply text-sm text-gray-800
 }
 
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
-  h-12 flex items-center justify-center
+  py-4 px-4 flex items-center justify-center
 }
 
 .button--secondary {
 	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
-	 h-12 flex items-center justify-center
+	 py-4 px-4 flex items-center justify-center
 }
 
 

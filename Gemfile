@@ -47,6 +47,14 @@ gem 'geocoder', '~> 1.6'
 gem 'stimulus-rails', '~> 0.2'
 gem 'turbo-rails', '~> 0.5'
 
+gem 'stripe', '~> 5.37.0'
+
+gem "foreman", "~> 0.87.2"
+
+gem "ohmysmtp-rails", "~> 0.1.9"
+
+gem "sidekiq", "~> 6.2"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -102,6 +110,14 @@ group :test do
 
   # Helpers for test
   gem 'shoulda-matchers'
+
+  gem 'webmock', '~> 3.14.0'
+
+  gem 'stripe-ruby-mock', '~> 3.1.0.rc3', require: 'stripe_mock'
+
+  gem 'database_cleaner-active_record'
+
+  gem 'rspec-sidekiq', '~> 3.1.0 '
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

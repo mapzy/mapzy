@@ -1,13 +1,17 @@
+# frozen_string_literal: true
+
 users = User.create!([
   {name: "Jon Snow", email: "aegon@mapzy.io", password: "iloveghost12",  password_confirmation: "iloveghost12"},
   {name: "Daenerys Targaryen", email: "danny@mapzy.io", password: "breakerofchains10", password_confirmation: "breakerofchains10"}
 ])
 
+users.first.create_account
+users.second.create_account
+
 maps = Map.create!([
   {name: "Global", user: users.first},
   {name: "Berlin", user: users.second}
 ])
-
 
 Location.create!([
   {

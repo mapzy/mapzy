@@ -15,6 +15,8 @@ require 'cancan/matchers'
 require 'capybara/rails'
 require 'capybara/rspec'
 
+require 'database_cleaner/active_record'
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -47,7 +49,29 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = true
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+  config.before(:all) do
+    DatabaseCleaner.start
+  end
+  config.after(:all) do
+    DatabaseCleaner.clean
+  end
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
@@ -77,6 +101,7 @@ RSpec.configure do |config|
   # Custom helper to mock authenticate_user
   config.include RequestSpecHelper, type: :request
   config.include RequestSpecHelper, type: :feature
+  config.include StripeTestHelper,  type: :request
 end
 
 # Config for Shoulda Matchers
