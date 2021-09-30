@@ -1,4 +1,4 @@
-<div class="absolute w-full md:w-96 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
+<div class="absolute w-full md:w-1/3 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
   <h1 class="text-xl pb-6 text-center"><%= title %></h1>
 
     <div data-controller="location"
@@ -65,19 +65,19 @@
         <div class="flex flex-wrap w-full mb-3">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <%= f.label :latitude,
-                  class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                  class: "label--default" %>
 
             <%= f.text_field :latitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 cursor-not-allowed",
+                  class: "input--default cursor-not-allowed",
                   readonly: true,
                   "data-location-target": "latitude" %>
           </div>
           <div class="w-full md:w-1/2 px-3">
             <%= f.label :longitude,
-                  class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                  class: "label--default" %>
 
             <%= f.text_field :longitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 cursor-not-allowed",
+                  class: "input--default cursor-not-allowed",
                   readonly: true,
                   "data-location-target": "longitude" %>
           </div>
@@ -85,7 +85,41 @@
       </div>
 
       <!-- Opening Times -->
-      <!-- TODO -->
+      <div class="-mx-3 mt-6 mb-6">
+        <div class="w-full px-3">
+          <%= f.label :opening_times,
+                class: "label--default" %>
+
+          <div class="flex flex-row justify-between content-center">
+
+            <div class="py-1 my-1">
+              <span class="uppercase tracking-wide text-gray-700 text-xs font-bold">Monday</span>
+            </div>
+
+            <div class="flex flex-row justify-center py-1 my-1">
+              <select class="select--default">
+                <option value="08:00" selected>08:00</option>
+                <option value="09:00">09:00</option>
+              </select>
+              <p> &nbsp; &mdash; &nbsp; </p>
+              <select class="select--default">
+                <option value="18:00" selected>18:00</option>
+                <option value="19:00">19:00</option>
+              </select>
+            </div>
+
+            <div class="py-1 my-1">
+              <input type="checkbox" id="closed" name="closed">
+              <label for="closed" class="checkbox-label--default">Closed</label>
+            </div>
+
+            <div class="py-1 my-1">
+              <input type="checkbox" id="open24" name="open24">
+              <label for="open24" class="checkbox-label--default">Open 24h</label>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Submit -->
       <div class="flex-auto flex space-x-6 mt-8">

@@ -62,6 +62,15 @@
   outline: thin dotted;
 }
 
+.select--default {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+  @apply block rounded leading-tight
+}
+
+.checkbox-label--default {
+  @apply uppercase text-gray-700 text-xs
+}
+
 /* Utils */
 
 .hidden {
@@ -71,5 +80,6 @@
 /* Mapbox */
 .mapboxgl-ctrl-geocoder {
   width: 100% !important;
+  max-width: none !important;
   box-shadow: none !important;
 }
