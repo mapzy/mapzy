@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :opening_time do
-    day { 1 }
+    day { :monday }
     opening_time { '08:00' }
     closing_time { '18:00' }
 
