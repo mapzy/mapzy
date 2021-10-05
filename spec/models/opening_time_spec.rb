@@ -4,15 +4,15 @@
 #
 # Table name: opening_times
 #
-#  id           :bigint           not null, primary key
-#  closed       :boolean          default(FALSE), not null
-#  closing_time :time
-#  day          :integer          not null
-#  open_24h     :boolean          default(FALSE), not null
-#  opening_time :time
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  location_id  :bigint
+#  id          :bigint           not null, primary key
+#  closed      :boolean          default(FALSE), not null
+#  closes_at   :time
+#  day         :integer          not null
+#  open_24h    :boolean          default(FALSE), not null
+#  opens_at    :time
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  location_id :bigint
 #
 # Indexes
 #
@@ -41,12 +41,47 @@ RSpec.describe OpeningTime, type: :model do
     let(:location) { create(:location) }
 
     it { is_expected.to validate_inclusion_of(:open_24h).in_array([true, false]) }
+    it { is_expected.to validate_inclusion_of(:closed).in_array([true, false]) }
 
     it 'is expected to validate that :day is unique, scoped_by :location_id' do
       described_class.create(day: 1, location: location)
       duplicate = described_class.new(day: 1, location: location)
 
       expect(duplicate).not_to be_valid
+    end
+
+    describe "#validate_to_s" do
+      context "when closed" do
+        let(:opening_time) { build(:opening_time, closed: true) }
+
+        it "is valid" do
+          expect(opening_time.valid?).to be(true)
+        end
+      end
+
+      context "when open24h" do
+        let(:opening_time) { build(:opening_time, open_24h: true) }
+
+        it "is valid" do
+          expect(opening_time.valid?).to be(true)
+        end
+      end
+
+      context "when opens_at & closes_at are both present" do
+        let(:opening_time) { build(:opening_time, opens_at: "08:00", closes_at: "19:00") }
+
+        it "is valid" do
+          expect(opening_time.valid?).to be(true)
+        end
+      end
+
+      context "else" do
+        let(:opening_time) { build(:opening_time, opens_at: "08:00", closes_at: nil) }
+
+        it "is not valid" do
+          expect(opening_time.valid?).to be(false)
+        end
+      end
     end
   end
 
@@ -92,6 +127,14 @@ RSpec.describe OpeningTime, type: :model do
 
     it 'has 23:30 as its last item' do
       expect(described_class.time_options.last).to eq("23:30")
+    end
+  end
+
+  describe ".to_s" do
+    let(:opening_time) { create(:opening_time) }
+
+    it "returns a non-empty string" do
+      expect(opening_time.to_s).not_to be_empty
     end
   end
 end

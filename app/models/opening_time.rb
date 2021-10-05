@@ -4,15 +4,15 @@
 #
 # Table name: opening_times
 #
-#  id           :bigint           not null, primary key
-#  closed       :boolean          default(FALSE), not null
-#  closing_time :time
-#  day          :integer          not null
-#  open_24h     :boolean          default(FALSE), not null
-#  opening_time :time
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  location_id  :bigint
+#  id          :bigint           not null, primary key
+#  closed      :boolean          default(FALSE), not null
+#  closes_at   :time
+#  day         :integer          not null
+#  open_24h    :boolean          default(FALSE), not null
+#  opens_at    :time
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  location_id :bigint
 #
 # Indexes
 #
@@ -35,9 +35,30 @@ class OpeningTime < ApplicationRecord
   validates :day, uniqueness: { scope: :location_id }
   validates :closed, inclusion: { in: [true, false] }
   validates :open_24h, inclusion: { in: [true, false] }
+  validate :validate_to_s
 
   scope :weekday, -> { where(day: WEEKDAY) }
   scope :weekend, -> { where(day: WEEKEND) }
+
+  # Validates that the object can be rendered using the .to_s method
+  #
+  def validate_to_s
+    unless (opens_at.present? && closes_at.present?) || closed? || open_24h?
+      errors.add(:opening_time, "is not valid")
+    end
+  end
+
+  # Render the opening time
+  #
+  def to_s
+    if closed
+      "Closed"
+    elsif open_24h
+      "Open 24h"
+    elsif opens_at && closes_at
+      "#{opens_at.strftime("%H:%M")} — #{closes_at.strftime("%H:%M")}"
+    end
+  end
 
   # Build 7 opening times objects, each for a day of the week, with default values:
   # - open from 08:00 to 18:00 on weekdays
@@ -47,7 +68,7 @@ class OpeningTime < ApplicationRecord
     records = []
 
     WEEKDAY.each do |day|
-      records << new(day: day, opening_time: "08:00", closing_time: "18:00")
+      records << new(day: day, opens_at: "08:00", closes_at: "18:00")
     end
 
     WEEKEND.each do |day|
