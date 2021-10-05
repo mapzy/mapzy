@@ -1,4 +1,4 @@
-<div class="absolute w-full md:w-1/3 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
+<div class="absolute w-full md:w-2/5 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
   <h1 class="text-xl pb-6 text-center"><%= title %></h1>
 
     <div data-controller="location"
@@ -90,34 +90,37 @@
           <%= f.label :opening_times,
                 class: "label--default" %>
 
-          <div class="flex flex-row justify-between content-center">
+          <% @opening_times.each do |ot| %>
 
-            <div class="py-1 my-1">
-              <span class="uppercase tracking-wide text-gray-700 text-xs font-bold">Monday</span>
+            <div class="flex flex-row justify-between content-center">
+              <div class="py-1 my-1 w-1/5">
+                <span class="uppercase tracking-wide text-gray-700 text-xs font-bold"><%= ot.day %></span>
+              </div>
+
+              <div class="flex flex-row justify-center py-1 my-1">
+                <%= f.select :opens_at,
+                    options_for_select(OpeningTime.time_options, ot.opens_at&.strftime("%H:%M")),
+                    { include_blank: true },
+                    { class: "select--default" } %>
+                <p> &nbsp; &mdash; &nbsp; </p>
+                <%= f.select :closes_at,
+                    options_for_select(OpeningTime.time_options, ot.closes_at&.strftime("%H:%M")),
+                    { include_blank: true },
+                    { class: "select--default" } %>
+              </div>
+
+              <div class="py-1 my-1">
+                <%= f.check_box :closed, { checked: ot.closed }%>
+                <%= f.label :closed, class: "checkbox-label--default" %>
+              </div>
+
+              <div class="py-1 my-1">
+                <%= f.check_box :open_24h, { checked: ot.open_24h }%>
+                <%= f.label :open_24h, class: "checkbox-label--default" %>
+              </div>
             </div>
 
-            <div class="flex flex-row justify-center py-1 my-1">
-              <select class="select--default">
-                <option value="08:00" selected>08:00</option>
-                <option value="09:00">09:00</option>
-              </select>
-              <p> &nbsp; &mdash; &nbsp; </p>
-              <select class="select--default">
-                <option value="18:00" selected>18:00</option>
-                <option value="19:00">19:00</option>
-              </select>
-            </div>
-
-            <div class="py-1 my-1">
-              <input type="checkbox" id="closed" name="closed">
-              <label for="closed" class="checkbox-label--default">Closed</label>
-            </div>
-
-            <div class="py-1 my-1">
-              <input type="checkbox" id="open24" name="open24">
-              <label for="open24" class="checkbox-label--default">Open 24h</label>
-            </div>
-          </div>
+          <% end %>
         </div>
       </div>
 
