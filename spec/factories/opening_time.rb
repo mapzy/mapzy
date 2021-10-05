@@ -3,8 +3,10 @@
 FactoryBot.define do
   factory :opening_time do
     day { :monday }
-    opening_time { '08:00' }
-    closing_time { '18:00' }
+    opens_at { '08:00' }
+    closes_at { '18:00' }
+    open_24h { false }
+    closed { false }
 
     association :location
   end

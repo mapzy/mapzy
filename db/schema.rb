@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_173812) do
+ActiveRecord::Schema.define(version: 2021_10_05_180409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 2021_10_05_173812) do
 
   create_table "opening_times", force: :cascade do |t|
     t.integer "day", null: false
-    t.time "opening_time"
-    t.time "closing_time"
+    t.time "opens_at"
+    t.time "closes_at"
     t.boolean "open_24h", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
