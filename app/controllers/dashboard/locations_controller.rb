@@ -8,6 +8,7 @@ module Dashboard
 
     def new
       @location = @map.locations.new
+      @opening_times = @location.opening_times.build_default
       authorize! :new, @location
 
       @bounds = @map.bounds
@@ -62,7 +63,8 @@ module Dashboard
 
     def location_params
       params.require(:location)
-            .permit(:name, :description, :address, :latitude, :longitude)
+            .permit(:name, :description, :address, :latitude, :longitude,
+                    opening_times: %i[location_id day opening_time closing_time open_24h])
     end
   end
 end

@@ -5,6 +5,7 @@
 # Table name: opening_times
 #
 #  id           :bigint           not null, primary key
+#  closed       :boolean          default(FALSE), not null
 #  closing_time :time
 #  day          :integer          not null
 #  open_24h     :boolean          default(FALSE), not null

@@ -5,6 +5,7 @@
 # Table name: opening_times
 #
 #  id           :bigint           not null, primary key
+#  closed       :boolean          default(FALSE), not null
 #  closing_time :time
 #  day          :integer          not null
 #  open_24h     :boolean          default(FALSE), not null
@@ -32,6 +33,7 @@ class OpeningTime < ApplicationRecord
 
   validates :day, presence: true
   validates :day, uniqueness: { scope: :location_id }
+  validates :closed, inclusion: { in: [true, false] }
   validates :open_24h, inclusion: { in: [true, false] }
 
   scope :weekday, -> { where(day: WEEKDAY) }
@@ -44,12 +46,12 @@ class OpeningTime < ApplicationRecord
   def self.build_default
     records = []
 
-    WEEKDAY.each do
-      records << new(opening_time: "08:00", closing_time: "18:00")
+    WEEKDAY.each do |day|
+      records << new(day: day, opening_time: "08:00", closing_time: "18:00")
     end
 
-    WEEKEND.each do
-      records << new(opening_time: nil, closing_time: nil)
+    WEEKEND.each do |day|
+      records << new(day: day, closed: true)
     end
 
     records
