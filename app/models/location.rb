@@ -26,6 +26,8 @@ class Location < ApplicationRecord
   belongs_to :map
   has_many :opening_times, dependent: :destroy
 
+  accepts_nested_attributes_for :opening_times
+
   validates :address, presence: true
   validates :name, presence: true
 

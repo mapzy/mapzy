@@ -18,7 +18,7 @@ module Dashboard
       @location = @map.locations.build(location_params)
       authorize! :create, @location
 
-      if @location.save
+      if @location.save!
         redirect_to dashboard_map_path(@map)
         flash[:notice] = "Yippie! The location #{@location.name} has been successfully created."
       else
@@ -34,11 +34,12 @@ module Dashboard
     def edit
       @bounds = @map.bounds
       @location = @map.locations.find(params[:id])
+      @opening_times = @location.opening_times
       @address = @location.address
     end
 
     def update
-      if @location.update(location_params)
+      if @location.update!(location_params)
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
@@ -64,7 +65,8 @@ module Dashboard
     def location_params
       params.require(:location)
             .permit(:name, :description, :address, :latitude, :longitude,
-                    opening_times: %i[location_id day opening_time closing_time open_24h])
+                    opening_times_attributes: \
+                      %i[id location_id day opens_at closes_at closed open_24h])
     end
   end
 end
