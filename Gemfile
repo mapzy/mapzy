@@ -44,7 +44,7 @@ gem 'countries', '~> 3.1'
 gem 'geocoder', '~> 1.6'
 
 # Hotwired
-gem 'stimulus-rails', '~> 0.2'
+gem 'stimulus-rails', '~> 0.7'
 gem 'turbo-rails', '~> 0.5'
 
 group :development, :test do
