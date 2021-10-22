@@ -2,7 +2,9 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = [
-    "times",
+    "opensAt",
+    "closesAt",
+    "timesBlock",
     "closed",
     "closedBlock",
     "open24h",
@@ -32,21 +34,35 @@ export default class extends Controller {
 
   toggleClosed(e) {
     if (this.closedTarget.checked) {
-      this.timesTarget.classList.add("hidden")
+      this.timesBlockTarget.classList.add("hidden")
       this.open24hBlockTarget.classList.add("hidden")
+      this.clearTimes()
     } else {
-      this.timesTarget.classList.remove("hidden")
+      this.timesBlockTarget.classList.remove("hidden")
       this.open24hBlockTarget.classList.remove("hidden")
+      this.addDefaultTimes()
     }
   }
 
   toggleOpen24h(e) {
     if (this.open24hTarget.checked) {
-      this.timesTarget.classList.add("hidden")
+      this.timesBlockTarget.classList.add("hidden")
       this.closedBlockTarget.classList.add("hidden")
+      this.clearTimest()
     } else {
-      this.timesTarget.classList.remove("hidden")
+      this.timesBlockTarget.classList.remove("hidden")
       this.closedBlockTarget.classList.remove("hidden")
+      this.addDefaultTimes()
     }
+  }
+
+  clearTimes() {
+    this.opensAtTarget.value = ""
+    this.closesAtTarget.value = ""
+  }
+
+  addDefaultTimes() {
+    this.opensAtTarget.value = "08:00"
+    this.closesAtTarget.value = "18:00"
   }
 }
