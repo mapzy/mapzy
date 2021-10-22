@@ -22,8 +22,8 @@ module Dashboard
         redirect_to dashboard_map_path(@map)
         flash[:notice] = "Yippie! The location #{@location.name} has been successfully created."
       else
-        flash[:error] = @location.errors.full_messages
-        render action: :new, status: :unprocessable_entity
+        flash.now[:error] = @location.errors.full_messages
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -43,8 +43,8 @@ module Dashboard
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
-        flash[:error] = @location.errors.full_messages
-        render action: :edit, status: :unprocessable_entity
+        flash.now[:error] = @location.errors.full_messages
+        render :edit, status: :unprocessable_entity
       end
     end
 

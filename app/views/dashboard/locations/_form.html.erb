@@ -94,16 +94,16 @@
 
               <%= f.fields_for "opening_times_attributes[]", opening_time do |ot| %>
 
-                <div class="flex flex-row justify-between content-center">
+                <div class="flex flex-row justify-start content-center">
                   <%= ot.hidden_field :id %>
                   <%= ot.hidden_field :location_id %>
                   <%= ot.hidden_field :day %>
 
-                  <div class="py-1 my-1 w-1/5">
-                    <span class="uppercase tracking-wide text-gray-700 text-xs font-bold"><%= opening_time.day %></span>
+                  <div class="py-1 my-1 w-1/4">
+                    <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
                   </div>
 
-                  <div class="flex flex-row justify-center py-1 my-1">
+                  <div class="flex flex-row justify-center py-1 my-1 mx-2">
                     <%= ot.select :opens_at,
                         options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
                         { include_blank: true },
@@ -115,12 +115,12 @@
                         { class: "select--default" } %>
                   </div>
 
-                  <div class="py-1 my-1">
+                  <div class="py-1 my-1 mx-2">
                     <%= ot.check_box :closed, { checked: opening_time.closed }%>
                     <%= ot.label :closed, class: "checkbox-label--default" %>
                   </div>
 
-                  <div class="py-1 my-1">
+                  <div class="py-1 my-1 mx-2">
                     <%= ot.check_box :open_24h, { checked: opening_time.open_24h }%>
                     <%= ot.label :open_24h, class: "checkbox-label--default" %>
                   </div>
