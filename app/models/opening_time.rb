@@ -56,7 +56,7 @@ class OpeningTime < ApplicationRecord
     elsif open_24h
       "#{day.capitalize}: open 24h"
     elsif opens_at && closes_at
-      "#{day.capitalize}: #{opens_at.strftime("%H:%M")} — #{closes_at.strftime("%H:%M")}"
+      "#{day.capitalize}: #{opens_at.strftime('%H:%M')} — #{closes_at.strftime('%H:%M')}"
     end
   end
 
@@ -85,7 +85,7 @@ class OpeningTime < ApplicationRecord
   def self.time_options
     res = []
     hours = (0..23).map { |h| format("%02d", h) }
-    minutes = ["00", "30"]
+    minutes = %w[00 30]
 
     hours.each do |h|
       minutes.each do |min|

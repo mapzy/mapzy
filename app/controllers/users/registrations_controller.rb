@@ -22,7 +22,7 @@ module Users
 
     # Add extra account update params here
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email])
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[name email])
     end
 
     # Redirect after sign up

@@ -23,7 +23,7 @@ class DashboardController < ApplicationController
   end
 
   def trial_reminder_text
-    %Q(
+    %(
       Thanks for trying out Mapzy.
       Your trial ends on
       #{current_user.account.trial_end_date.strftime('%b %-d, %Y')}

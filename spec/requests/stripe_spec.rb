@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Stripe', type: :request do
+RSpec.describe "Stripe", type: :request do
   let(:account) { create(:account, stripe_customer_id: "abc1") }
   let(:user) { create(:user, account: account) }
 
@@ -19,7 +19,7 @@ RSpec.describe 'Stripe', type: :request do
       end
 
       it "sets account.status to 'canceled'" do
-        expect(Account.find(account.id).status).to eq('canceled')
+        expect(Account.find(account.id).status).to eq("canceled")
       end
     end
 

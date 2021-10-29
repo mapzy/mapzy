@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe EmailWorker, type: :worker do
   let(:account) { create(:account) }
@@ -16,13 +16,13 @@ RSpec.describe EmailWorker, type: :worker do
       end
     end
 
-    shared_examples "a correct address email" do |mail|
+    shared_examples "a correct address email" do |_mail|
       it "sends out email to correct address" do
         expect(@mail.to.first).to eq(user.email)
       end
     end
 
-    shared_examples "a correct subject email" do |mail, email_subject|
+    shared_examples "a correct subject email" do |_mail, email_subject|
       it "sends out email with correct subject" do
         expect(@mail.subject).to eq(email_subject)
       end

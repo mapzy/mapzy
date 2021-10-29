@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
@@ -18,16 +20,16 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Account, type: :model do
-  describe 'factory' do
-    it 'has a valid factory' do
+  describe "factory" do
+    it "has a valid factory" do
       expect(build(:account)).to be_valid
     end
   end
 
-  describe 'associations' do
+  describe "associations" do
     it { is_expected.to belong_to(:user) }
   end
 end

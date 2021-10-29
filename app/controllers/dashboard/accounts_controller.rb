@@ -38,7 +38,7 @@ module Dashboard
     def retrieve_stripe_customer
       Stripe::Customer.retrieve(
         id: current_user.account.stripe_customer_id,
-        expand: ['subscriptions']
+        expand: ["subscriptions"]
       )
     end
   end
