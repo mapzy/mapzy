@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_USER: root
-      DATABASE_PASSWORD: root
+      POSTGRES_HOST: postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      POSTGRES_PORT: 5432
       RAILS_ENV: test
       NODE_ENV: test
 
@@ -16,10 +18,7 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: root
-        ports:
-          - 5432:5432
+          POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
