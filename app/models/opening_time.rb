@@ -43,9 +43,9 @@ class OpeningTime < ApplicationRecord
   # Validates that the object can be rendered using the .to_s method
   #
   def validate_to_s
-    unless (opens_at.present? && closes_at.present?) || closed? || open_24h?
-      errors.add(:opening_time, "is not valid")
-    end
+    return if (opens_at.present? && closes_at.present?) || closed? || open_24h?
+
+    errors.add(:opening_time, "is not valid")
   end
 
   # Render the opening time

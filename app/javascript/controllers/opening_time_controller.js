@@ -37,6 +37,7 @@ export default class extends Controller {
       this.timesBlockTarget.classList.add("hidden")
       this.open24hBlockTarget.classList.add("hidden")
       this.clearTimes()
+      this.clearOpen24h()
     } else {
       this.timesBlockTarget.classList.remove("hidden")
       this.open24hBlockTarget.classList.remove("hidden")
@@ -48,7 +49,8 @@ export default class extends Controller {
     if (this.open24hTarget.checked) {
       this.timesBlockTarget.classList.add("hidden")
       this.closedBlockTarget.classList.add("hidden")
-      this.clearTimest()
+      this.clearTimes()
+      this.clearClosed()
     } else {
       this.timesBlockTarget.classList.remove("hidden")
       this.closedBlockTarget.classList.remove("hidden")
@@ -60,6 +62,15 @@ export default class extends Controller {
     this.opensAtTarget.value = ""
     this.closesAtTarget.value = ""
   }
+
+  clearOpen24h() {
+    this.open24hTarget.checked = false;
+  }
+
+  clearClosed() {
+    this.closedTarget.checked = false;
+  }
+
 
   addDefaultTimes() {
     this.opensAtTarget.value = "08:00"
