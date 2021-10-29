@@ -15,7 +15,7 @@ RSpec.describe "Locations", type: :request do
     end
 
     it "contains the correct turbo-frame" do
-      expect(response.body).to include('<turbo-frame id="location_view">')
+      expect(response.body).to include('<turbo-frame id="locations_show">')
     end
   end
 end

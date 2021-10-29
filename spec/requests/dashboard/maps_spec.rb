@@ -8,6 +8,7 @@ RSpec.describe "Maps", type: :request do
 
   before do
     sign_in user
+    create(:account, user: user)
   end
 
   describe "GET index" do
