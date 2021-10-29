@@ -9,7 +9,7 @@ jobs:
     env:
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
-      DATABASE_HOST: postgres
+      DATABASE_HOST: localhost
       RAILS_ENV: test
       NODE_ENV: test
 
