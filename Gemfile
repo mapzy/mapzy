@@ -80,6 +80,10 @@ group :development, :test do
 
   # Manage env variables with dotenv
   gem 'dotenv-rails'
+
+  # Security checks
+  gem 'bundler-audit', '~> 0.9', require: false
+  gem 'brakeman', '~> 5.1', require: false
 end
 
 group :development do
