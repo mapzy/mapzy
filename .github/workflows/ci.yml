@@ -28,34 +28,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Cache gems
-        uses: actions/cache@v1
-        with:
-          path: ./vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile.lock') }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v1
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
-
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0
+          ruby-version: 3.0.0
+          bundler-cache: true
 
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 14.17
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get -yqq install libpq-dev
-          gem install bundler
-          bundle install --path vendor/bundle --jobs 4 --retry 3
-          yarn install
+          node-version: '14'
+          cache: 'yarn'
+        run: yarn install
 
       - name: Setup test database
         run: |
