@@ -2,7 +2,7 @@ name: Specs
 
 on:
   push:
-    branches: [ $default-branch, config/add-ci ]
+    branches: [ $default-branch ]
   pull_request:
     branches: [ $default-branch ]
 
