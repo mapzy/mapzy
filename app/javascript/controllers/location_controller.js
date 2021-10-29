@@ -171,8 +171,6 @@ export default class extends Controller {
   validateAddress(e) {
     const valid = !!this.addressInput.value && !!this.latitudeTarget.value && !!this.longitudeTarget.value
 
-    console.log("this.addressErrorTarget", this.addressErrorTarget)
-
     if (!valid) {
       this.addressErrorTarget.textContent = "Please make sure that the address is valid"
       e.preventDefault();
