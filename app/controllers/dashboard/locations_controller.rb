@@ -5,20 +5,20 @@ module Dashboard
     skip_authorize_resource only: %i[new create]
 
     before_action :set_map
+    before_action :set_bounds, only: %i[new edit create update]
+    before_action :set_address, only: %i[new edit create update]
+    before_action :set_opening_times, only: %i[new edit create update]
 
     def new
       @location = @map.locations.new
-      @opening_times = @location.opening_times.build_default
       authorize! :new, @location
-
-      @bounds = @map.bounds
     end
 
     def create
       @location = @map.locations.build(location_params)
       authorize! :create, @location
 
-      if @location.save!
+      if @location.save
         redirect_to dashboard_map_path(@map)
         flash[:notice] = "Yippie! The location #{@location.name} has been successfully created."
       else
@@ -32,14 +32,11 @@ module Dashboard
     end
 
     def edit
-      @bounds = @map.bounds
       @location = @map.locations.find(params[:id])
-      @opening_times = @location.opening_times
-      @address = @location.address
     end
 
     def update
-      if @location.update!(location_params)
+      if @location.update(location_params)
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
@@ -60,6 +57,18 @@ module Dashboard
 
     def set_map
       @map = Map.find(params[:map_id])
+    end
+
+    def set_bounds
+      @bounds = @map.bounds
+    end
+
+    def set_address
+      @address = @location.address
+    end
+
+    def set_opening_times
+      @opening_times = @location.opening_times.presence || @location.opening_times.build_default
     end
 
     def location_params
