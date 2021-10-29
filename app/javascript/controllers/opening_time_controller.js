@@ -14,6 +14,10 @@ export default class extends Controller {
   initialize() {
     this.toggleClosed = this.toggleClosed.bind(this)
     this.toggleOpen24h = this.toggleOpen24h.bind(this)
+
+    // Call them once to update the view to the status quo
+    if (this.open24hTarget.checked) { this.toggleOpen24h() }
+    if (this.closedTarget.checked) { this.toggleClosed() }
   }
 
   connect() {
@@ -70,7 +74,6 @@ export default class extends Controller {
   clearClosed() {
     this.closedTarget.checked = false;
   }
-
 
   addDefaultTimes() {
     this.opensAtTarget.value = "08:00"

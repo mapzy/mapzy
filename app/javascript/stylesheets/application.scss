@@ -72,7 +72,7 @@ i {
 
 .select--default {
   box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
-  @apply block rounded leading-tight
+  @apply block rounded bg-white text-gray-700
 }
 
 .checkbox-label--default {
