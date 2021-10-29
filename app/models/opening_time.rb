@@ -52,11 +52,11 @@ class OpeningTime < ApplicationRecord
   #
   def to_s
     if closed
-      "Closed"
+      "#{day.capitalize}: closed"
     elsif open_24h
-      "Open 24h"
+      "#{day.capitalize}: open 24h"
     elsif opens_at && closes_at
-      "#{opens_at.strftime("%H:%M")} — #{closes_at.strftime("%H:%M")}"
+      "#{day.capitalize}: #{opens_at.strftime("%H:%M")} — #{closes_at.strftime("%H:%M")}"
     end
   end
 

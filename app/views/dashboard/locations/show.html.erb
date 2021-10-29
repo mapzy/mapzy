@@ -1,5 +1,5 @@
 <turbo-frame id="locations_show">
-  <div class="w-full h-full p-8 flex flex-col">
+  <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
     <div class="relative w-full">
       <div class="flex flex-row justify-between mb-8">
         <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id),
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <div class="relative w-full h-5/6">
+    <div class="relative w-full flex-grow">
       <%= render "shared/location" %>
     </div>
 

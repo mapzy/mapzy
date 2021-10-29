@@ -1,11 +1,16 @@
 <div>
-  <div class="text-lg text-center">
+  <h1 class="text-center text-xl pb-3">
     <%= @location.name %>
-  </div>
-  <div class="w-full text-left text-base mt-8">
-    <%= @location.description %>
-  </div>
-  <div class="w-full text-left text-base mt-8">
-    <%= @location.address %><br>
+  </h1>
+  <div class="flex flex-col justify-between">
+    <p class="text-base my-2"><%= @location.description %></p>
+    <p class="text-sm my-2">📍 <%=@location.address %></p>
+    <div class="text-sm my-2">
+      <% @location.opening_times.each do |ot| %>
+        🕛
+        <%= ot.to_s %>
+        <br />
+      <% end %>
+    </div>
   </div>
 </div>
