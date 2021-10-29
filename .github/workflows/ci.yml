@@ -7,10 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_HOST: localhost
-      DATABASE_USERNAME: root
+      DATABASE_USER: root
       DATABASE_PASSWORD: root
-      DATABASE_NAME: mapzy_test
       RAILS_ENV: test
       NODE_ENV: test
 
@@ -48,8 +46,8 @@ jobs:
 
       - name: Run security checks
         run: |
-          bin/bundler-audit --update
-          bin/brakeman -q -w2
+          bundle exec bundle-audit --update
+          bundle exec brakeman
 
       - name: Run linters
         run: |
