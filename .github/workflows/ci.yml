@@ -54,7 +54,7 @@ jobs:
 
       - name: Run linters
         run: |
-          bin/rubocop --parallel
+          bundle exec rubocop --parallel
 
       - name: Run specs
         run: |
