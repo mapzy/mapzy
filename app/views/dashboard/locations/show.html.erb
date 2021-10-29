@@ -1,11 +1,11 @@
-<turbo-frame id="location_view">
+<turbo-frame id="locations_show">
   <div class="w-full h-full p-8 flex flex-col">
     <div class="relative w-full">
       <div class="flex flex-row justify-between mb-8">
         <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id),
               target: '_top',
               class: "text-left pointer text-sm underline py-1" %>
-        <button class="text-right pointer text-sm underline" data-action="click->map#hideLocationView">Close</button>
+        <button class="text-right pointer text-sm underline" data-action="map#hideLocationView">Close</button>
       </div>
     </div>
 
