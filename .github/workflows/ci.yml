@@ -9,6 +9,8 @@ jobs:
     env:
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
       RAILS_ENV: test
       NODE_ENV: test
 
