@@ -7,12 +7,16 @@ default: &default
 
 development:
   <<: *default
-  url: <%= ENV['DATABASE_URL'].gsub('?', '_development?') %>
+  database: mapzy_development
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 test:
   <<: *default
-  url: <%= ENV['DATABASE_URL'].gsub('?', '_test?') %>
+  database: mapzy_test
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'].gsub('?', '_production?') %>
+  url: <%= ENV['DATABASE_URL'] %>

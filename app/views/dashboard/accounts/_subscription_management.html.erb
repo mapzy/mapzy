@@ -1,0 +1,18 @@
+<div class="flex flex-col w-full justify-center items-center my-">
+  <p>
+    <% case current_user.account.status
+       when 'active' %>
+      Your subscription is currently active and you are on the <%= @product.name %> plan.
+    <% when 'canceled' %>
+      You have canceled your subscription. Your account will stay active until the end of your billing cycle (<%= @cancel_at %>). You can restart your subscription by clicking on manage subscription below.
+    <% when 'inactive' %>
+      Your subscription is currently inactive. You can restart it by clicking on manage subscription below.
+    <% end %>
+  </p>
+  <div class="my-6 px-4">
+   <%= link_to "Manage subscription", stripe_customer_portal_path, class: 'button--main text-lg' %>
+  </div>
+  <div class="text-base mt-4">
+    Click manage subscription to change your tier, update your payment method, view your invoices, or cancel your subscription.
+  </div>
+</div>

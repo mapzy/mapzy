@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 2021_10_05_180409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "accounts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "stripe_customer_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "trial_end_date", default: -> { "(now() + 'P14D'::interval)" }, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -61,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_10_05_180409) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "locations", "maps"
   add_foreign_key "maps", "users"
   add_foreign_key "opening_times", "locations"
