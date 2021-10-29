@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      POSTGRES_HOST: postgres
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
+      POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       RAILS_ENV: test
       NODE_ENV: test

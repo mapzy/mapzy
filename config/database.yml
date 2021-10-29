@@ -10,12 +10,16 @@ development:
   database: mapzy_development
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
 
 test:
   <<: *default
   database: mapzy_test
   username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
 
 production:
   <<: *default
