@@ -10,14 +10,14 @@ development:
   database: mapzy_development
   username: <%= ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV.fetch("DATABASE_HOST") { localhost } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
 
 test:
   <<: *default
   database: mapzy_test
   username: <%= ENV["DATABASE_USER"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV.fetch("DATABASE_HOST") { localhost } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
 
 production:
   <<: *default
