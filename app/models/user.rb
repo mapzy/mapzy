@@ -31,7 +31,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :name, presence: true
 
   # Create a default map for the user
   # @return [Map]
