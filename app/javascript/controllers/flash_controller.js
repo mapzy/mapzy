@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["message"]
 
   connect() {
-    setTimeout(() => this.dismiss(), 15000);
+    setTimeout(() => this.dismiss(), 30000);
   }
 
   dismiss() {
