@@ -31,6 +31,8 @@ class Account < ApplicationRecord
   }
 
   def valid_state?
+    return true if trial?
+
     !trial? && stripe_customer_id.present?
   end
 end
