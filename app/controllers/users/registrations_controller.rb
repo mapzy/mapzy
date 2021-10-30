@@ -17,12 +17,13 @@ module Users
 
     # Add extra sign up params here
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+      devise_parameter_sanitizer.permit(:sign_up)
     end
 
     # Add extra account update params here
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: %i[name email])
+      devise_parameter_sanitizer.permit(:account_update, keys: \
+        %i[name email password password_confirmation])
     end
 
     # Redirect after sign up
@@ -34,6 +35,13 @@ module Users
     def after_update_path_for(_resource)
       flash[:notice] = "Your account was updated successfully."
       dashboard_account_settings_path
+    end
+
+    protected
+
+    # Allow account updates without current password
+    def update_resource(resource, params)
+      resource.update_without_password(params)
     end
 
     private
