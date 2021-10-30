@@ -6,15 +6,15 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag  'application',  media: 'all',  'data-turbolinks-track': 'reload'  %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag  "application",  media: "all",  "data-turbolinks-track": "reload"  %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
     <%= yield :head %>
   </head>
 
   <body>
     <!-- Flash messages -->
-    <%= render 'shared/flash_messages' %>
+    <%= render "shared/flash_messages" %>
 
     <%= yield %>
   </body>

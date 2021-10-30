@@ -7,6 +7,7 @@ RSpec.describe "Stripe", type: :request do
   let(:user) { create(:user, account: account) }
 
   before { StripeMock.start }
+
   after { StripeMock.stop }
 
   describe "POST webhooks" do

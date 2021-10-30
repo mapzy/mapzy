@@ -10,7 +10,7 @@ gem "rails", "~> 6.1.3", ">= 6.1.3.1"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
-gem 'puma', '~> 5.0', ">= 5.5.1"
+gem "puma", "~> 5.0", ">= 5.5.1"
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -79,11 +79,11 @@ group :development, :test do
   gem "rubocop-rspec"
 
   # Manage env variables with dotenv
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 
   # Security checks
-  gem 'bundler-audit', '~> 0.9', require: false
-  gem 'brakeman', '~> 5.1', require: false
+  gem "brakeman", "~> 5.1", require: false
+  gem "bundler-audit", "~> 0.9", require: false
 end
 
 group :development do

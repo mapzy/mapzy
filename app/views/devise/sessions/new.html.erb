@@ -1,23 +1,23 @@
-<%= render 'devise/shared/signup_login' do %>
+<%= render "devise/shared/signup_login" do %>
   <h2 class="text-xl md:text-2xl font-bold leading-tight mt-8">Log into your account</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field mt-4">
-      <%= f.label :email, class: 'block text-gray-700' %>
+      <%= f.label :email, class: "block text-gray-700" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email",
       required: true,
-        class: 'w-full px-4 py-3 rounded bg-gray-100 mt-2 border focus:border-mapzy-violet focus:bg-white focus:outline-none' %>
+        class: "w-full px-4 py-3 rounded bg-gray-100 mt-2 border focus:border-mapzy-violet focus:bg-white focus:outline-none" %>
     </div>
 
     <div class="field mt-4">
-      <%= f.label :password, class: 'block text-gray-700' %>
+      <%= f.label :password, class: "block text-gray-700" %>
       <%= f.password_field :password, autocomplete: "current-password",
         required: true,
-        class: 'w-full px-4 py-3 rounded bg-gray-100 mt-2 border focus:border-mapzy-violet focus:bg-white focus:outline-none' %>
+        class: "w-full px-4 py-3 rounded bg-gray-100 mt-2 border focus:border-mapzy-violet focus:bg-white focus:outline-none" %>
     </div>
 
     <div class="actions mt-8 mb-4">
-      <%= f.submit "Log in", class: 'w-full button--main' %>
+      <%= f.submit "Log in", class: "w-full button--main" %>
     </div>
   <% end %>
 
