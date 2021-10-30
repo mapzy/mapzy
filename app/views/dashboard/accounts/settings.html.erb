@@ -19,7 +19,7 @@
         <div>Email</div>
         <div class="font-medium mb-4"><%= current_user.email %></div>
     
-        <%= link_to "Change Name, Email or Password", edit_user_registration_path %> <br />
+        <%= link_to "Change Name, Email or Password", edit_user_registration_path %> <br>
         <%= link_to "Log out", destroy_user_session_path, method: :delete %>
       <% end %>
     </div>
