@@ -10,7 +10,6 @@ RSpec.describe "Registrations", type: :request do
       {
         user: {
           email: user.email,
-          name: user.name,
           password: user.password,
           password_confirmation: user.password
         }
@@ -25,7 +24,7 @@ RSpec.describe "Registrations", type: :request do
 
       it "creates the correct user" do
         post user_registration_path(params: user_params)
-        expect(User.where(email: user.email, name: user.name)).to exist
+        expect(User.where(email: user.email)).to exist
       end
 
       it "creates an account for the user" do
@@ -69,30 +68,12 @@ RSpec.describe "Registrations", type: :request do
       {
         user: {
           email: user.email,
-          name: user.name,
           current_password: user.password
         }
       }
     end
 
     before { sign_in user }
-
-    context "with valid form and new name" do
-      let(:new_name) { "New Name" }
-
-      before do
-        user_params[:user][:name] = new_name
-        patch user_registration_path(params: user_params)
-      end
-
-      it "responds with the correct redirect" do
-        expect(response).to redirect_to dashboard_account_settings_path
-      end
-
-      it "updated the data correctly" do
-        expect(User.find(user.id).name).to eq(new_name)
-      end
-    end
 
     context "with valid form and new email" do
       let(:new_email) { "ghost@mapzy.io" }
