@@ -54,6 +54,11 @@ i {
   hover:bg-mapzy-violet hover:text-gray-100 h-12 flex items-center justify-center
 }
 
+/* Links */
+a:hover {
+  @apply underline cursor-pointer
+}
+
 /* Forms */
 
 .label--default {
