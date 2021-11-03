@@ -146,6 +146,8 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     i18n_data (0.11.0)
+    importmap-rails (0.8.1)
+      rails (>= 6.0.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     launchy (2.5.0)
@@ -379,6 +381,7 @@ DEPENDENCIES
   foreman (~> 0.87.2)
   geocoder (~> 1.6)
   guard-rspec
+  importmap-rails
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.3)
