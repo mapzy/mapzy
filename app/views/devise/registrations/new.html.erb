@@ -2,7 +2,6 @@
   <h2 class="text-xl md:text-2xl font-bold leading-tight mt-8">Create your first store locator</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "max-w-sm" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
     <div class="field mt-4">
       <%= f.label :email, class: "block text-gray-700" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,
