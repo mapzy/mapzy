@@ -36,12 +36,12 @@ i {
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-mapzy-violet text-white font-medium shadow
-  h-12 flex items-center justify-center
+  h-12 flex items-center justify-center hover:no-underline
 }
 
 .button--secondary {
   @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
-   h-12 flex items-center justify-center
+   h-12 flex items-center justify-center hover:no-underline
 }
 
 .button--top-menu {
