@@ -1,7 +1,7 @@
 <%= render "devise/shared/signup_login" do %>
   <h2 class="text-xl md:text-2xl font-bold leading-tight mt-8">Log into your account</h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "max-w-sm" }) do |f| %>
     <div class="field mt-4">
       <%= f.label :email, class: "block text-gray-700" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email",
