@@ -20,26 +20,28 @@
 
       <div class="field mt-4">
         <%= f.label :new_password, class: "label--default" %>
-        <i>(leave blank if you don't want to change it)</i><br>
-        <%= f.password_field :password, autocomplete: "new-password",
-            class: "input--default" %>
+        <%= f.password_field :password,
+            autocomplete: "new-password",
+            class: "input--default",
+            placeholder: "(unchanged)" %>
         <% if @minimum_password_length %>
-          <br>
-          <i><%= @minimum_password_length %> characters minimum</i>
+          <p class="input-info"><%= @minimum_password_length %> characters minimum</p>
         <% end %>
       </div>
 
       <div class="field mt-4">
         <%= f.label :new_password_confirmation, class: "label--default" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password",
-            class: "input--default" %>
+        <%= f.password_field :password_confirmation,
+            autocomplete: "new-password",
+            class: "input--default",
+            placeholder: "(unchanged)" %>
       </div>
 
       <div class="field mt-4">
         <%= f.label :current_password, class: "label--default" %>
-        <i>(we need your current password to confirm your changes)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password", required: true,
             class: "input--default" %>
+        <p class="input-info">We need your current password to confirm your changes</p>
       </div>
 
 
