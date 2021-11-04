@@ -2,10 +2,8 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = [
-    "address",
-    "zipCode",
-    "city",
-    "country",
+    "addressWrapper",
+    "addressError",
     "latitude",
     "longitude",
     "adjustMarkerLink",
@@ -17,11 +15,7 @@ export default class extends Controller {
     "typingTimer": Number,
     "typingInterval": Number,
     "bounds": Array,
-  }
-
-  get fullAddress() {
-    const zipCodeCity = [this.zipCodeTarget.value, this.cityTarget.value].join(' ')
-    return [this.addressTarget.value, zipCodeCity, this.countryTarget.value].join(',');
+    "address": String,
   }
 
   get adjustMarkerBlockHidden() {
@@ -30,11 +24,10 @@ export default class extends Controller {
 
   initialize() {
     this.initMapbox();
-    this.initMapboxSdk();
     this.initMarker();
-    this.showAdjustMarkerLink();
-
-    this.typingIntervalValue = 1000;
+    this.initGeocoder();
+    this.prepareAddressInput();
+    this.handleAdjustMarkerLink();
   }
 
   initMapbox() {
@@ -44,11 +37,56 @@ export default class extends Controller {
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       bounds: this.boundsValue,
+      fitBoundsOptions: {
+        maxZoom: 12,
+      },
     });
   }
 
-  initMapboxSdk() {
-    this.mapboxClient = mapboxSdk({ accessToken: this.mapboxAccessTokenValue });
+  initGeocoder() {
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      types:'address',
+      placeholder: 'Start typing...'
+    });
+
+    geocoder.addTo(this.addressWrapperTarget);
+
+    // When geocoder result is selected by user
+    geocoder.on('result', (e) => {
+      this.addressErrorTarget.textContent = '';
+      this.moveMarker(e.result.center);
+      this.updateLngLat(e.result.center[0], e.result.center[1]);
+      this.handleAdjustMarkerLink();
+    });
+
+    // When geocoder is cleared
+    geocoder.on('clear', () => {
+      this.clearLngLat();
+      this.clearMarker();
+    });
+  }
+
+  prepareAddressInput() {
+    this.addressInput = this.addressWrapperTarget.firstChild.getElementsByTagName('input')[0];
+
+    // Add form attributes
+    this.addressInput.setAttribute("id", "location_address");
+    this.addressInput.setAttribute("name", "location[address]");
+
+    // Add value if exists
+    if (this.addressValue) {
+      this.addressInput.value = this.addressValue;
+    }
+
+    // Make it required
+    this.addressInput.required = true;
+
+    // Turn off autocomplete
+    this.addressInput.autocomplete = "off";
+
+    // Suit up bro
+    this.addressInput.classList.add('input--default')
   }
 
   initMarker() {
@@ -63,73 +101,36 @@ export default class extends Controller {
     }
   }
 
+  onDragEnd() {
+    const lngLat = this.marker.getLngLat();
+    this.updateLngLat(lngLat.lng, lngLat.lat);
+  }
+
+  updateLngLat(lng, lat) {
+    this.longitudeTarget.value = lng;
+    this.latitudeTarget.value = lat;
+  }
+
+  clearLngLat() {
+    this.longitudeTarget.value = "";
+    this.latitudeTarget.value = "";
+  }
+
   moveMarker(center) {
     this.marker.setLngLat(center);
     this.marker.addTo(this.map);
     this.moveMapTo(center);
   }
 
+  clearMarker() {
+    this.marker.remove();
+  }
+
   moveMapTo(center) {
     this.map.flyTo({
       center: center,
       zoom: 15,
-      bearing: 0,
-      essential: true
-    });
-  }
-
-  onDragEnd() {
-    const lngLat = this.marker.getLngLat(); 
-
-    this.latitudeTarget.value = lngLat.lat;
-    this.longitudeTarget.value = lngLat.lng;
-  }
-
-  isReadyToGeocode() {
-    return (
-      this.addressTarget.value &&
-      this.zipCodeTarget.value &&
-      this.cityTarget.value &&
-      this.countryTarget.value
-    )
-  }
-
-  // Wait until the user has (probably) finished typing the address fields
-  searchByAddress() {
-    clearTimeout(this.typingTimerValue);
-    if (this.isReadyToGeocode()) {
-      this.typingTimerValue = setTimeout(() => this.forwardGeocode(), this.typingIntervalValue);
-    }
-  }
-
-  forwardGeocode() {
-    const query = this.fullAddress;
-
-    this.mapboxClient.geocoding
-    .forwardGeocode({
-      query: query,
-      autocomplete: false,
-      limit: 1
-    })
-    .send()
-    .then((response) => {
-      if (
-        response &&
-        response.body &&
-        response.body.features &&
-        response.body.features.length
-      ) {
-        const feature = response.body.features[0];
-
-        this.moveMarker(feature.center);
-
-        this.longitudeTarget.value = feature.center[0];
-        this.latitudeTarget.value = feature.center[1];
-
-        if (this.adjustMarkerBlockHidden) {
-          this.showAdjustMarkerLink();
-        }
-      }
+      bearing: 5
     });
   }
 
@@ -144,14 +145,34 @@ export default class extends Controller {
     }
   }
 
-  showAdjustMarkerLink() {
-    if (this.latitudeTarget.value && this.longitudeTarget.value) {
-      this.adjustMarkerLinkTarget.classList.remove("hidden");
+  handleAdjustMarkerLink() {
+    if (this.latitudeTarget.value && this.longitudeTarget.value && this.adjustMarkerBlockHidden) {
+      this.showAdjustMarkerLink();
+    } else {
+      this.hideAdjustMarkerLink();
     }
   }
 
-  showAdjustMarkerBlock() {
+  hideAdjustMarkerLink() {
     this.adjustMarkerLinkTarget.classList.add("hidden");
+  }
+
+  showAdjustMarkerLink() {
+    this.adjustMarkerLinkTarget.classList.remove("hidden");
+  }
+
+  showAdjustMarkerBlock() {
     this.adjustMarkerBlockTarget.classList.remove("hidden");
+    this.handleAdjustMarkerLink();
+  }
+
+  validateAddress(e) {
+    const valid = !!this.addressInput.value && !!this.latitudeTarget.value && !!this.longitudeTarget.value
+
+    if (!valid) {
+      this.addressErrorTarget.textContent = "Please make sure that the address is valid"
+      e.preventDefault();
+      return false;
+    }
   }
 }

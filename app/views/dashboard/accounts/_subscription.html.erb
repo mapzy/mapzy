@@ -1,20 +1,20 @@
 <div class="flex flex-col w-full justify-center items-center my-6">
   <p>
     <% case current_user.account.status
-       when 'trial' %>
-      Your trial ends on <%= current_user.account.trial_end_date.strftime('%b %-d, %Y') %>
+       when "trial" %>
+      Your trial ends on <%= current_user.account.trial_end_date.strftime("%b %-d, %Y") %>
       and your map will be set to inactive. Make sure to subscribe to
       one of our plans before that.
-    <% when 'inactive' %>
+    <% when "inactive" %>
       Your subscription is currently inactive. You can restart it by choosing a plan below.
     <% end %>
   <p>
   <div class="flex flex-col md:flex-row justify-center items-center my-4 w-full">
-    <%= render 'pricing_detail', name: 'Mini', locations: '20', price: '9' %>
-    <%= render 'pricing_detail', name: 'Medium', locations: '100', price: '29' %>
-    <%= render 'pricing_detail', name: 'Maxi', locations: '1000', price: '49' %>
+    <%= render "pricing_detail", name: "Mini", locations: "20", price: "9" %>
+    <%= render "pricing_detail", name: "Medium", locations: "100", price: "29" %>
+    <%= render "pricing_detail", name: "Maxi", locations: "1000", price: "49" %>
   </div>
   <div class="text-base mt-4">
-    The fine print: Your subscription renews automatically until canceled. If you cancel your subscription, you can use your maps until the end of your billing period and after that we'll set them offline. You can read more in our <%= link_to "terms", 'https://mapzy.io/legal/terms' %>.
+    The fine print: Your subscription renews automatically until canceled. If you cancel your subscription, you can use your maps until the end of your billing period and after that we'll set them offline. You can read more in our <%= link_to "terms", "https://mapzy.io/legal/terms" %>.
   </div>
 </div>

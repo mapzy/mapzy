@@ -31,12 +31,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :name, presence: true
 
   # Create a default map for the user
   # @return [Map]
   def create_default_map
-    Map.create(user_id: id, name: 'Default')
+    Map.create(user_id: id, name: "Default")
   end
 
   # Find or create a default map for the user
@@ -54,9 +53,9 @@ class User < ApplicationRecord
   end
 
   def setup_email_workers
-    EmailWorker.perform_at(7.days.from_now, 'reminder_email1', id)
-    EmailWorker.perform_at(13.days.from_now, 'reminder_email2', id)
-    EmailWorker.perform_at(14.days.from_now, 'account_inactivated_email', id)
+    EmailWorker.perform_at(7.days.from_now, "reminder_email1", id)
+    EmailWorker.perform_at(13.days.from_now, "reminder_email2", id)
+    EmailWorker.perform_at(14.days.from_now, "account_inactivated_email", id)
     AccountWorker.perform_at(14.days.from_now, id)
   end
 

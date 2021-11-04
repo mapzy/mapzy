@@ -1,9 +1,10 @@
-<div class="absolute w-full md:w-96 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
+<div class="absolute w-full md:w-2/5 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
   <h1 class="text-xl pb-6 text-center"><%= title %></h1>
 
     <div data-controller="location"
          data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
-         data-location-bounds-value="<%= @bounds %>" >
+         data-location-bounds-value="<%= @bounds %>"
+         data-location-address-value="<%= @address %>">
 
       <%= form_with model: [:dashboard, @map, @location], local: true do |f| %>
 
@@ -11,14 +12,14 @@
       <div class="-mx-3 mb-6">
         <div class="w-full px-3">
           <%= f.label :name,
-                class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                class: "label--default" %>
 
           <%= f.text_field :name,
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                class: "input--default",
                 placeholder: "Yeti Store",
                 required: true %>
 
-          <p class="text-gray-600 text-xs italic">Keep it short & crispy</p>
+          <p class="input-info">Keep it short & crispy</p>
         </div>
       </div>
 
@@ -26,119 +27,126 @@
       <div class="-mx-3 mb-6">
         <div class="w-full px-3">
           <%= f.label :description,
-                class:"block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                class:"label--default" %>
 
           <%= f.text_area :description,
                 size: "70x3",
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                class: "input--default",
                 placeholder: "(Optional)" %>
 
-          <p class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+          <p class="input-info">Make it as long and as crazy as you'd like</p>
         </div>
       </div>
 
-      <!-- Address -->
-      <div class="-mx-3 mb-6">
+      <!-- Geocoded Address -->
+      <div class="-mx-3 mb-3">
         <div class="w-full px-3 mb-6 md:mb-0">
           <%= f.label :address,
                 class:"block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-
-          <%= f.text_field :address,
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                autocomplete: "street-address",
-                required: true,
-                "data-location-target": "address",
-                "data-action": "keyup->location#searchByAddress" %>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <!-- Zip code  -->
-        <div class="w-full md:w-1/2 px-3">
-
-          <%= f.label :zip_code,
-                class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-
-          <%= f.text_field :zip_code,
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                required: true,
-                autocomplete: "postal-code",
-                "data-location-target": "zipCode",
-                "data-action": "keyup->location#searchByAddress" %>
-        </div>
-
-        <!-- City -->
-        <div class="w-full md:w-1/2 px-3">
-          <%= f.label :city,
-                class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-
-          <%= f.text_field :city,
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                required: true,
-                autocomplete: "address-level2",
-                "data-location-target": "city",
-                "data-action": "keyup->location#searchByAddress" %>
-        </div>
-      </div>
-
-      <!-- Country -->
-      <div class="-mx-3">
-        <div class="w-full px-3 mb-6">
-          <%= f.label :country,
-                class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
-
-          <%= f.text_field :country,
-                class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-                required: true,
-                autocomplete: "country",
-                "data-location-target": "country",
-                "data-action": "keyup->location#searchByAddress" %>
+          <div data-location-target="addressWrapper"></div>
+          <p class="text-red-500 mt-1 text-xs italic" data-location-target="addressError"></p>
         </div>
       </div>
 
       <!-- Toggle lat / long -->
-      <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerLink">
+      <div class="-mx-3 hidden" data-location-target="adjustMarkerLink">
         <div class="w-full px-3">
           <a class="cursor-pointer underline" data-action="location#zoomOnMarker location#showAdjustMarkerBlock">Need to adjust the marker?</a>
         </div>
       </div>
 
       <!-- Lat / Long  -->
-      <div class="-mx-3 mb-6 hidden" data-location-target="adjustMarkerBlock">
-        <div class="w-full px-3 mb-3">
-          <p class="text-gray-700 text-sm mb-2">
-            Drag the marker on the map to adjust its position
+      <div class="-mx-3 mt-3 hidden" data-location-target="adjustMarkerBlock">
+        <div class="w-full px-3">
+          <p class="text-gray-700 text-sm font-bold text-mapzy-violet mb-2">
+            Drag the marker directly on the map to its exact position 👉
           </p>
         </div>
         <div class="flex flex-wrap w-full mb-3">
           <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <%= f.label :latitude,
-                  class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                  class: "label--default" %>
 
             <%= f.text_field :latitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                  class: "input--default cursor-not-allowed",
+                  readonly: true,
                   "data-location-target": "latitude" %>
           </div>
-          <div class="w-full md:w-1/2 px-3 mb-6">
+          <div class="w-full md:w-1/2 px-3">
             <%= f.label :longitude,
-                  class: "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
+                  class: "label--default" %>
 
             <%= f.text_field :longitude,
-                  class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                  class: "input--default cursor-not-allowed",
+                  readonly: true,
                   "data-location-target": "longitude" %>
           </div>
         </div>
       </div>
 
       <!-- Opening Times -->
-      <!-- TODO -->
+      <div class="-mx-3 mt-6 mb-6">
+        <div class="w-full px-3">
+          <%= f.label :opening_times,
+                class: "label--default" %>
+
+            <% @opening_times.each do |opening_time| %>
+                <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
+
+                  <div data-controller="opening-time">
+                    <div class="flex flex-row justify-start content-center">
+                      <%= fot.hidden_field :id %>
+                      <%= fot.hidden_field :location_id %>
+                      <%= fot.hidden_field :day %>
+
+                      <div class="py-1 my-1 w-1/4">
+                        <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
+                      </div>
+
+                      <div class="flex flex-row justify-center py-1 my-1 mx-2"
+                           data-opening-time-target="timesBlock" >
+                        <%= fot.select :opens_at,
+                            options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
+                            { include_blank: true },
+                            { class: "select--default", "data-opening-time-target": "opensAt" } %>
+                        <p> &nbsp; &mdash; &nbsp; </p>
+                        <%= fot.select :closes_at,
+                            options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
+                            { include_blank: true },
+                            { class: "select--default", "data-opening-time-target": "closesAt" } %>
+                      </div>
+
+                      <div class="py-1 my-1 mx-2" data-opening-time-target="closedBlock" >
+                        <%= fot.check_box :closed,
+                            { checked: opening_time.closed,
+                              include_hidden: false,
+                              "data-opening-time-target": "closed" } %>
+                        <%= fot.label "Closed", class: "checkbox-label--default" %>
+                      </div>
+
+                      <div class="py-1 my-1 mx-2" data-opening-time-target="open24hBlock" >
+                        <%= fot.check_box :open_24h,
+                            { checked: opening_time.open_24h,
+                              include_hidden: false,
+                              "data-opening-time-target": "open24h" } %>
+                        <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                      </div>
+                  </div>
+                </div>
+
+              <% end %>
+          <% end %>
+        </div>
+      </div>
 
       <!-- Submit -->
-      <div class="flex-auto flex space-x-6 mt-6">
+      <div class="flex-auto flex space-x-6 mt-8">
         <%= link_to "Cancel", dashboard_map_path(@map),
               class: "w-1/2 button--secondary" %>
 
-        <%= f.submit "Save", class: 'w-1/2 button--main' %>
+        <%= f.submit "Save",
+              class: "w-1/2 button--main",
+              "data-action": "location#validateAddress" %>
       </div>
 
       <% end %> <!-- Form end -->
