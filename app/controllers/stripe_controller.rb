@@ -39,18 +39,15 @@ class StripeController < ApplicationController
   end
 
   def webhooks
-    # Cases:
-    # - customer cancels subscription for the end of the billing cycle
-    #   (customer.subscription.updated)
-    # - subscription is canceled at the end of billing cycle
-    #   (customer.subscription.deleted)
-    # - customer re-activates canceled account before end of billing cycle
-    #   (customer.subscription.updated)
-
     case params[:type]
     when "customer.subscription.updated"
+      # Cases:
+      # - customer cancels subscription for the end of the billing cycle
+      # - customer re-activates canceled account before end of billing cycle
       handle_subscription_updated
+
     when "customer.subscription.deleted"
+      # Case: subscription is canceled at the end of billing cycle
       handle_subscription_deleted
     else
       head :ok
@@ -68,24 +65,19 @@ class StripeController < ApplicationController
   private
 
   def handle_subscription_updated
-    set_account
-    if sub_cancel_at_period_end && !@account.canceled?
-      @account.update(status: "canceled")
-    elsif !sub_cancel_at_period_end
-      @account.update(status: "active")
+    if sub_cancel_at_period_end.present?
+      account.update(status: "canceled")
+    else
+      account.update(status: "active")
     end
 
     head :ok
-  rescue StandardError
-    head :internal_server_error
   end
 
   def handle_subscription_deleted
-    set_account
-    @account.update(status: "inactive") unless @account.inactive?
+    account.update(status: "inactive")
+
     head :ok
-  rescue StandardError
-    head :internal_server_error
   end
 
   def sub_cancel_at_period_end
@@ -96,8 +88,8 @@ class StripeController < ApplicationController
     params[:data][:object][:customer]
   end
 
-  def set_account
-    @account = Account.find_by(stripe_customer_id: sub_customer_id)
+  def account
+    @account ||= Account.find_by(stripe_customer_id: sub_customer_id)
   end
 
   def update_user_account

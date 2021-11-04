@@ -6,7 +6,10 @@ RSpec.describe "Stripe", type: :request do
   let(:account) { create(:account, stripe_customer_id: "abc1") }
   let(:user) { create(:user, account: account) }
 
-  before { StripeMock.start }
+  before do
+    StripeMock.start
+    stub_const("ENV", ENV.to_hash.merge("STRIPE_ENDPOINT_SECRET" => "fake_secret"))
+  end
 
   after { StripeMock.stop }
 
@@ -41,7 +44,7 @@ RSpec.describe "Stripe", type: :request do
         post stripe_webhooks_path, params: event, headers: stripe_headers(event), as: :json
       end
 
-      it "sets account.status to 'active' when account.status == canceled" do
+      it "sets account.status back to 'active'" do
         expect(Account.find(account.id).status).to eq("active")
       end
     end
