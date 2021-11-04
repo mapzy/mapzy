@@ -9,7 +9,8 @@ AllCops:
     - 'script/**/*'
     - 'bin/**/*'
     - 'node_modules/**/*'
-    - config/**/*
+    - 'config/**/*'
+    - 'vendor/**/*'
   NewCops: disable
 
 Metrics/AbcSize:
