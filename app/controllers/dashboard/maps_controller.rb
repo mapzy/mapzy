@@ -2,6 +2,8 @@
 
 module Dashboard
   class MapsController < DashboardController
+    before_action :show_trial_reminder, only: [:show]
+
     def show
       @map = Map.find(params[:id])
       @location_base_url = dashboard_map_locations_path(@map)

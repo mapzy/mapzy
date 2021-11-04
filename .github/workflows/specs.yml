@@ -52,4 +52,4 @@ jobs:
 
       - name: Run specs
         run: |
-          bundle exec rspec spec --color --format progress
+          bundle exec rspec spec --exclude-pattern "**/features/*_spec.rb" --color --format progress

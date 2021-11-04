@@ -8,16 +8,16 @@ module LocationServices
 
     def convert_to_geo_json_hash
       feature_collection = {
-        type: 'FeatureCollection',
+        type: "FeatureCollection",
         features: []
       }
 
       @locations.find_each do |location|
         feature_collection[:features].push(
           {
-            type: 'Feature',
+            type: "Feature",
             geometry: {
-              type: 'Point',
+              type: "Point",
               coordinates: [location.longitude.to_f, location.latitude.to_f]
             },
             properties: {

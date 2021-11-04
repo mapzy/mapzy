@@ -1,179 +1,35 @@
-# frozen_string_literal: true
+# Map 1: Global
 
-users = User.create!([
-  {name: "Jon Snow", email: "aegon@mapzy.io", password: "iloveghost12",  password_confirmation: "iloveghost12"},
-  {name: "Daenerys Targaryen", email: "danny@mapzy.io", password: "breakerofchains10", password_confirmation: "breakerofchains10"}
-])
+user = User.create!(name: "Jon Snow", email: "aegon@mapzy.io", password: "iloveghost12",  password_confirmation: "iloveghost12")
+user.create_account
 
-users.first.create_account
-users.second.create_account
+map = user.maps.create!(name: "Global")
 
-maps = Map.create!([
-  {name: "Global", user: users.first},
-  {name: "Berlin", user: users.second}
-])
+addresses = ["87313 Pfeffer Roads, Apt. 963, 69658, North Ernestina, Georgia, United States","3871 Shaina Villages, Suite 487, 00911, Luisastad, Vermont, United States","11654 Harvey Mountain, Apt. 244, 04147, Schambergerville, Minnesota, United States","5683 DuBuque Shoal, Suite 674, 05722, Schultzstad, Wyoming, United States","84028 Braeden Way, Suite 724, 97418-4209, East Derick, Virginia, United States","Volhardstr. 43, 9 OG, 12114, Neu Jarischeid, Nordrhein-Westfalen, Germany","Ludwig-Knorr-Str. 92b, Zimmer 584, 52811, Inesland, Sachsen-Anhalt, Germany","Juliesgate 17, Leil. 049, 9788, Vestø,  Norway","Østre Bekketjernet 57, Leil. 641, 0468, Sandstrand,  Norway","Namık Kemal Caddesi 2, Suite 078, 80922, Bingöl, Kütahya, Turkey","Gül Sokak 05, Suite 710, 39788, Çanakkale, Adiyaman, Turkey"]
+addresses.each_with_index do |addr, i|
+  map.locations.create!(name: "Global Store #{i}", description: "This is a fun lil store!", address: addr)
+end
 
-Location.create!([
-  {
-    map: maps.first,
-    name: "Location 1",
-    address: "7018 Pilgrim Lane",
-    city: "Hesperia",
-    zip_code: "92345",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 2",
-    address: "7213 W. Swanson Ave.",
-    city: "Lynwood",
-    zip_code: "90262",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 3",
-    address: "615 S. Carriage St.",
-    city: "Corona",
-    zip_code: "92882",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 4",
-    address: "21 Thatcher Lane",
-    city: "El Cajon",
-    zip_code: "92020",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 5",
-    address: "7316 Marshall Court",
-    city: "New York",
-    zip_code: "10002",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 6",
-    address: "7316 Marshall Court",
-    city: "New York",
-    zip_code: "10002",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 7",
-    address: "42 West Lane",
-    city: "Buffalo",
-    zip_code: "14215",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 8",
-    address: "7216 Cottage Street",
-    city: "Brooklyn",
-    zip_code: "11208",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 9",
-    address: "30 Atlantic Road",
-    city: "Brooklyn",
-    zip_code: "11211",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 10",
-    address: "49 Gartner Street",
-    city: "Bronx",
-    zip_code: "10457",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 11",
-    address: "163 Sage Ave.",
-    city: "Bay Shore",
-    zip_code: "11706",
-    country_code: "US",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 12",
-    address: "9520 The Avenue",
-    city: "Harrow",
-    zip_code: "HA65 4AJ",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 13",
-    address: "76 Church Road",
-    city: "Canterbury",
-    zip_code: "CT8 7CI",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 14",
-    address: "452 Mill Lane",
-    city: "Bath",
-    zip_code: "BA16 5TJ",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 15",
-    address: "82 High Street",
-    city: "Edinburgh",
-    zip_code: "EH95 0CH",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 16",
-    address: "444 Grange Road",
-    city: "Shrewsbury",
-    zip_code: "SY47 8MF",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 17",
-    address: "73 Main Street",
-    city: "St Albans",
-    zip_code: "AL30 2UK",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-  {
-    map: maps.first,
-    name: "Location 18",
-    address: "426 North Road",
-    city: "London",
-    zip_code: "W93 6KU",
-    country_code: "GB",
-    description: "This is a fun little store!"
-  },
-])
+# Map 2: US
+
+user = User.create!(name: "Daenerys Targaryen", email: "danny@mapzy.io", password: "breakerofchains10", password_confirmation: "breakerofchains10")
+user.create_account
+
+map = user.maps.create!(name: "US")
+
+addresses = ["56063 Zulauf Overpass, Suite 063, 18756-8365, Collinschester, New Hampshire, United States","26252 Jalen Causeway, Suite 011, 37395, Lake Cedrick, South Dakota, United States","48249 Bruen Court, Apt. 655, 98256, Marquesberg, Connecticut, United States","009 Thompson Flats, Suite 690, 48086, North Nealberg, South Dakota, United States","2700 O'Kon Rest, Suite 060, 29178, Denesikfort, Rhode Island, United States","4380 Abbott Ways, Suite 274, 24980, South Cruztown, Minnesota, United States","676 Felicia Trail, Suite 904, 05615-0144, Janview, Kansas, United States","2565 Jany Parks, Apt. 413, 17319, Lake Katelinmouth, North Carolina, United States","5993 Torphy Extensions, Apt. 044, 11392-6466, Lake Felicity, Minnesota, United States","8585 Baby Burg, Suite 375, 04128, Raulton, New Hampshire, United States"]
+addresses.each_with_index do |addr, i|
+  map.locations.create!(name: "US Store #{i}", description: "This is a fun lil store!", address: addr)
+end
+
+# Map 3: Zürich
+
+user = User.create!(name: "Tyrion Lannister", email: "tyrion@mapzy.io", password: "smartass007", password_confirmation: "smartass007")
+user.create_account
+
+map = user.maps.create!(name: "Zürich")
+
+addresses = ["Hohlstrasse 117, 8004, Zürich, Switzerland, ","Langstrasse 102, 8004, Zürich, Switzerland", "Stüssihofstatt 14, 8001 Zürich, Switzerland"]
+addresses.each_with_index do |addr, i|
+  map.locations.create!(name: "Zürich Store #{i}", description: "This is a fun lil store!", address: addr)
+end

@@ -8,7 +8,7 @@ class StripeController < ApplicationController
     session = Stripe::Checkout::Session.create(checkout_session_args)
     redirect_to session.url
   rescue StandardError
-    flash[:alert] = 'Something went wrong. Please try again or contact us at bonjour@mapzy.io'
+    flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
 
@@ -18,10 +18,10 @@ class StripeController < ApplicationController
 
     update_user_account
 
-    flash[:notice] = 'Subscription successful! Enjoy Mapzy!'
+    flash[:notice] = "Subscription successful! Enjoy Mapzy!"
     redirect_to dashboard_account_settings_url
   rescue StandardError
-    flash[:alert] = 'Something went wrong. Please try again or contact us at bonjour@mapzy.io'
+    flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
 
@@ -34,20 +34,20 @@ class StripeController < ApplicationController
     )
     redirect_to customer_portal_session.url
   rescue StandardError
-    flash[:alert] = 'Something went wrong. Please try again or contact us at bonjour@mapzy.io'
+    flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
 
   def webhooks
-    # cases:
-    # - customer cancels subscription for the end of the billing cycle (customer.subscription.updated)
-    # - subscription is canceled at the end of billing cycle (customer.subscription.deleted)
-    # - customer re-activates canceled account before end of billing cycle (customer.subscription.updated)
-
     case params[:type]
-    when 'customer.subscription.updated'
+    when "customer.subscription.updated"
+      # Cases:
+      # - customer cancels subscription for the end of the billing cycle
+      # - customer re-activates canceled account before end of billing cycle
       handle_subscription_updated
-    when 'customer.subscription.deleted'
+
+    when "customer.subscription.deleted"
+      # Case: subscription is canceled at the end of billing cycle
       handle_subscription_deleted
     else
       head :ok
@@ -56,7 +56,7 @@ class StripeController < ApplicationController
 
   def verify_webhook
     Stripe::Webhook.construct_event(
-      request.raw_post, request.env['HTTP_STRIPE_SIGNATURE'], ENV['STRIPE_ENDPOINT_SECRET']
+      request.raw_post, request.env["HTTP_STRIPE_SIGNATURE"], ENV["STRIPE_ENDPOINT_SECRET"]
     )
   rescue StandardError
     head :not_found
@@ -65,24 +65,19 @@ class StripeController < ApplicationController
   private
 
   def handle_subscription_updated
-    set_account
-    if sub_cancel_at_period_end && !@account.canceled?
-      @account.update(status: 'canceled')
-    elsif !sub_cancel_at_period_end
-      @account.update(status: 'active')
+    if sub_cancel_at_period_end.present?
+      account.update(status: "canceled")
+    else
+      account.update(status: "active")
     end
 
     head :ok
-  rescue StandardError
-    head :internal_server_error
   end
 
   def handle_subscription_deleted
-    set_account
-    @account.update(status: 'inactive') unless @account.inactive?
+    account.update(status: "inactive")
+
     head :ok
-  rescue StandardError
-    head :internal_server_error
   end
 
   def sub_cancel_at_period_end
@@ -93,25 +88,25 @@ class StripeController < ApplicationController
     params[:data][:object][:customer]
   end
 
-  def set_account
-    @account = Account.find_by(stripe_customer_id: sub_customer_id)
+  def account
+    @account ||= Account.find_by(stripe_customer_id: sub_customer_id)
   end
 
   def update_user_account
     Account.find_by(user: current_user)
-           .update!(stripe_customer_id: @customer.id, status: 'active')
+           .update!(stripe_customer_id: @customer.id, status: "active")
   end
 
   def checkout_session_args
     {
-      payment_method_types: ['card'],
+      payment_method_types: ["card"],
       customer_email: current_user.account.stripe_customer_id ? nil : current_user.email,
       customer: current_user.account.stripe_customer_id,
       line_items: [{
         price: price_id,
         quantity: 1
       }],
-      mode: 'subscription',
+      mode: "subscription",
       success_url: "#{stripe_success_callback_url}?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: dashboard_account_settings_url
     }
@@ -119,12 +114,12 @@ class StripeController < ApplicationController
 
   def price_id
     case params[:sub]
-    when 'mini'
-      ENV['STRIPE_MINI_PRICE_ID']
-    when 'medium'
-      ENV['STRIPE_MEDIUM_PRICE_ID']
-    when 'maxi'
-      ENV['STRIPE_MAXI_PRICE_ID']
+    when "mini"
+      ENV["STRIPE_MINI_PRICE_ID"]
+    when "medium"
+      ENV["STRIPE_MEDIUM_PRICE_ID"]
+    when "maxi"
+      ENV["STRIPE_MAXI_PRICE_ID"]
     end
   end
 end

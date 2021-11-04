@@ -3,25 +3,21 @@
 module Dashboard
   class AccountsController < DashboardController
     def settings
-      unless current_user.account.valid_state?
-        flash[:alert] = flash_alert_text
+      unless account.valid_state?
+        flash[:alert] = problem_with_account
         return
       end
 
       return if current_user.account.trial? || current_user.account.inactive?
+      return if stripe_customer.blank? || stripe_subscription.blank?
 
-      customer = retrieve_stripe_customer
-
-      return unless customer.subscriptions.data.first
-
-      product_id = price_id(customer)
-      @product = Stripe::Product.retrieve(product_id)
-      @cancel_at = format_cancel_time(customer.subscriptions.data.first.cancel_at)
+      @product = Stripe::Product.retrieve(stripe_product)
+      @cancel_at = format_cancel_time(stripe_subscription.cancel_at)
     end
 
     private
 
-    def flash_alert_text
+    def problem_with_account
       "There is something wrong with your account. Please contact us at bonjour@mapzy.io"
     end
 
@@ -31,14 +27,22 @@ module Dashboard
       Time.at(unix_time).utc.to_datetime.strftime("%b %-d, %Y")
     end
 
-    def price_id(stripe_customer)
-      stripe_customer.subscriptions&.data&.first&.items&.data&.first&.price&.product
+    def account
+      @account ||= current_user.account
     end
 
-    def retrieve_stripe_customer
-      Stripe::Customer.retrieve(
+    def stripe_product
+      @stripe_product ||= stripe_subscription.items&.data&.first&.price&.product
+    end
+
+    def stripe_subscription
+      @stripe_subscription ||= stripe_customer.subscriptions&.data&.first
+    end
+
+    def stripe_customer
+      @stripe_customer ||= Stripe::Customer.retrieve(
         id: current_user.account.stripe_customer_id,
-        expand: ['subscriptions']
+        expand: ["subscriptions"]
       )
     end
   end

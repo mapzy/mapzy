@@ -1,11 +1,3 @@
-// Visit The Stimulus Handbook for more details 
-// https://stimulusjs.org/handbook/introduction
-// 
-// This example controller works with specially annotated HTML like:
-//
-// <div data-controller="hello">
-//   <h1 data-target="hello.output"></h1>
-// </div>
 
 import { Controller } from "stimulus"
 
@@ -75,8 +67,8 @@ export default class extends Controller {
       let anchor = document.createElement('a');
 
       anchor.href = `${this.locationBaseUrlValue}/${feature.properties.id}`;
-      anchor.setAttribute("data-turbo-frame", "location_view");
-      anchor.setAttribute("data-action", "click->map#showLocationView");
+      anchor.setAttribute("data-turbo-frame", "locations_show");
+      anchor.setAttribute("data-action", "map#showLocationView");
 
       anchor.appendChild(this.defaultMapboxMarker())
 
@@ -93,7 +85,7 @@ export default class extends Controller {
       },
       trackUserLocation: false,
       fitBoundsOptions: {
-        maxZoom: 13,
+        maxZoom: 12,
       },
     });
 
@@ -113,9 +105,8 @@ export default class extends Controller {
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         collapsed: false,
-        types: 'region,district,place,locality,neighborhood',
         marker: false,
-        zoom: 13,
+        zoom: 15,
       })
      );
   }
