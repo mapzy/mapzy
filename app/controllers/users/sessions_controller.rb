@@ -6,7 +6,10 @@ module Users
 
     def create
       super do |resource|
-        flash.now[:alert] = resource.errors.full_messages.join.(", ") if resource.errors.present?
+        if resource.errors.present?
+          flash.now[:alert] =
+            resource.errors.full_messages.join.call(", ")
+        end
       end
     end
 

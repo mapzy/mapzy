@@ -7,7 +7,7 @@ RSpec.describe EmailWorker, type: :worker do
   let(:user) { create(:user, account: account) }
 
   describe "perform" do
-    shared_context "successful email" do |email_name|
+    shared_context "with successful email" do |email_name|
       before do
         ActionMailer::Base.deliveries = []
         account.update(status: "trial")
@@ -29,19 +29,19 @@ RSpec.describe EmailWorker, type: :worker do
     end
 
     context "with reminder_email1" do
-      include_context "successful email", "reminder_email1"
+      include_context "with successful email", "reminder_email1"
       it_behaves_like "a correct address email", @mail
       it_behaves_like "a correct subject email", @mail, "Your Mapzy trial ends in 7 days"
     end
 
     context "with reminder_email2" do
-      include_context "successful email", "reminder_email2"
+      include_context "with successful email", "reminder_email2"
       it_behaves_like "a correct address email", @mail
       it_behaves_like "a correct subject email", @mail, "Your Mapzy trial ends tomorrow"
     end
 
     context "with account_inactivated_email" do
-      include_context "successful email", "account_inactivated_email"
+      include_context "with successful email", "account_inactivated_email"
       it_behaves_like "a correct address email", @mail
       it_behaves_like "a correct subject email", @mail, "Your Mapzy trial is over"
     end

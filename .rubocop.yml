@@ -22,9 +22,14 @@ Metrics/MethodLength:
   Max: 15
 
 Metrics/BlockLength:
+  Max: 50
   Exclude:
     - config/**/*
     - spec/**/*
+    - lib/tasks/**/*
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
@@ -41,6 +46,12 @@ RSpec/MessageSpies:
 
 RSpec/ImplicitSubject:
   EnforcedStyle: single_statement_only
+
+RSpec/NestedGroups:
+  Max: 10
+
+RSpec/NamedSubject:
+  Enabled: false
 
 Rails/LexicallyScopedActionFilter:
   Exclude:

@@ -28,8 +28,9 @@ require "rails_helper"
 RSpec.describe OpeningTime, type: :model do
   describe "attributes" do
     it do
-      is_expected.to define_enum_for(:day)
-        .with_values(monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 7)
+      is_expected.to define_enum_for(:day).with_values(
+        monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 7
+      )
     end
   end
 
@@ -75,7 +76,7 @@ RSpec.describe OpeningTime, type: :model do
         end
       end
 
-      context "else" do
+      context "when else" do
         let(:opening_time) { build(:opening_time, opens_at: "08:00", closes_at: nil) }
 
         it "is not valid" do
