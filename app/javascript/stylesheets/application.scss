@@ -3,12 +3,17 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/screens";
 
+/* Flash messages */
+.flash {
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-indigo-50 rounded
+}
+
 /* Headings */
 h1 {
 	@apply text-4xl leading-7 font-bold
 }
 
-h1--indigo {
+.h1--indigo {
 	@apply text-4xl leading-7 font-bold text-indigo-700
 }
 
@@ -16,7 +21,7 @@ h2 {
 	@apply text-2xl leading-7 font-bold
 }
 
-h2--indigo {
+.h2--indigo {
 	@apply text-2xl leading-7 font-bold text-indigo-700
 }
 
@@ -30,22 +35,72 @@ i {
 
 /* Buttons */
 .button--main {
-  @apply cursor-pointer rounded-full bg-indigo-700 text-white font-medium shadow
-  py-4 px-4 flex items-center justify-center
+  @apply cursor-pointer rounded-full bg-mapzy-violet text-white font-medium shadow
+  h-12 flex items-center justify-center hover:no-underline
 }
 
 .button--secondary {
-	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
-	 py-4 px-4 flex items-center justify-center
+  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
+   h-12 flex items-center justify-center hover:no-underline
 }
 
-
 .button--top-menu {
-	@apply cursor-pointer rounded-full text-gray-800 hover:bg-indigo-700 hover:text-gray-100
-	py-2 px-2 md:mx-2
+  @apply cursor-pointer rounded-full text-gray-800 hover:bg-mapzy-violet hover:text-gray-100
+  py-2 px-2 md:mx-2
 }
 
 .button--bottom-menu {
-	@apply cursor-pointer rounded-full bg-indigo-50 text-indigo-700
-	hover:bg-indigo-700 hover:text-gray-100 h-12 flex items-center justify-center
+  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
+  hover:bg-mapzy-violet hover:text-gray-100 h-12 flex items-center justify-center
+}
+
+/* Links */
+a:hover {
+  @apply underline cursor-pointer
+}
+
+/* Forms */
+
+.label--default {
+  @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
+}
+
+.input--default {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+  @apply block w-full rounded py-3 px-4 mb-1 leading-tight
+}
+
+.input--default:focus {
+  box-shadow: none;
+  outline: thin dotted;
+}
+
+.input-info {
+  @apply text-gray-600 text-xs italic
+}
+
+.select--default {
+  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
+  background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  @apply pr-3 pl-2 rounded bg-white text-gray-700
+}
+
+.checkbox-label--default {
+  @apply uppercase text-gray-700 text-xs
+}
+
+/* Utils */
+
+.hidden {
+  display: none;
+}
+
+/* Mapbox */
+.mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+  max-width: none !important;
+  box-shadow: none !important;
 }

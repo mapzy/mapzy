@@ -9,8 +9,12 @@ AllCops:
     - 'script/**/*'
     - 'bin/**/*'
     - 'node_modules/**/*'
-    - config/**/*
-  NewCops: enable
+    - 'config/**/*'
+    - 'vendor/**/*'
+  NewCops: disable
+
+Metrics/AbcSize:
+  Enabled: false
 
 Layout/LineLength:
   Max: 100
@@ -19,12 +23,17 @@ Metrics/ClassLength:
   Max: 120
 
 Metrics/MethodLength:
-  Max: 15
+  Max: 30
 
 Metrics/BlockLength:
+  Max: 50
   Exclude:
     - config/**/*
     - spec/**/*
+    - lib/tasks/**/*
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
@@ -38,6 +47,15 @@ Style/StringLiterals:
 
 RSpec/MessageSpies:
   EnforcedStyle: receive
+
+RSpec/ImplicitSubject:
+  EnforcedStyle: single_statement_only
+
+RSpec/NestedGroups:
+  Max: 10
+
+RSpec/NamedSubject:
+  Enabled: false
 
 Rails/LexicallyScopedActionFilter:
   Exclude:

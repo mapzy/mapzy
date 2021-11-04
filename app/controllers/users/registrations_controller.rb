@@ -4,25 +4,35 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]
+    after_action :remove_notice, only: %i[create]
 
     def create
       super do |resource|
-        if resource.valid?
+        if resource.persisted?
           resource.create_account
           resource.setup_email_workers
           resource.send_welcome_email
         end
+
+        flash.now[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?
+      end
+    end
+
+    def update
+      super do |resource|
+        flash[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?
       end
     end
 
     # Add extra sign up params here
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+      devise_parameter_sanitizer.permit(:sign_up)
     end
 
     # Add extra account update params here
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:name, :email])
+      devise_parameter_sanitizer.permit(:account_update, keys: \
+        %i[name email password password_confirmation])
     end
 
     # Redirect after sign up

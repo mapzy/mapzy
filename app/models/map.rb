@@ -22,10 +22,15 @@ class Map < ApplicationRecord
   belongs_to :user
   has_many :locations, dependent: :destroy
 
+  # Default bounds are set to Europe
+  DEFAULT_BOUNDS = [[-30, 25], [60, 75]].freeze
+
   # Define the geographical limits in which the map can be shown fully, given its locations
   #
   # @return [Array] Containing the bottom-right (west, south) & top-left (east, north) limits
   def bounds
+    return DEFAULT_BOUNDS if markers[:features].blank?
+
     lats = markers[:features].map { |f| f[:geometry][:coordinates][1] }
     longs = markers[:features].map { |f| f[:geometry][:coordinates][0] }
 

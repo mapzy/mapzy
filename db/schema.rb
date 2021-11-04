@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_171421) do
+ActiveRecord::Schema.define(version: 2021_10_05_180409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,15 +29,11 @@ ActiveRecord::Schema.define(version: 2021_07_22_171421) do
     t.string "name"
     t.text "description"
     t.string "address"
-    t.string "city"
-    t.string "zip_code"
-    t.string "country_code"
     t.decimal "latitude", precision: 15, scale: 10
     t.decimal "longitude", precision: 15, scale: 10
     t.bigint "map_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "state"
     t.index ["map_id"], name: "index_locations_on_map_id"
   end
 
@@ -47,6 +43,19 @@ ActiveRecord::Schema.define(version: 2021_07_22_171421) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_maps_on_user_id"
+  end
+
+  create_table "opening_times", force: :cascade do |t|
+    t.integer "day", null: false
+    t.time "opens_at"
+    t.time "closes_at"
+    t.boolean "open_24h", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "location_id"
+    t.boolean "closed", default: false, null: false
+    t.index ["day", "location_id"], name: "index_opening_times_on_day_and_location_id", unique: true
+    t.index ["location_id"], name: "index_opening_times_on_location_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +74,5 @@ ActiveRecord::Schema.define(version: 2021_07_22_171421) do
   add_foreign_key "accounts", "users"
   add_foreign_key "locations", "maps"
   add_foreign_key "maps", "users"
+  add_foreign_key "opening_times", "locations"
 end

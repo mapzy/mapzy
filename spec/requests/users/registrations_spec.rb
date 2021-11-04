@@ -10,7 +10,6 @@ RSpec.describe "Registrations", type: :request do
       {
         user: {
           email: user.email,
-          name: user.name,
           password: user.password,
           password_confirmation: user.password
         }
@@ -25,7 +24,7 @@ RSpec.describe "Registrations", type: :request do
 
       it "creates the correct user" do
         post user_registration_path(params: user_params)
-        expect(User.where(email: user.email, name: user.name)).to exist
+        expect(User.where(email: user.email)).to exist
       end
 
       it "creates an account for the user" do
@@ -35,15 +34,15 @@ RSpec.describe "Registrations", type: :request do
       end
 
       it "sends welcome email" do
-        expect {
+        expect do
           post user_registration_path(params: user_params)
-        }.to have_enqueued_mail(AccountMailer, :welcome_email)
+        end.to have_enqueued_mail(AccountMailer, :welcome_email)
       end
 
       it "enqueues correct jobs" do
-        expect {
+        expect do
           post user_registration_path(params: user_params)
-        }.to change(EmailWorker.jobs, :size).by(3)
+        end.to change(EmailWorker.jobs, :size).by(3)
       end
     end
 
@@ -69,30 +68,12 @@ RSpec.describe "Registrations", type: :request do
       {
         user: {
           email: user.email,
-          name: user.name,
           current_password: user.password
         }
       }
     end
 
     before { sign_in user }
-
-    context "with valid form and new name" do
-      let(:new_name) { "New Name" }
-
-      before do
-        user_params[:user][:name] = new_name
-        patch user_registration_path(params: user_params)
-      end
-
-      it "responds with the correct redirect" do
-        expect(response).to redirect_to dashboard_account_settings_path
-      end
-
-      it "it updated the data correctly" do
-        expect(User.find(user.id).name).to eq(new_name)
-      end
-    end
 
     context "with valid form and new email" do
       let(:new_email) { "ghost@mapzy.io" }
@@ -106,7 +87,7 @@ RSpec.describe "Registrations", type: :request do
         expect(response).to redirect_to dashboard_account_settings_path
       end
 
-      it "it updated the data correctly" do
+      it "updated the data correctly" do
         expect(User.find(user.id).email).to eq(new_email)
       end
     end
@@ -142,7 +123,7 @@ RSpec.describe "Registrations", type: :request do
         expect(response.body).to include("Email has already been taken")
       end
 
-      it "it didn't update the data" do
+      it "didn't update the data" do
         expect(User.find(user.id).email).not_to eq(user2.email)
       end
     end
@@ -159,7 +140,7 @@ RSpec.describe "Registrations", type: :request do
       end
 
       it "show correct error message in HTML" do
-        expect(response.body).to include("Password confirmation doesn&#39;t match Password")
+        expect(flash[:alert]).to include("Password confirmation doesn't match Password")
       end
     end
   end

@@ -4,19 +4,15 @@
 #
 # Table name: locations
 #
-#  id           :bigint           not null, primary key
-#  address      :string
-#  city         :string
-#  country_code :string
-#  description  :text
-#  latitude     :decimal(15, 10)
-#  longitude    :decimal(15, 10)
-#  name         :string
-#  state        :string
-#  zip_code     :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  map_id       :bigint           not null
+#  id          :bigint           not null, primary key
+#  address     :string
+#  description :text
+#  latitude    :decimal(15, 10)
+#  longitude   :decimal(15, 10)
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  map_id      :bigint           not null
 #
 # Indexes
 #
@@ -26,104 +22,62 @@
 #
 #  fk_rails_...  (map_id => maps.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Location, type: :model do
-  describe 'factory' do
-    it 'has a valid factory' do
-      expect(build(:location)).to be_valid
-    end
-  end
-
-  describe 'associations' do
+  describe "associations" do
     it { is_expected.to belong_to(:map) }
   end
 
-  describe 'validations' do
+  describe "validations" do
     before { create(:location) }
 
-    context 'with address' do
+    context "with address" do
       it { is_expected.to validate_presence_of :address }
     end
 
-    context 'with city' do
-      it { is_expected.to validate_presence_of :city }
-    end
-
-    context 'with zip_code' do
-      it { is_expected.to validate_presence_of :zip_code }
-    end
-
-    context 'with country_code' do
-      it { is_expected.to validate_presence_of :country_code }
-    end
-
-    context 'with name' do
+    context "with name" do
       it { is_expected.to validate_presence_of :name }
     end
   end
 
-  describe '.full_address' do
-    let(:location) { create(:location) }
+  describe ".eligible_for_geocoding?" do
+    subject { location.eligible_for_geocoding? }
 
-    it 'has the correct full address' do
-      expect(location.full_address).to eq 'Hohlstrasse 117, 8004, Zürich, Switzerland'
+    let(:new_address) { "Käshaldenstrasse 41, 8052" }
+
+    before do
+      new_address_stub = [new_address, [{
+        "latitude" => 40.7143528,
+        "longitude" => -74.0059731,
+        "address" => "New York, NY, USA",
+        "state" => "New York",
+        "state_code" => "NY",
+        "country" => "United States",
+        "country_code" => "US"
+      }]]
+
+      Geocoder::Lookup::Test.add_stub(new_address_stub[0], new_address_stub[1])
     end
-  end
 
-  describe 'country' do
-    let(:location) { create(:location) }
-
-    it 'has the correct country' do
-      expect(location.country).to eq 'Switzerland'
-    end
-  end
-
-  describe '.eligible_for_geocoding?' do
-    context 'when latitude & longitude are present' do
+    context "when latitude & longitude are present" do
       let(:location) { create(:location, latitude: 52.4937207, longitude: 13.4171431) }
 
-      context 'when address changes' do
-        it 'does not update latitude' do
-          prev_latitude = location.latitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
-          location.save
-
-          expect(location.latitude).to eq prev_latitude
-        end
-
-        it 'updates longitude' do
-          prev_longitude = location.longitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
-          location.save
-
-          expect(location.longitude).to eq prev_longitude
+      context "when address changes" do
+        it "is NOT eligible_for_geocoding" do
+          location.address = new_address
+          expect(subject).to be(false)
         end
       end
     end
 
-    context 'when latitude or latitude are missing' do
+    context "when latitude or latitude are missing" do
       let(:location) { build(:location, latitude: nil, longitude: nil) }
 
-      context 'when address changes' do
-        it 'updates latitude' do
-          prev_latitude = location.latitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
-          location.save
-
-          expect(location.latitude).not_to eq prev_latitude
-        end
-
-        it 'updates longitude' do
-          prev_longitude = location.longitude
-          location.address = 'Käshaldenstrasse 41'
-          location.zip_code = '8052'
-          location.save
-
-          expect(location.longitude).not_to eq prev_longitude
+      context "when address changes" do
+        it "is eligible_for_geocoding" do
+          location.address = new_address
+          expect(subject).to be(true)
         end
       end
     end
