@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
 #
 #  id                 :bigint           not null, primary key
-#  status             :integer          default(0), not null
+#  status             :integer          default("trial"), not null
 #  trial_end_date     :datetime         not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null

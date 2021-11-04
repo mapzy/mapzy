@@ -28,6 +28,6 @@ FactoryBot.define do
       "#{n}@dothrakis.com"
     end
 
-    password { 'secure_password' }
+    password { "secure_password" }
   end
 end

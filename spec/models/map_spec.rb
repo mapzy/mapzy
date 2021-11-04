@@ -18,16 +18,10 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Map, type: :model do
-  describe 'factory' do
-    it 'has a valid factory' do
-      expect(build(:map)).to be_valid
-    end
-  end
-
-  describe 'associations' do
+  describe "associations" do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:locations) }
   end

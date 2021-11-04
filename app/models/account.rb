@@ -5,7 +5,7 @@
 # Table name: accounts
 #
 #  id                 :bigint           not null, primary key
-#  status             :integer          default(0), not null
+#  status             :integer          default("trial"), not null
 #  trial_end_date     :datetime         not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -31,6 +31,6 @@ class Account < ApplicationRecord
   }
 
   def valid_state?
-    !trial? && stripe_customer_id.present?
+    trial? || stripe_customer_id.present?
   end
 end

@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+require "spec_helper"
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
-abort('The Rails environment is running in production mode!') if Rails.env.production?
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 
-require 'rspec/rails'
+require "rspec/rails"
 
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'cancan/matchers'
+require "cancan/matchers"
 
-require 'capybara/rails'
-require 'capybara/rspec'
+require "capybara/rails"
+require "capybara/rspec"
 
-require 'database_cleaner/active_record'
+require "database_cleaner/active_record"
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -49,29 +49,41 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  # config.use_transactional_fixtures = true
+
+  # DatabaseCleaner
+  config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
-  config.before(:each) do
+
+  config.before do
     DatabaseCleaner.strategy = :transaction
   end
-  config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation
+
+  config.before(:each, type: :feature) do
+    # :rack_test driver's Rack app under test shares database connection
+    # with the specs, so continue to use transaction strategy for speed.
+    driver_shares_db_connection_with_specs = Capybara.current_driver == :rack_test
+
+    unless driver_shares_db_connection_with_specs
+      # Driver is probably for an external browser with an app
+      # under test that does *not* share a database connection with the
+      # specs, so use truncation strategy.
+      DatabaseCleaner.strategy = :truncation
+    end
   end
-  config.before(:each) do
+
+  config.before do
     DatabaseCleaner.start
   end
-  config.after(:each) do
+
+  config.append_after do
     DatabaseCleaner.clean
   end
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
-  config.after(:all) do
-    DatabaseCleaner.clean
-  end
+
+  # Stub Geocoder
+  Geocoder.configure(lookup: :test)
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false

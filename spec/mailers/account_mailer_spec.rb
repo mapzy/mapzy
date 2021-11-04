@@ -6,7 +6,7 @@ RSpec.describe AccountMailer, type: :mailer do
   describe "welcome_email" do
     let(:user) { create(:user) }
 
-    shared_examples "a correct email" do |email_subject,body|
+    shared_examples "a correct email" do |email_subject, body|
       it "renders the subject" do
         expect(mail.subject).to eq(email_subject)
       end
@@ -18,14 +18,15 @@ RSpec.describe AccountMailer, type: :mailer do
       it "renders the from" do
         expect(mail.from).to eq(["bonjour@mapzy.io"])
       end
-  
+
       it "renders the body" do
         expect(mail.body.encoded).to match(body)
       end
     end
 
     context "with welcome_email" do
-      let(:mail) { AccountMailer.with(email: user.email).welcome_email }
+      let(:mail) { described_class.with(email: user.email).welcome_email }
+
       it_behaves_like(
         "a correct email",
         "Welcome to Mapzy 👋",
@@ -34,7 +35,8 @@ RSpec.describe AccountMailer, type: :mailer do
     end
 
     context "with reminder_email1" do
-      let(:mail) { AccountMailer.with(email: user.email).reminder_email1 }
+      let(:mail) { described_class.with(email: user.email).reminder_email1 }
+
       it_behaves_like(
         "a correct email",
         "Your Mapzy trial ends in 7 days",
@@ -43,7 +45,8 @@ RSpec.describe AccountMailer, type: :mailer do
     end
 
     context "with reminder_email2" do
-      let(:mail) { AccountMailer.with(email: user.email).reminder_email2 }
+      let(:mail) { described_class.with(email: user.email).reminder_email2 }
+
       it_behaves_like(
         "a correct email",
         "Your Mapzy trial ends tomorrow",
@@ -52,7 +55,8 @@ RSpec.describe AccountMailer, type: :mailer do
     end
 
     context "with account_inactivated_email" do
-      let(:mail) { AccountMailer.with(email: user.email).account_inactivated_email }
+      let(:mail) { described_class.with(email: user.email).account_inactivated_email }
+
       it_behaves_like(
         "a correct email",
         "Your Mapzy trial is over",
