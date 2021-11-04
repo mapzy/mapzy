@@ -10,7 +10,7 @@ AllCops:
     - 'bin/**/*'
     - 'node_modules/**/*'
     - config/**/*
-  NewCops: enable
+  NewCops: disable
 
 Metrics/AbcSize:
   Enabled: false
