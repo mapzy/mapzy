@@ -41,8 +41,6 @@ export default class extends Controller {
         maxZoom: 12,
       },
     });
-
-    this.mapboxClient = mapboxSdk({ accessToken: this.mapboxAccessTokenValue });
   }
 
   initGeocoder() {
