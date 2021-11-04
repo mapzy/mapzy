@@ -41,8 +41,10 @@ RSpec.describe OpeningTime, type: :model do
   describe "validations" do
     let(:location) { create(:location) }
 
-    it { is_expected.to validate_inclusion_of(:open_24h).in_array([true, false]) }
-    it { is_expected.to validate_inclusion_of(:closed).in_array([true, false]) }
+    it { is_expected.to allow_value(%w[true false]).for(:open_24h) }
+    it { is_expected.to allow_value(%w[true false]).for(:closed) }
+    it { is_expected.not_to allow_value(nil).for(:open_24h) }
+    it { is_expected.not_to allow_value(nil).for(:closed) }
 
     it "is expected to validate that :day is unique, scoped_by :location_id" do
       described_class.create(day: 1, location: location)

@@ -29,18 +29,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Chrome driver
-        uses: nanasess/setup-chromedriver@master
-      - run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-
-      - name: Add hosts to /etc/hosts
-        run: |
-          sudo echo "172.16.18.16 example.test" | sudo tee -a /etc/hosts
-          sudo echo "172.16.18.16 example2.test" | sudo tee -a /etc/hosts
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -64,4 +52,4 @@ jobs:
 
       - name: Run specs
         run: |
-          bundle exec rspec spec --color --format progress
+          bundle exec rspec spec --exclude-pattern "**/features/*_spec.rb" --color --format progress
