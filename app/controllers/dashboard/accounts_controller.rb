@@ -12,13 +12,10 @@ module Dashboard
     private
 
     def validate_account
-      unless current_user.account.valid_state?
-        flash[:alert] = flash_alert_text
-        return
-      end
+      return if current_user.account.valid_state? && subcription.present? && product.present?
 
-      return if current_user.account.trial? || current_user.account.inactive?
-      return if subscription.blank?
+      flash[:alert] = flash_alert_text
+      throw(:abort)
     end
 
     def flash_alert_text
