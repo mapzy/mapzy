@@ -22,7 +22,7 @@ export default class extends Controller {
     return this.adjustMarkerBlockTarget.classList.contains("hidden");
   }
 
-  connect() {
+  initialize() {
     this.initMapbox();
     this.initMarker();
     this.initGeocoder();

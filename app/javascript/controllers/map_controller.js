@@ -14,7 +14,7 @@ export default class extends Controller {
     "askLocationPermission": Boolean,
   }
 
-  connect() {
+  initialize() {
     this.initMapbox();
     this.fitToMarkers();
 
