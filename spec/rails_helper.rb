@@ -50,6 +50,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
 
+  # DatabaseCleaner
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
@@ -80,6 +81,9 @@ RSpec.configure do |config|
   config.append_after do
     DatabaseCleaner.clean
   end
+
+  # Stub Geocoder
+  Geocoder.configure(lookup: :test)
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false

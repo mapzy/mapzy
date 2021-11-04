@@ -42,24 +42,31 @@ RSpec.describe Location, type: :model do
   end
 
   describe ".eligible_for_geocoding?" do
+    subject { location.eligible_for_geocoding? }
+
+    let(:new_address) { "Käshaldenstrasse 41, 8052" }
+
+    before do
+      new_address_stub = [new_address, [{
+        "latitude"     => 40.7143528,
+        "longitude"    => -74.0059731,
+        "address"      => "New York, NY, USA",
+        "state"        => "New York",
+        "state_code"   => "NY",
+        "country"      => "United States",
+        "country_code" => "US"
+      }]]
+
+      Geocoder::Lookup::Test.add_stub(new_address_stub[0], new_address_stub[1])
+    end
+
     context "when latitude & longitude are present" do
       let(:location) { create(:location, latitude: 52.4937207, longitude: 13.4171431) }
 
       context "when address changes" do
-        it "does not update latitude" do
-          prev_latitude = location.latitude
-          location.address = "Käshaldenstrasse 41, 8052"
-          location.save
-
-          expect(location.latitude).to eq prev_latitude
-        end
-
-        it "updates longitude" do
-          prev_longitude = location.longitude
-          location.address = "Käshaldenstrasse 41, 8052"
-          location.save
-
-          expect(location.longitude).to eq prev_longitude
+        it "is NOT eligible_for_geocoding" do
+          location.address = new_address
+          expect(subject).to be(false)
         end
       end
     end
@@ -68,20 +75,9 @@ RSpec.describe Location, type: :model do
       let(:location) { build(:location, latitude: nil, longitude: nil) }
 
       context "when address changes" do
-        it "updates latitude" do
-          prev_latitude = location.latitude
-          location.address = "Käshaldenstrasse 41, 8052"
-          location.save
-
-          expect(location.latitude).not_to eq prev_latitude
-        end
-
-        it "updates longitude" do
-          prev_longitude = location.longitude
-          location.address = "Käshaldenstrasse 41, 8052"
-          location.save
-
-          expect(location.longitude).not_to eq prev_longitude
+        it "is eligible_for_geocoding" do
+          location.address = new_address
+          expect(subject).to be(true)
         end
       end
     end
