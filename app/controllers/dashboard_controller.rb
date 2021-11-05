@@ -27,8 +27,8 @@ class DashboardController < ApplicationController
       Thanks for trying out Mapzy.
       Your trial ends on
       #{current_user.account.trial_end_date.strftime('%b %-d, %Y')}.
-      Make sure to subscribe to one of our <a class="text-mapzy-orange hover:underline"
-      href="#{dashboard_account_settings_url}">plans</a> before that.
+      Make sure to subscribe to one of our
+      <a href="#{dashboard_account_settings_url}">plans</a> before that.
     )
   end
 end
