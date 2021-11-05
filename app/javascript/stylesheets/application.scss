@@ -36,22 +36,22 @@ i {
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-mapzy-violet text-white font-medium shadow
-  h-12 flex items-center justify-center hover:no-underline
+  h-12 p-4 flex items-center justify-center hover:no-underline
 }
 
 .button--secondary {
   @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
-   h-12 flex items-center justify-center hover:no-underline
+   h-12 p-4 flex items-center justify-center hover:no-underline
 }
 
 .button--top-menu {
   @apply cursor-pointer rounded-full text-gray-800 hover:bg-mapzy-violet hover:text-gray-100
-  py-2 px-2 md:mx-2
+  py-2 px-4 md:mx-2
 }
 
 .button--bottom-menu {
   @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
-  hover:bg-mapzy-violet hover:text-gray-100 h-12 flex items-center justify-center
+  hover:bg-mapzy-violet hover:text-gray-100 h-12 p-4 flex items-center justify-center
 }
 
 /* Links */
