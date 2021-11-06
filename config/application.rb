@@ -21,10 +21,10 @@ module Mapzy
     config.time_zone = "Europe/Zurich"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.action_mailer.default_url_options = { host: 'localhost' }
+    config.action_mailer.default_url_options = { host: "localhost" }
 
     config.action_mailer.delivery_method = :ohmysmtp
-    config.action_mailer.ohmysmtp_settings = { api_token: ENV['OHMYSMTP_TOKEN'] }
+    config.action_mailer.ohmysmtp_settings = { api_token: ENV["OHMYSMTP_TOKEN"] }
 
     config.active_job.queue_adapter = :sidekiq
 
