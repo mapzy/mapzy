@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: "postgres:14.0"
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+
+  redis:
+    image: "redis:6.2"
+    command: redis-server
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis:/data"
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    depends_on:
+      - db
+      - redis
+    env_file:
+      .env
+    volumes:
+      - ".:/app"
+
+  web:
+    build: .
+    command: bundle exec rails s -p $PORT -b 0.0.0.0 -e $RAILS_ENV
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ".:/app"
+
+volumes:
+  postgres:
+  redis:
