@@ -36,7 +36,8 @@ yarn-debug.log*
 .yarn-integrity
 
 # Ignore local .env files
-.env
+!.env.example
+.env*
 
 # Ignore DS store files
 .DS_Store
