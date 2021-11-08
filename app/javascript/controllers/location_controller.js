@@ -91,7 +91,8 @@ export default class extends Controller {
 
   initMarker() {
     this.marker = new mapboxgl.Marker({
-      draggable: true
+      draggable: true,
+      color: "#E74D67"
     });
 
     this.marker.on('dragend', () => this.onDragEnd());
