@@ -1,4 +1,3 @@
-
 import { Controller } from "stimulus"
 
 export default class extends Controller {
@@ -115,7 +114,7 @@ export default class extends Controller {
     // create marker (from mapbox js: https://github.com/mapbox/mapbox-gl-js/blob/main/src/ui/marker.js)
 
     var _scale = 1
-    var _color = '#3FB1CE';
+    var _color = '#E74D67';
     var _element = document.createElement('div');
     _element.setAttribute('aria-label', 'Map marker');
 

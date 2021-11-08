@@ -5,10 +5,8 @@ require "rails_helper"
 RSpec.describe "interacting with the map", type: :feature do
   let(:location) { create(:location) }
   let(:map) { location.map }
-  let(:user) { location.map.user }
 
   before do
-    sign_in user
     visit map_path(map.id)
   end
 

@@ -5,7 +5,7 @@
 
 /* Flash messages */
 .flash {
-  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-indigo-50 rounded
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-red bg-red-50 rounded
 }
 
 /* Headings */
@@ -13,16 +13,16 @@ h1 {
 	@apply text-4xl leading-7 font-bold
 }
 
-.h1--indigo {
-	@apply text-4xl leading-7 font-bold text-indigo-700
+.h1--red {
+	@apply text-4xl leading-7 font-bold text-mapzy-red
 }
 
 h2 {
 	@apply text-2xl leading-7 font-bold
 }
 
-.h2--indigo {
-	@apply text-2xl leading-7 font-bold text-indigo-700
+.h2--red {
+	@apply text-2xl leading-7 font-bold text-mapzy-red
 }
 
 h3 {
@@ -33,32 +33,38 @@ i {
 	@apply text-sm text-gray-800
 }
 
+p {
+  @apply my-2
+}
+
 /* Buttons */
 .button--main {
-  @apply cursor-pointer rounded-full bg-mapzy-violet text-white font-medium shadow
-  h-12 p-2 flex items-center justify-center no-underline hover:no-underline
+  @apply cursor-pointer rounded-full bg-mapzy-red text-white font-medium shadow
+    py-2 px-4 flex items-center justify-center no-underline hover:no-underline
+    hover:bg-mapzy-red-light hover:text-white
 }
 
 .button--secondary {
-  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
-   h-12 p-2 flex items-center justify-center no-underline hover:no-underline
+  @apply cursor-pointer rounded-full bg-red-50 text-mapzy-red
+    hover:bg-mapzy-red-light hover:text-white 
+    h-12 p-2 flex items-center justify-center no-underline hover:no-underline
 }
 
 .button--top-menu {
-  @apply cursor-pointer rounded-full text-gray-800 hover:bg-mapzy-violet hover:text-gray-100
-  py-2 px-4 md:mx-2 no-underline hover:no-underline
+  @apply cursor-pointer text-gray-800 hover:text-mapzy-red
+    md:mx-2 no-underline hover:no-underline font-medium
 }
 
 .button--bottom-menu {
-  @apply cursor-pointer rounded-full bg-indigo-50 text-mapzy-violet
-  hover:bg-mapzy-violet hover:text-gray-100 h-12 p-2 no-underline hover:no-underline
-  flex items-center justify-center
+  @apply cursor-pointer rounded-full bg-mapzy-red text-white
+    hover:bg-mapzy-red-light hover:text-white px-4 py-2 no-underline hover:no-underline
+    flex items-center justify-center
 }
 
 /* Links */
 a {
   text-underline-position: under;
-  @apply underline cursor-pointer
+  @apply underline cursor-pointer hover:text-mapzy-red
 }
 
 /* Forms */
@@ -105,4 +111,8 @@ a {
   width: 100% !important;
   max-width: none !important;
   box-shadow: none !important;
+}
+
+code {
+  font-family: monospace;
 }
