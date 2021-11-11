@@ -1,18 +1,18 @@
-FROM ruby:3.0.0
-
-# Update the package lists before installing
-RUN apt-get update -qq
+###############################################################################
+# Stage 1: Build
+FROM ruby:3.0.0 as builder
 
 # Install base packages
-RUN apt-get install -y \
+RUN apt-get update -qq && \
+    apt-get install -y \
     build-essential \
     vim \
     nano \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists
+    postgresql-client && \
+    rm -rf /var/lib/apt/lists
 
 # Install node 17 from source
-RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get install -y nodejs
 
 # Install yarn from source
@@ -21,23 +21,51 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get update -qq \
   && apt-get install -y yarn
 
-# Create working directory
-ENV APP_HOME /usr/src/app
-RUN mkdir ${APP_HOME}
-WORKDIR ${APP_HOME}
+# Set env variables
+ENV BUNDLER_VERSION 2.2.3
+ENV BUNDLE_JOBS 8
+ENV BUNDLE_RETRY 5
+ENV BUNDLE_CACHE_ALL true
+ENV APP_HOME /app
+ENV RAILS_ENV development
+ENV RACK_ENV development
+ENV NODE_ENV development
 
-# Copy Gemfile
-COPY Gemfile Gemfile.lock ./
+# Set working directory
+WORKDIR $APP_HOME
 
 # Install gems
-RUN gem install bundler -v 2.2.3 --no-document
-RUN bundle install
+COPY Gemfile Gemfile.lock ./
+RUN gem install bundler -v $BUNDLER_VERSION --no-document
+RUN bundle config --global frozen 1 && \
+  bundle install && \
+  rm -rf /usr/local/bundle/cache/*.gem && \
+  find /usr/local/bundle/gems/ -name "*.c" -delete && \
+  find /usr/local/bundle/gems/ -name "*.o" -delete
+
+# Install node packages
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --non-interactive
 
 # Copy app files
-COPY . .
+ADD . $APP_PATH
 
-# Expose port
-EXPOSE 3000
+###############################################################################
+# Stage 2: Run
+FROM ruby:3.0.0
 
-# Start
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+RUN mkdir -p /app
+WORKDIR /app
+
+ENV RAILS_ENV development
+ENV NODE_ENV development
+ENV APP_HOME /app
+
+# Copy necessary data at runtime
+COPY --from=builder /usr/lib /usr/lib
+
+# Copy gems
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+
+# Copy app files
+COPY --from=builder $APP_HOME $APP_HOME

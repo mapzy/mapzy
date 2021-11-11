@@ -12,7 +12,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists
 
 # Install node 17 from source
-RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get install -y nodejs
 
 # Install yarn from source
@@ -70,7 +70,6 @@ ENV APP_HOME /app
 
 # Copy necessary data at runtime
 COPY --from=builder /usr/lib /usr/lib
-COPY --from=builder /usr/share/zoneinfo/ /usr/share/zoneinfo/
 
 # Copy gems
 COPY --from=builder /usr/local/bundle /usr/local/bundle
