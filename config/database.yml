@@ -7,18 +7,18 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DB") { "mapzy_development" } %>
-  username: <%= ENV.fetch("POSTGRES_USER") { "" } %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "" } %>
-  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  database: mapzy_development
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
 
 test:
   <<: *default
-  database: <%= ENV.fetch("POSTGRES_DB_TEST") { "mapzy_test" } %>
-  username: <%= ENV.fetch("POSTGRES_USER") { "" } %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "" } %>
-  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
+  database: mapzy_test
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
 
 production:
   <<: *default
-  url: <%= ENV["POSTGRES_URL"] %>
+  url: <%= ENV["DATABASE_URL"] %>
