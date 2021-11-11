@@ -25,11 +25,12 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 ENV BUNDLER_VERSION 2.2.3
 ENV BUNDLE_JOBS 8
 ENV BUNDLE_RETRY 5
+ENV BUNDLE_WITHOUT development:test
 ENV BUNDLE_CACHE_ALL true
 ENV APP_HOME /app
-ENV RAILS_ENV development
-ENV RACK_ENV development
-ENV NODE_ENV development
+ENV RAILS_ENV production
+ENV RACK_ENV production
+ENV NODE_ENV production
 
 # Set working directory
 WORKDIR $APP_HOME
@@ -45,10 +46,15 @@ RUN bundle config --global frozen 1 && \
 
 # Install node packages
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --non-interactive
+RUN yarn install --frozen-lockfile --non-interactive --production
 
 # Copy app files
 ADD . $APP_PATH
+
+# Precompile assets
+RUN rails assets:precompile --trace && \
+  yarn cache clean && \
+  rm -rf node_modules tmp/cache vendor/assets test
 
 ###############################################################################
 # Stage 2: Run
@@ -57,8 +63,9 @@ FROM ruby:3.0.0
 RUN mkdir -p /app
 WORKDIR /app
 
-ENV RAILS_ENV development
-ENV NODE_ENV development
+ENV RAILS_ENV production
+ENV NODE_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
 ENV APP_HOME /app
 
 # Copy necessary data at runtime
