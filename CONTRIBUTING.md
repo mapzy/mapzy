@@ -6,7 +6,7 @@ We recommend developing with the excellent cloud-based development environment p
 
 Run `foreman start -f Procfile.dev` to start the Rails server and the Webpack Dev Server (or run the processes in separate terminals manually).
 
-### On your machine
+### Local
 
 Dependencies:
 - ruby ~3.0.0
