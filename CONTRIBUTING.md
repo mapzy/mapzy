@@ -6,21 +6,6 @@ We recommend developing with the excellent cloud-based development environment p
 
 Run `foreman start -f Procfile.dev` to start the Rails server and the Webpack Dev Server (or run the processes in separate terminals manually).
 
-## Docker
-
-Getting up and running with Docker is also simple:
-
-```
-# Set the .env files and fill in all env vars
-cp .env.example .env
-
-# Build docker image
-docker-compose build
-
-# Run the project
-docker-compose up
-```
-
 ### On your machine
 
 Dependencies:
