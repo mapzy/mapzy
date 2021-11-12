@@ -1,6 +1,4 @@
-###############################################################################
-# Stage 1: Build
-FROM ruby:3.0.0 as builder
+FROM ruby:3.0.0
 
 # Install base packages
 RUN apt-get update -qq && \
@@ -55,24 +53,3 @@ ADD . $APP_PATH
 RUN rails assets:precompile --trace && \
   yarn cache clean && \
   rm -rf node_modules tmp/cache vendor/assets test
-
-###############################################################################
-# Stage 2: Run
-FROM ruby:3.0.0
-
-RUN mkdir -p /app
-WORKDIR /app
-
-ENV RAILS_ENV production
-ENV NODE_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
-ENV APP_HOME /app
-
-# Copy necessary data at runtime
-COPY --from=builder /usr/lib /usr/lib
-
-# Copy gems
-COPY --from=builder /usr/local/bundle /usr/local/bundle
-
-# Copy app files
-COPY --from=builder $APP_HOME $APP_HOME
