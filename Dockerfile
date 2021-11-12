@@ -52,7 +52,9 @@ RUN yarn install --frozen-lockfile --non-interactive --production
 ADD . $APP_PATH
 
 # Precompile assets
-RUN rails assets:precompile --trace && \
+# SECRET_KEY_BASE=`bin/rake secret` is added here as a workaround for
+# https://github.com/rails/rails/issues/32947
+RUN SECRET_KEY_BASE=`bin/rake secret` rails assets:precompile --trace && \
   yarn cache clean && \
   rm -rf node_modules tmp/cache vendor/assets test
 
