@@ -1,42 +1,43 @@
 # frozen_string_literal: true
 
-require 'sidekiq/web'
+require "sidekiq/web"
 
 Rails.application.routes.draw do
   devise_scope :user do
     authenticated do
-      root to: 'dashboard/maps#index', as: :authenticated_root_url
+      root to: "dashboard/maps#index", as: :authenticated_root_url
     end
     unauthenticated do
-      root to: 'home#index'
+      root to: (Rails.env.production? ? redirect("https://mapzy.io") : "home#index")
     end
   end
 
-  devise_for :users,
-    path: 'account',
-    path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' },
+  devise_for \
+    :users,
+    path: "account",
+    path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" },
     controllers: {
-      sessions: 'users/sessions',
-      registrations: 'users/registrations',
-      passwords: 'users/passwords'
+      sessions: "users/sessions",
+      registrations: "users/registrations",
+      passwords: "users/passwords"
     }
 
-  resources :maps, only: [:index, :show]
+  resources :maps, only: %i[index show]
   resources :locations
 
   namespace :dashboard do
-    resources :maps, only: [:index, :show] do
+    resources :maps, only: %i[index show] do
       resources :locations
     end
 
-    get '/settings', to: 'accounts#settings', as: 'account_settings'
+    get "/settings", to: "accounts#settings", as: "account_settings"
   end
 
-  scope '/stripe' do
-    get '/checkout_session/', to: 'stripe#checkout_session', as: 'stripe_checkout_session'
-    get '/success_callback/', to: 'stripe#success_callback', as: 'stripe_success_callback'
-    get '/customer_portal/', to: 'stripe#customer_portal', as: 'stripe_customer_portal'
-    post '/webhooks/', to: 'stripe#webhooks', as: 'stripe_webhooks'
+  scope "/stripe" do
+    get "/checkout_session/", to: "stripe#checkout_session", as: "stripe_checkout_session"
+    get "/success_callback/", to: "stripe#success_callback", as: "stripe_success_callback"
+    get "/customer_portal/", to: "stripe#customer_portal", as: "stripe_customer_portal"
+    post "/webhooks/", to: "stripe#webhooks", as: "stripe_webhooks"
   end
 
   if Rails.env.development?
