@@ -11,7 +11,7 @@ RUN apt-get update -qq && \
     postgresql-client && \
     rm -rf /var/lib/apt/lists
 
-# Install node 17 from source
+# Install node from source
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
   && apt-get install -y nodejs
 
