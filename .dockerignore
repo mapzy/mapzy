@@ -5,10 +5,19 @@ LICENSE.md
 README.md
 docker-compose.*
 Dockerfile
-log/*
 node_modules/*
 public/assets/*
 storage/*
 public/packs/*
 public/packs-test/*
-tmp/*
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
