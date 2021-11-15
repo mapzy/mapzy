@@ -3,11 +3,6 @@
     <h2 class="py-4">Settings</h2>
 
     <div class="max-w-3xl">
-    <%= render "account_box" do %>
-        <h3>Add map to your website</h3>
-        <%= render partial: "embed_code", locals: { map_id: current_user.map.id }  %>
-      <% end %>
-
       <%= render "account_box" do %>
         <h3>Subscription Settings</h3>
         <% if current_user.account.trial? || current_user.account.inactive? %>

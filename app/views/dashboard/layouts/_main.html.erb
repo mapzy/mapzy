@@ -11,7 +11,11 @@
              </div>
           </div>
           <div class="flex flex-col md:flex-row md:block -mx-2">
-            <%= link_to "Map", root_path, class: "button--top-menu" %>
+            <% if params[:controller] == "dashboard/maps" && params[:action] == "show" %>
+              <%= link_to "Install Map", dashboard_account_embed_path, class: "button--top-menu" %>
+            <% else %>
+              <%= link_to "View Map", root_path, class: "button--top-menu" %>
+            <% end %>
             <%= link_to "Settings", dashboard_account_settings_path, class: "button--top-menu" %>
             <%= link_to "Help", root_path, class: "button--top-menu" %>
           </div>

@@ -15,6 +15,8 @@ module Dashboard
       @cancel_at = format_cancel_time(stripe_subscription.cancel_at)
     end
 
+    def embed; end
+
     private
 
     def problem_with_account
