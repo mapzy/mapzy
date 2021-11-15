@@ -8,11 +8,13 @@ Rails.application.routes.draw do
       root to: "dashboard/maps#index", as: :authenticated_root_url
     end
     unauthenticated do
-      root to: "home#index"
+      root to: (Rails.env.production? ? redirect("https://mapzy.io") : "home#index")
     end
   end
 
-  devise_for :users,
+
+  devise_for \
+    :users,
     path: "account",
     path_names: { sign_in: "login", sign_out: "logout", sign_up: "register" },
     controllers: {
@@ -21,11 +23,11 @@ Rails.application.routes.draw do
       passwords: "users/passwords"
     }
 
-  resources :maps, only: [:index, :show]
+  resources :maps, only: %i[index show]
   resources :locations
 
   namespace :dashboard do
-    resources :maps, only: [:index, :show] do
+    resources :maps, only: %i[index show] do
       resources :locations
     end
 
