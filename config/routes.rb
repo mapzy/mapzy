@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
+
   devise_for \
     :users,
     path: "account",
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
     end
 
     get "/settings", to: "accounts#settings", as: "account_settings"
+    get "/embed", to: "accounts#embed", as: "account_embed"
   end
 
   scope "/stripe" do

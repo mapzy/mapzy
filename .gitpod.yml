@@ -16,13 +16,18 @@ ports:
     onOpen: ignore
   - port: 4444
     onOpen: ignore
+  # Headless Chrome (Capybara)
+  - port: 9515
+    onOpen: ignore
 
 tasks:
+  # we run rails db:seed after init, otherwise it can't access the Mapbox API
   - init: >
       bundle install &&
-      rails db:setup RAILS_ENV=development &&
-      rails db:setup RAILS_ENV=test &&
+      rails db:create db:schema:load RAILS_ENV=development &&
+      rails db:create db:schema:load RAILS_ENV=test &&
       yarn install
+    command: rails db:seed
 
 github:
   prebuilds:

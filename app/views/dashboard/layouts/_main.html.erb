@@ -11,20 +11,25 @@
              </div>
           </div>
           <div class="flex flex-col md:flex-row md:block -mx-2">
+            <% if params[:controller] == "dashboard/maps" && params[:action] == "show" %>
+              <%= link_to "Install Map", dashboard_account_embed_path, class: "button--top-menu" %>
+            <% else %>
+              <%= link_to "View Map", root_path, class: "button--top-menu" %>
+            <% end %>
             <%= link_to "Settings", dashboard_account_settings_path, class: "button--top-menu" %>
-            <%= link_to "Docs", root_path, class: "button--top-menu" %>
             <%= link_to "Help", root_path, class: "button--top-menu" %>
           </div>
       </div>
   </header>
 
   <!-- Map -->
-  <main class="relative w-full h-5/6">
+  <main class="relative w-full h-full">
     <%= yield %>
   </main>
 
   <!-- Bottom menu -->
-  <nav class="relative w-full">
+  <nav class="absolute w-full bottom-0">
     <%= yield :bottom_menu %>
   </nav>
+
 </div>

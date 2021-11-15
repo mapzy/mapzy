@@ -58,7 +58,7 @@
       <!-- Lat / Long  -->
       <div class="-mx-3 mt-3 hidden" data-location-target="adjustMarkerBlock">
         <div class="w-full px-3">
-          <p class="text-gray-700 text-sm font-bold text-mapzy-violet mb-2">
+          <p class="text-sm font-bold text-mapzy-red mb-2">
             Drag the marker directly on the map to its exact position 👉
           </p>
         </div>
@@ -94,29 +94,29 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-row justify-start content-center">
+                    <div class="flex flex-row justify-start items-start">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 my-1 w-1/4">
+                      <div class="py-1 my-1 w-32">
                         <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
                       </div>
-
-                      <div class="flex flex-row justify-center py-1 my-1 mx-2"
-                           data-opening-time-target="timesBlock" >
+          
+                      <div class="flex flex-row justify-center items-start py-1 my-1 text-sm"
+                          data-opening-time-target="timesBlock" >
                         <%= fot.select :opens_at,
                             options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
                             { include_blank: true },
                             { class: "select--default", "data-opening-time-target": "opensAt" } %>
-                        <p> &nbsp; &mdash; &nbsp; </p>
+                        <div> &nbsp; &mdash; &nbsp; </div>
                         <%= fot.select :closes_at,
                             options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
                             { include_blank: true },
-                            { class: "select--default", "data-opening-time-target": "closesAt" } %>
+                            { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
                       </div>
 
-                      <div class="py-1 my-1 mx-2" data-opening-time-target="closedBlock" >
+                      <div class="py-1" data-opening-time-target="closedBlock" >
                         <%= fot.check_box :closed,
                             { checked: opening_time.closed,
                               include_hidden: false,
@@ -124,7 +124,7 @@
                         <%= fot.label "Closed", class: "checkbox-label--default" %>
                       </div>
 
-                      <div class="py-1 my-1 mx-2" data-opening-time-target="open24hBlock" >
+                      <div class="py-1 ml-4" data-opening-time-target="open24hBlock" >
                         <%= fot.check_box :open_24h,
                             { checked: opening_time.open_24h,
                               include_hidden: false,

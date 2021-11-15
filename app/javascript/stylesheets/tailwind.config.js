@@ -11,6 +11,7 @@ module.exports = {
         'mapzy-orange': '#F99B46',
         'mapzy-violet': '#704DCC',
         'mapzy-red': '#E74D67',
+        'mapzy-red-light': '#EB7085',
         'mapzy-blue': '#62CFFF'
       },
     },
@@ -21,7 +22,7 @@ module.exports = {
       const extendUnderline = {
           '.underline': {
               'textDecoration': 'underline',
-              'text-decoration-color': '#704DCC',
+              'text-decoration-color': '#E74D67',
           },  
       }
       addUtilities(extendUnderline)
