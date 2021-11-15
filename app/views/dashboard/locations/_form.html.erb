@@ -116,7 +116,7 @@
                             { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
                       </div>
 
-                      <div class="py-1" data-opening-time-target="closedBlock" >
+                      <div class="py-1 mx-2" data-opening-time-target="closedBlock" >
                         <%= fot.check_box :closed,
                             { checked: opening_time.closed,
                               include_hidden: false,
@@ -124,7 +124,7 @@
                         <%= fot.label "Closed", class: "checkbox-label--default" %>
                       </div>
 
-                      <div class="py-1 ml-4" data-opening-time-target="open24hBlock" >
+                      <div class="py-1 mx-2" data-opening-time-target="open24hBlock" >
                         <%= fot.check_box :open_24h,
                             { checked: opening_time.open_24h,
                               include_hidden: false,
