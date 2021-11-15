@@ -5,7 +5,7 @@
 
 /* Flash messages */
 .flash {
-  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-red bg-red-50 rounded
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
 
 /* Headings */
@@ -64,7 +64,7 @@ p {
 /* Links */
 a {
   text-underline-position: under;
-  @apply underline cursor-pointer hover:text-mapzy-red
+  @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
 }
 
 /* Forms */

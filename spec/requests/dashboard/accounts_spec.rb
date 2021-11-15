@@ -3,8 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Accounts", type: :request do
-  let(:user) { create(:user, account: create(:account)) }
-  let(:map) { create(:map, user_id: user.id) }
+  let(:user) { create(:user, account: create(:account), map: create(:map)) }
 
   before do
     sign_in user

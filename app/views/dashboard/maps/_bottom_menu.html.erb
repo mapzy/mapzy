@@ -1,12 +1,4 @@
-<div class="grid grid-cols-3 gap-4 w-full p-4">
-  <div></div>
-  <div class="flex items-center justify-center">
-    <%= link_to "Add Location", new_dashboard_map_location_path(@map),
-          class: "button--bottom-menu mx-4 text-base font-semibold" %>
-  </div>
-  <div class="flex items-center justify-end pr-4">
-    <%= link_to "Show Embed Code", nil,
-          class: "button--top-menu text-base",
-          data: { "action" => "embed#toggleEmbedCode", "embed-target" => "embedCodeLink"} %>
-  </div>
+<div class="flex items-center justify-center w-full p-6">
+  <%= link_to "Add Location", new_dashboard_map_location_path(@map),
+    class: "button--bottom-menu mx-4 text-base font-semibold shadow-md" %>
 </div>

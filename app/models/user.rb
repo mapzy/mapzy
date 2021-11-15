@@ -24,6 +24,7 @@ class User < ApplicationRecord
 
   has_many :maps, dependent: :destroy
   has_one :account, dependent: :destroy
+  has_one :map, dependent: :destroy
 
   # Active devise modules below. Other available modules:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

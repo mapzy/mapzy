@@ -1,8 +1,6 @@
 <%= render "dashboard/layouts/main" do %>
   <%= render "shared/map" %>
 
-  <%= render partial: "dashboard/maps/embed_code", locals: { map_id: @map.id } %>
-
   <% content_for :bottom_menu do %>
     <%= render "dashboard/maps/bottom_menu" %>
   <% end %>

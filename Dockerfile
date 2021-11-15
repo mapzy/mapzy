@@ -6,10 +6,6 @@ RUN apt-get install curl -y
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install nodejs -y
 RUN node -v
-RUN sudo apt-get install google-chrome-stable -y
-
-# Install Chrome (used for Capybara/Selenium)
-
 
 # Add Yarn repository
 #RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
