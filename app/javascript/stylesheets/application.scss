@@ -57,8 +57,8 @@ p {
 
 .button--bottom-menu {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white
-    hover:bg-mapzy-red-light hover:text-white px-4 py-2 no-underline hover:no-underline
-    flex items-center justify-center
+    hover:bg-mapzy-red-light hover:text-white px-12 py-2 no-underline hover:no-underline
+    flex items-center justify-center text-base font-semibold shadow-md
 }
 
 /* Links */

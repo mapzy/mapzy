@@ -3,9 +3,9 @@
     <h2 class="py-4">Install map</h2>
 
     <div class="max-w-3xl">
-    <%= render "account_box" do %>
+      <div class="w-full mx-2 my-2 md:mb-12 p-4">
         <%= render partial: "embed_code", locals: { map_id: current_user.map.id }  %>
-      <% end %>
+      </div>
     </div>
   </div>
 <% end %>
