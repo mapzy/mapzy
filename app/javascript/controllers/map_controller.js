@@ -65,7 +65,7 @@ export default class extends Controller {
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
 
-      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.id}`;
+      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
       anchor.setAttribute("data-turbo-frame", "locations_show");
       anchor.setAttribute("data-action", "map#showLocationView");
 

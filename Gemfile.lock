@@ -140,6 +140,10 @@ GEM
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
     hashdiff (1.0.1)
+    hashid-rails (1.4.1)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.5)
     httparty (0.20.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
@@ -379,6 +383,7 @@ DEPENDENCIES
   foreman (~> 0.87.2)
   geocoder (~> 1.6)
   guard-rspec
+  hashid-rails (~> 1.0)
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.3)
