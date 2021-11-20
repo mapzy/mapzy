@@ -23,6 +23,22 @@
         class: "input--default" %>
     </div>
 
+    <div class="field mt-4">
+      <div class="flex flex-row items-start justify-center gap-x-4">
+        <div>
+          <%= check_box_tag "tos", "yes", false, required: true %>
+        </div>
+        <div>
+          <%= label_tag "tos",
+            %Q(
+              I have read and agree to the Mapzy 
+              <a href="https://mapzy.io/legal/terms" target="_blank">terms of service</a> and
+              <a href="https://mapzy.io/legal/privacy-policy" target="_blank">privacy policy</a>).html_safe
+          %>
+        </div>
+      </div>
+    </div>
+
     <div class="actions mt-8 mb-4">
       <%= f.submit "Sign up", class: "w-full button--main" %>
     </div>
