@@ -79,12 +79,11 @@ export default class extends Controller {
       },
     });
 
-    this.map.addControl(this.geolocate);
-
     // add zoom buttons
     var nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "bottom-right");
 
+    // add search bar
     this.map.addControl(
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
@@ -92,7 +91,11 @@ export default class extends Controller {
         collapsed: false,
         marker: false,
         zoom: 15,
-      })
+      }),
+      "top-right"
      );
+
+     // add geolocation button
+     this.map.addControl(this.geolocate, "bottom-right");
   }
 }
