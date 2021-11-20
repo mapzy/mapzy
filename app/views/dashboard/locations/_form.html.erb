@@ -102,12 +102,12 @@
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 my-1 w-32">
+                      <div class="py-1 mt-1 w-32">
                         <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
                       </div>
 
                       <div class="flex flex-row items-start justify-center">
-                        <div class="flex flex-row justify-center items-start py-1 my-1 text-sm"
+                        <div class="flex flex-row justify-center items-start py-1 mb-1 text-sm"
                             data-opening-time-target="timesBlock" >
                           <%= fot.select :opens_at,
                               options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
