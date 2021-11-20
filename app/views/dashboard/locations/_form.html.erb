@@ -1,6 +1,9 @@
-<div class="absolute w-full md:w-2/5 overflow-y-scroll bg-white shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6">
+<div
+  class="absolute w-full md:w-2/6 overflow-y-scroll bg-white
+        shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6"
+>
   <h1 class="text-xl pb-6 text-center"><%= title %></h1>
-
+  
     <div data-controller="location"
          data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
          data-location-bounds-value="<%= @bounds %>"
@@ -16,7 +19,7 @@
 
           <%= f.text_field :name,
                 class: "input--default",
-                placeholder: "Yeti Store",
+                placeholder: "Joe's Candy Store",
                 required: true %>
 
           <p class="input-info">Keep it short & crispy</p>
@@ -94,42 +97,44 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-row justify-start items-start">
+                    <div class="flex flex-col justify-start items-start">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 my-1 w-32">
+                      <div class="py-1 mt-1 w-32">
                         <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
                       </div>
-          
-                      <div class="flex flex-row justify-center items-start py-1 my-1 text-sm"
-                          data-opening-time-target="timesBlock" >
-                        <%= fot.select :opens_at,
-                            options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
-                            { include_blank: true },
-                            { class: "select--default", "data-opening-time-target": "opensAt" } %>
-                        <div> &nbsp; &mdash; &nbsp; </div>
-                        <%= fot.select :closes_at,
-                            options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
-                            { include_blank: true },
-                            { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
-                      </div>
 
-                      <div class="py-1" data-opening-time-target="closedBlock" >
-                        <%= fot.check_box :closed,
-                            { checked: opening_time.closed,
-                              include_hidden: false,
-                              "data-opening-time-target": "closed" } %>
-                        <%= fot.label "Closed", class: "checkbox-label--default" %>
-                      </div>
+                      <div class="flex flex-row items-start justify-center">
+                        <div class="flex flex-row justify-center items-start py-1 mb-1 text-sm"
+                            data-opening-time-target="timesBlock" >
+                          <%= fot.select :opens_at,
+                              options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
+                              { include_blank: true },
+                              { class: "select--default", "data-opening-time-target": "opensAt" } %>
+                          <div> &nbsp; &mdash; &nbsp; </div>
+                          <%= fot.select :closes_at,
+                              options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
+                              { include_blank: true },
+                              { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
+                        </div>
 
-                      <div class="py-1 ml-4" data-opening-time-target="open24hBlock" >
-                        <%= fot.check_box :open_24h,
-                            { checked: opening_time.open_24h,
-                              include_hidden: false,
-                              "data-opening-time-target": "open24h" } %>
-                        <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                        <div class="py-1" data-opening-time-target="closedBlock" >
+                          <%= fot.check_box :closed,
+                              { checked: opening_time.closed,
+                                include_hidden: false,
+                                "data-opening-time-target": "closed" } %>
+                          <%= fot.label "Closed", class: "checkbox-label--default" %>
+                        </div>
+
+                        <div class="py-1 ml-4" data-opening-time-target="open24hBlock" >
+                          <%= fot.check_box :open_24h,
+                              { checked: opening_time.open_24h,
+                                include_hidden: false,
+                                "data-opening-time-target": "open24h" } %>
+                          <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                        </div>
                       </div>
                   </div>
                 </div>
