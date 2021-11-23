@@ -1,4 +1,4 @@
-<div class="absolute w-full md:w-2/6 overflow-y-scroll bg-white
+<div class="absolute w-2/5 overflow-y-scroll bg-white
           border-gray-200 border-l-2 border-t-2 border-b-2
             shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6" >
   <h3 class="pb-6 text-center"><%= title %></h3>
@@ -84,25 +84,25 @@
       </p>
     </div>
 
-    <!-- Opening Times -->
-    <div class="-mx-3 mt-6 mb-6">
-      <div class="w-full px-3">
-        <%= f.label :opening_times,
-              class: "label--default" %>
+      <!-- Opening Times -->
+      <div class="-mx-3 mt-6 mb-6">
+        <div class="w-full px-3">
+          <%= f.label :opening_times,
+                class: "label--default" %>
+            <% @opening_times.each do |opening_time| %>
+                <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
-          <% @opening_times.each do |opening_time| %>
-              <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
+                  <div data-controller="opening-time">
+                    <div class="flex flex-row justify-start items-center">
+                      <%= fot.hidden_field :id %>
+                      <%= fot.hidden_field :location_id %>
+                      <%= fot.hidden_field :day %>
 
-                <div data-controller="opening-time">
-                  <div class="flex flex-col justify-start items-start py-1">
-                    <%= fot.hidden_field :id %>
-                    <%= fot.hidden_field :location_id %>
-                    <%= fot.hidden_field :day %>
+                      <div class="py-1 my-1 w-1/4">
+                        <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
+                      </div>
 
-                    <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
-
-                    <div class="flex flex-row items-start justify-center">
-                      <div class="flex flex-row justify-center items-start py-1 mb-1 text-sm"
+                      <div class="flex flex-row justify-center items-start py-1 my-1 text-sm"
                           data-opening-time-target="timesBlock" >
                         <%= fot.select :opens_at,
                             options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
@@ -115,7 +115,7 @@
                             { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
                       </div>
 
-                      <div class="pb-1 pr-4" data-opening-time-target="closedBlock" >
+                      <div class="py-1 mr-4" data-opening-time-target="closedBlock" >
                         <%= fot.check_box :closed,
                             { checked: opening_time.closed,
                               include_hidden: false,
@@ -123,21 +123,20 @@
                         <%= fot.label "Closed", class: "checkbox-label--default" %>
                       </div>
 
-                      <div class="pb-1" data-opening-time-target="open24hBlock" >
+                      <div class="py-1" data-opening-time-target="open24hBlock" >
                         <%= fot.check_box :open_24h,
                             { checked: opening_time.open_24h,
                               include_hidden: false,
                               "data-opening-time-target": "open24h" } %>
                         <%= fot.label "Open 24h", class: "checkbox-label--default" %>
                       </div>
-                    </div>
+                  </div>
                 </div>
-              </div>
 
-            <% end %>
-        <% end %>
+              <% end %>
+          <% end %>
+        </div>
       </div>
-    </div>
 
     <!-- Submit -->
     <div class="flex-auto flex space-x-6 mt-8">
