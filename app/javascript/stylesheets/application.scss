@@ -6,7 +6,7 @@
 /* Base styles */
 
 h1 {
-	@apply text-4xl leading-7 font-bold
+	@apply text-3xl leading-7 font-bold
 }
 
 h2 {
@@ -60,8 +60,7 @@ code {
 }
 
 .button--top-menu {
-  @apply cursor-pointer text-gray-800 hover:text-mapzy-red
-    md:mx-2 no-underline hover:no-underline font-semibold
+  @apply mx-2 no-underline font-medium text-black
 }
 
 .button--bottom-menu {
