@@ -6,10 +6,13 @@
   data-map-location-base-url-value="<%= @location_base_url %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>">
 
-    <div class="absolute w-full md:w-96 bg-white shadow-md rounded top-O bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden" data-map-target="locationView">
+    <div
+      class="absolute w-full md:w-96 bg-white shadow-md border-gray-200 border-l-2 border-t-2 border-b-2
+            rounded top-O bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden"
+      data-map-target="locationView"
+    >
       <turbo-frame id="locations_show">
       </turbo-frame>
     </div>
     <%= render "shared/mapbox" %>
-    <%= render "shared/location_permission" %>
 </div>

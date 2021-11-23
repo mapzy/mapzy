@@ -1,4 +1,8 @@
 <%= render "dashboard/layouts/main" do %>
-  <%= render "shared/mapbox" %>
+  <div class="w-full h-full flex flex-row items-center justify-end">
+    <div class="w-4/6 h-full">
+      <%= render "shared/mapbox" %>
+    </div>
+  </div>
   <%= render partial: "dashboard/locations/form", locals: { title: "Edit Location "} %>
 <% end %>
