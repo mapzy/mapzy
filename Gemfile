@@ -44,10 +44,10 @@ gem "countries", "~> 3.1"
 gem "geocoder", "~> 1.6"
 
 # Hotwired
-gem "stimulus-rails", "~> 0.7"
-gem "turbo-rails", "~> 0.5"
+gem "stimulus-rails", "~> 0.7", ">= 0.7.2"
+gem "turbo-rails", "~> 0.8", ">= 0.8.3"
 
-gem "stripe", "~> 5.37.0"
+gem "stripe", "~> 5.41"
 
 gem "foreman", "~> 0.87.2"
 
