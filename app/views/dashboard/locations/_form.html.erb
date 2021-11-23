@@ -2,7 +2,7 @@
   class="absolute w-full md:w-2/6 overflow-y-scroll bg-white
         shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6"
 >
-  <h1 class="text-xl pb-6 text-center"><%= title %></h1>
+  <h3 class="pb-4 text-center"><span class="underline-red"><%= title %></span></h3>
   
     <div data-controller="location"
          data-location-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
@@ -102,7 +102,7 @@
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 mt-1 w-32">
+                      <div class="mt-1">
                         <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
                       </div>
 
