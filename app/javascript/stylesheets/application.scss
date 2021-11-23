@@ -3,26 +3,14 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/screens";
 
-/* Flash messages */
-.flash {
-  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
-}
+/* Base styles */
 
-/* Headings */
 h1 {
 	@apply text-4xl leading-7 font-bold
 }
 
-.h1--red {
-	@apply text-4xl leading-7 font-bold text-mapzy-red
-}
-
 h2 {
 	@apply text-2xl leading-7 font-bold
-}
-
-.h2--red {
-	@apply text-2xl leading-7 font-bold text-mapzy-red
 }
 
 h3 {
@@ -33,21 +21,42 @@ i {
 	@apply text-sm text-gray-800
 }
 
+a {
+  text-underline-position: under;
+  @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
+}
+
 p {
   @apply my-2
+}
+
+code {
+  font-family: monospace;
+}
+
+/* Emphasis */
+
+.underline-red {
+  @apply border-b-4 border-mapzy-red-light
+}
+
+/* Flash messages */
+
+.flash {
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
 
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white font-medium shadow
-    py-2 px-4 flex items-center justify-center no-underline hover:no-underline
+  py-2 px-6 flex items-center justify-center no-underline hover:no-underline
     hover:bg-mapzy-red-light hover:text-white
 }
 
 .button--secondary {
   @apply cursor-pointer rounded-full bg-red-50 text-mapzy-red
     hover:bg-mapzy-red-light hover:text-white 
-    py-2 px-4 flex items-center justify-center no-underline hover:no-underline
+    py-2 px-6 flex items-center justify-center no-underline hover:no-underline
 }
 
 .button--top-menu {
@@ -61,14 +70,7 @@ p {
     flex items-center justify-center text-base font-semibold shadow-md
 }
 
-/* Links */
-a {
-  text-underline-position: under;
-  @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
-}
-
 /* Forms */
-
 .label--default {
   @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }
@@ -101,7 +103,6 @@ a {
 }
 
 /* Utils */
-
 .hidden {
   display: none;
 }
@@ -111,8 +112,4 @@ a {
   width: 100% !important;
   max-width: none !important;
   box-shadow: none !important;
-}
-
-code {
-  font-family: monospace;
 }
