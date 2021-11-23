@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TrialNotifier
   extend ActiveSupport::Concern
 
@@ -6,6 +8,7 @@ module TrialNotifier
   end
 
   private
+
   def show_trial_reminder
     set_cookie
 
