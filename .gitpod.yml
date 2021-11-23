@@ -21,16 +21,17 @@ ports:
     onOpen: ignore
 
 tasks:
-  # we run rails db:seed after init, otherwise it can't access the Mapbox API
+  # Start Redis
+  - command: redis-server
+
+  # Install dependencies, prepare dev & test databases
+  # Seed dev database
   - init: >
       bundle install &&
       rails db:create db:schema:load RAILS_ENV=development &&
       rails db:create db:schema:load RAILS_ENV=test &&
       yarn install
     command: rails db:seed
-
-  # Start Redis
-  - command: redis-server
 
 github:
   prebuilds:
