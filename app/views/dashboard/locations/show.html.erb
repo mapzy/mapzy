@@ -4,8 +4,8 @@
       <div class="flex flex-row justify-between mb-8">
         <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.id, id: @location.id),
               target: "_top",
-              class: "text-left pointer text-sm underline py-1" %>
-        <a class="text-right pointer text-sm underline" data-action="map#hideLocationView">Close</a>
+              class: "text-left pointer text-sm py-1" %>
+        <a class="text-right pointer text-sm" data-action="map#hideLocationView">Close</a>
       </div>
     </div>
 

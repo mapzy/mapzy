@@ -42,8 +42,8 @@
       </div>
 
       <!-- Geocoded Address -->
-      <div class="-mx-3 mb-3">
-        <div class="w-full px-3 mb-6 md:mb-0">
+      <div class="-mx-3">
+        <div class="w-full px-3">
           <%= f.label :address,
                 class:"block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" %>
           <div data-location-target="addressWrapper"></div>
@@ -54,19 +54,14 @@
       <!-- Toggle lat / long -->
       <div class="-mx-3 hidden" data-location-target="adjustMarkerLink">
         <div class="w-full px-3">
-          <a data-action="location#zoomOnMarker location#showAdjustMarkerBlock">Need to adjust the marker?</a>
+          <a class="text-sm" data-action="location#zoomOnMarker location#showAdjustMarkerBlock">Need to adjust the marker?</a>
         </div>
       </div>
 
       <!-- Lat / Long  -->
-      <div class="-mx-3 mt-3 hidden" data-location-target="adjustMarkerBlock">
-        <div class="w-full px-3">
-          <p class="text-sm font-bold text-mapzy-red mb-2">
-            Drag the marker directly on the map to its exact position 👉
-          </p>
-        </div>
-        <div class="flex flex-wrap w-full mb-3">
-          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <div class="-mx-3 mt-6 hidden" data-location-target="adjustMarkerBlock">
+        <div class="flex flex-wrap w-full">
+          <div class="w-full md:w-1/2 px-3">
             <%= f.label :latitude,
                   class: "label--default" %>
 
@@ -85,6 +80,9 @@
                   "data-location-target": "longitude" %>
           </div>
         </div>
+        <p class="px-3 input-info">
+          Drag the marker directly on the map to its exact position 👉
+        </p>
       </div>
 
       <!-- Opening Times -->
@@ -97,14 +95,12 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-col justify-start items-start">
+                    <div class="flex flex-col justify-start items-start py-1">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="mt-1">
-                        <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
-                      </div>
+                      <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
 
                       <div class="flex flex-row items-start justify-center">
                         <div class="flex flex-row justify-center items-start py-1 mb-1 text-sm"
