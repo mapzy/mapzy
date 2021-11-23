@@ -29,6 +29,9 @@ tasks:
       yarn install
     command: rails db:seed
 
+  # Start Redis
+  - command: redis-server
+
 github:
   prebuilds:
     branches: true
