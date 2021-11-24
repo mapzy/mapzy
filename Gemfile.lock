@@ -411,7 +411,7 @@ DEPENDENCIES
   stimulus-rails (~> 0.7, >= 0.7.2)
   stripe (~> 5.41)
   stripe-ruby-mock (~> 3.1.0.rc3)
-  turbo-rails (~> 0.8, >= 0.8.3)
+  turbo-rails (~> 0.8, >= 0.8.2)
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers
