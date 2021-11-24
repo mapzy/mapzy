@@ -9,6 +9,9 @@
     <%= locations %> locations
   </div>
   <div class="my-6 mx-2">
-   <%= link_to "Start subscription", stripe_checkout_session_path(sub: name.downcase), class: "button--main" %>
+   <%= link_to "Start subscription", stripe_checkout_session_path(sub: name.downcase),
+       class: "button--main",
+       data: { turbo: false }
+    %>
   </div>
 </div>
