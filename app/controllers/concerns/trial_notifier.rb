@@ -32,6 +32,6 @@ module TrialNotifier
   end
 
   def cookie_key
-    "trial_notifier_#{current_user.id}".to_sym
+    "trial_notifier_#{current_user.hashid}".to_sym
   end
 end
