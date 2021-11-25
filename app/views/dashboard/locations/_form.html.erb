@@ -93,7 +93,7 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-row flex-wrap justify-start items-center">
+                    <div class="flex flex-row flex-wrap justify-start items-center mb-4 lg:mb-0">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
