@@ -1,6 +1,6 @@
 <div class="absolute w-2/5 overflow-y-scroll bg-white
           border-gray-200 border-l-2 border-t-2 border-b-2
-            shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-1/2 md:h-auto z-20 p-6" >
+            shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-full z-20 p-6" >
   <h3 class="pb-6 text-center"><%= title %></h3>
 
   <div data-controller="location"
@@ -93,16 +93,16 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-row justify-start items-center">
+                    <div class="flex flex-row flex-wrap justify-start items-center">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 my-1 w-1/4">
-                        <span class="uppercase tracking-wide text-gray-700 text-xs"><%= opening_time.day %></span>
+                      <div class="py-1 my-1 mr-8 md:w-1/5">
+                        <span class="uppercase tracking-wide text-gray-700 text-xs font-bold"><%= opening_time.day %></span>
                       </div>
 
-                      <div class="flex flex-row justify-center items-start py-1 my-1 text-sm"
+                      <div class="flex flex-row justify-center items-start py-1 my-1 mr-4 text-sm"
                           data-opening-time-target="timesBlock" >
                         <%= fot.select :opens_at,
                             options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),

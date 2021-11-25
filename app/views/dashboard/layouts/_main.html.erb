@@ -2,7 +2,7 @@
 
   <!-- Top Menu -->
   <header class="relative w-full bg-white">
-      <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
+      <div class="flex items-center justify-between py-2 px-8 md:px-12">
           <div class="flex justify-between items-center">
              <div class="text-2xl font-bold text-gray-800 md:text-3xl">
               <%= link_to root_path do %>
@@ -10,7 +10,7 @@
               <% end %>
              </div>
           </div>
-          <div class="flex flex-col md:flex-row md:block -mx-2">
+          <div class="flex flex-row md:block -mx-2">
             <% if params[:controller] == "dashboard/maps" && params[:action] == "show" %>
               <%= link_to "Install Map", dashboard_account_embed_path, class: "button--top-menu" %>
             <% else %>
