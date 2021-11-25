@@ -1,4 +1,4 @@
-<div class="w-full mt-4">
+<div class="w-full mt-4 mb-12">
   <p class="text-base">
     <% case current_user.account.status
        when "active" %>
@@ -9,10 +9,10 @@
       Your subscription is currently inactive. You can restart it by clicking on manage subscription below.
     <% end %>
   </p>
-  <div class="flex flex-row justify-center items-center my-6 px-4">
-   <%= link_to "Manage subscription", stripe_customer_portal_path, class: "button--main" %>
-  </div>
-  <div class="text-base mt-4">
+  <p class="text-base">
     You can change your tier, update your payment method, view your invoices, or cancel your subscription.
+  </p>
+  <div class="mt-3">
+   <%= link_to "Manage subscription", stripe_customer_portal_path %>
   </div>
 </div>
