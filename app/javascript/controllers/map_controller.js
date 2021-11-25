@@ -83,6 +83,10 @@ export default class extends Controller {
     var nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "bottom-right");
 
+
+    // add geolocation button
+    this.map.addControl(this.geolocate, "bottom-right");
+
     // add search bar
     this.map.addControl(
       new MapboxGeocoder({
@@ -95,7 +99,5 @@ export default class extends Controller {
       "top-right"
      );
 
-     // add geolocation button
-     this.map.addControl(this.geolocate, "bottom-right");
   }
 }
