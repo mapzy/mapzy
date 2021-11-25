@@ -28,7 +28,7 @@ module TrialNotifier
   end
 
   def reminder_time?
-    current_user.account.trial? && !cookies[cookie_key]
+    current_user.account.trial? && cookies[cookie_key].blank?
   end
 
   def cookie_key
