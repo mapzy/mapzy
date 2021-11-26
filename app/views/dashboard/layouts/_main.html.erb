@@ -1,23 +1,22 @@
 <div class="w-screen h-screen flex flex-col">
 
   <!-- Top Menu -->
-  <header class="relative w-full bg-white shadow-lg border">
-      <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
+  <header class="relative w-full bg-white">
+      <div class="flex items-center justify-between py-2 px-8 md:px-12">
           <div class="flex justify-between items-center">
              <div class="text-2xl font-bold text-gray-800 md:text-3xl">
               <%= link_to root_path do %>
-                <%= image_tag "logo_icon_only.png", class: "w-12" %>
+                <%= image_tag "logo.png", class: "h-14" %>
               <% end %>
              </div>
           </div>
-          <div class="flex flex-col md:flex-row md:block -mx-2">
+          <div class="flex flex-row md:block -mx-2">
             <% if params[:controller] == "dashboard/maps" && params[:action] == "show" %>
               <%= link_to "Install Map", dashboard_account_embed_path, class: "button--top-menu" %>
             <% else %>
               <%= link_to "View Map", root_path, class: "button--top-menu" %>
             <% end %>
             <%= link_to "Settings", dashboard_account_settings_path, class: "button--top-menu" %>
-            <%= link_to "Help", root_path, class: "button--top-menu" %>
           </div>
       </div>
   </header>

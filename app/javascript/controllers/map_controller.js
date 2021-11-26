@@ -48,7 +48,7 @@ export default class extends Controller {
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
 
-      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.id}`;
+      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
       anchor.setAttribute("data-turbo-frame", "locations_show");
       anchor.setAttribute("data-action", "map#showLocationView");
 
@@ -83,6 +83,10 @@ export default class extends Controller {
     var nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "bottom-right");
 
+
+    // add geolocation button
+    this.map.addControl(this.geolocate, "bottom-right");
+
     // add search bar
     this.map.addControl(
       new MapboxGeocoder({
@@ -95,7 +99,5 @@ export default class extends Controller {
       "top-right"
      );
 
-     // add geolocation button
-     this.map.addControl(this.geolocate, "bottom-right");
   }
 }

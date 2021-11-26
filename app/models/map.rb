@@ -19,6 +19,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Map < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :user
   has_many :locations, dependent: :destroy
 

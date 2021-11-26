@@ -23,6 +23,8 @@
 #  fk_rails_...  (map_id => maps.id)
 #
 class Location < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :map
   has_many :opening_times, dependent: :destroy
 

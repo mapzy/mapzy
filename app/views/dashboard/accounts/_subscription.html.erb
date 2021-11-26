@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full justify-center items-center my-6">
+<div class="flex flex-col w-full justify-center items-center mb-6">
   <p>
     <% case current_user.account.status
        when "trial" %>
@@ -12,7 +12,7 @@
   <div class="flex flex-col md:flex-row justify-center items-center my-4 w-full">
     <%= render "pricing_detail", name: "Mini", locations: "20", price: "9" %>
     <%= render "pricing_detail", name: "Medium", locations: "100", price: "29" %>
-    <%= render "pricing_detail", name: "Maxi", locations: "1000", price: "49" %>
+    <%= render "pricing_detail", name: "Maxi", locations: "Unlimited", price: "49" %>
   </div>
   <div class="text-base mt-4">
     Your subscription renews automatically until canceled. If you cancel your subscription, you can still use your maps until the end of your billing period and after that we'll set them offline. You can read more in our <%= link_to "terms", "https://mapzy.io/legal/terms" %>.

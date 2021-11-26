@@ -20,6 +20,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  include Hashid::Rails
   include Sidekiq::Worker
 
   has_many :maps, dependent: :destroy

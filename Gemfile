@@ -44,16 +44,19 @@ gem "countries", "~> 3.1"
 gem "geocoder", "~> 1.6"
 
 # Hotwired
-gem "stimulus-rails", "~> 0.7"
-gem "turbo-rails", "~> 0.5"
+gem "stimulus-rails", "~> 0.7", ">= 0.7.2"
+gem "turbo-rails", "~> 0.8", ">= 0.8.3"
 
-gem "stripe", "~> 5.37.0"
+gem "stripe", "~> 5.41"
 
 gem "foreman", "~> 0.87.2"
 
 gem "ohmysmtp-rails", "~> 0.1.9"
 
 gem "sidekiq", "~> 6.2"
+
+# Utility to use short hash IDs instead of the database IDs
+gem "hashid-rails", "~> 1.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

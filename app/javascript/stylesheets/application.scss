@@ -3,84 +3,79 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/screens";
 
-/* Flash messages */
-.flash {
-  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
-}
+/* Base styles */
 
-/* Headings */
 h1 {
-	@apply text-4xl leading-7 font-bold
-}
-
-.h1--red {
-	@apply text-4xl leading-7 font-bold text-mapzy-red
+	@apply text-3xl leading-7 font-bold
 }
 
 h2 {
 	@apply text-2xl leading-7 font-bold
 }
 
-.h2--red {
-	@apply text-2xl leading-7 font-bold text-mapzy-red
-}
-
 h3 {
-	@apply text-xl leading-7 font-medium mb-4
+	@apply text-xl leading-7 font-bold
 }
 
 i {
 	@apply text-sm text-gray-800
 }
 
+a {
+  text-underline-position: under;
+  @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
+}
+
 p {
   @apply my-2
+}
+
+code {
+  font-family: monospace;
+}
+
+/* Emphasis */
+
+.underline-red {
+  @apply border-b-4 border-mapzy-red-light
+}
+
+/* Flash messages */
+
+.flash {
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
 
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white font-medium shadow
-    py-2 px-4 flex items-center justify-center no-underline hover:no-underline
+  py-2 px-6 flex items-center justify-center no-underline hover:no-underline
     hover:bg-mapzy-red-light hover:text-white
 }
 
 .button--secondary {
   @apply cursor-pointer rounded-full bg-red-50 text-mapzy-red
     hover:bg-mapzy-red-light hover:text-white 
-    h-12 p-2 flex items-center justify-center no-underline hover:no-underline
+    py-2 px-6 flex items-center justify-center no-underline hover:no-underline
 }
 
 .button--top-menu {
-  @apply cursor-pointer text-gray-800 hover:text-mapzy-red
-    md:mx-2 no-underline hover:no-underline font-medium
+  @apply mx-2 no-underline font-semibold text-black
 }
 
 .button--bottom-menu {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white
-    hover:bg-mapzy-red-light hover:text-white px-4 py-2 no-underline hover:no-underline
-    flex items-center justify-center
-}
-
-/* Links */
-a {
-  text-underline-position: under;
-  @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
+    hover:bg-mapzy-red-light hover:text-white px-12 py-2 no-underline hover:no-underline
+    flex items-center justify-center text-base font-semibold shadow-md
 }
 
 /* Forms */
-
 .label--default {
   @apply block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2
 }
 
 .input--default {
-  box-shadow: 0 0 10px 2px rgba(0,0,0,.1);
-  @apply block w-full rounded py-3 px-4 mb-1 leading-tight
-}
-
-.input--default:focus {
-  box-shadow: none;
-  outline: thin dotted;
+  @apply block w-full rounded py-3 px-4 mb-1 leading-tight border-2
 }
 
 .input-info {
@@ -88,12 +83,11 @@ a {
 }
 
 .select--default {
-  box-shadow: 0 0 2px 1px rgba(0,0,0,.1);
   background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  @apply pr-3 pl-2 rounded bg-white text-gray-700
+  @apply pr-3 pl-2 rounded bg-white text-gray-700 border-2
 }
 
 .checkbox-label--default {
@@ -101,18 +95,18 @@ a {
 }
 
 /* Utils */
-
 .hidden {
   display: none;
 }
 
 /* Mapbox */
 .mapboxgl-ctrl-geocoder {
+  border-width: 2px !important;
   width: 100% !important;
   max-width: none !important;
   box-shadow: none !important;
 }
 
-code {
-  font-family: monospace;
+.mapboxgl-ctrl-top-right {
+  @apply invisible md:visible
 }

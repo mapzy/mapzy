@@ -2,7 +2,7 @@
 
 module Dashboard
   class MapsController < DashboardController
-    before_action :show_trial_reminder, only: [:show]
+    include TrialNotifier
 
     def show
       @map = Map.find(params[:id])

@@ -21,7 +21,7 @@ module LocationServices
               coordinates: [location.longitude.to_f, location.latitude.to_f]
             },
             properties: {
-              id: location.id
+              hashid: location.hashid
             }
           }
         )
