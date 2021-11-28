@@ -1,6 +1,6 @@
-<div class="absolute w-2/5 overflow-y-scroll bg-white
+<div class="absolute h-1/2 bottom-0 md:w-2/5 md:top-0 md:h-full overflow-y-scroll bg-white
           border-gray-200 border-l-2 border-t-2 border-b-2
-            shadow-md rounded md:inset-x-0 bottom-0 md:top-0 h-full z-20 p-6" >
+            shadow-md rounded md:inset-x-0 z-20 p-6" >
   <h3 class="pb-6 text-center"><%= title %></h3>
 
   <div data-controller="location"
@@ -80,7 +80,7 @@
         </div>
       </div>
       <p class="px-3 input-info">
-        Drag the marker directly on the map to its exact position 👉
+        Drag the marker to its exact position, directly on the map
       </p>
     </div>
 
@@ -93,17 +93,17 @@
                 <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
 
                   <div data-controller="opening-time">
-                    <div class="flex flex-row flex-wrap justify-start items-center mb-4 lg:mb-0">
+                    <div class="flex flex-row flex-wrap justify-start items-center mb-4 xl:mb-2">
                       <%= fot.hidden_field :id %>
                       <%= fot.hidden_field :location_id %>
                       <%= fot.hidden_field :day %>
 
-                      <div class="py-1 my-1 mr-8 md:w-1/5">
+                      <div class="py-1 my-1 mr-8 w-full xl:w-1/5">
                         <span class="uppercase tracking-wide text-gray-700 text-xs font-bold"><%= opening_time.day %></span>
                       </div>
 
-                      <div class="flex flex-row justify-center items-start py-1 my-1 mr-4 text-sm"
-                          data-opening-time-target="timesBlock" >
+                      <div class="flex flex-row justify-start md:justify-between items-start py-1 mr-4 text-sm"
+                           data-opening-time-target="timesBlock" >
                         <%= fot.select :opens_at,
                             options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
                             { include_blank: true },
@@ -115,20 +115,22 @@
                             { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
                       </div>
 
-                      <div class="py-1 mr-4" data-opening-time-target="closedBlock" >
-                        <%= fot.check_box :closed,
-                            { checked: opening_time.closed,
-                              include_hidden: false,
-                              "data-opening-time-target": "closed" } %>
-                        <%= fot.label "Closed", class: "checkbox-label--default" %>
-                      </div>
+                      <div class="flex flex-row justify-start md:justify-between items-start py-1 text-sm">
+                        <div class="mr-4" data-opening-time-target="closedBlock" >
+                          <%= fot.check_box :closed,
+                              { checked: opening_time.closed,
+                                include_hidden: false,
+                                "data-opening-time-target": "closed" } %>
+                          <%= fot.label "Closed", class: "checkbox-label--default" %>
+                        </div>
 
-                      <div class="py-1" data-opening-time-target="open24hBlock" >
-                        <%= fot.check_box :open_24h,
-                            { checked: opening_time.open_24h,
-                              include_hidden: false,
-                              "data-opening-time-target": "open24h" } %>
-                        <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                        <div class="" data-opening-time-target="open24hBlock" >
+                          <%= fot.check_box :open_24h,
+                              { checked: opening_time.open_24h,
+                                include_hidden: false,
+                                "data-opening-time-target": "open24h" } %>
+                          <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                        </div>
                       </div>
                   </div>
                 </div>

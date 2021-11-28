@@ -1,21 +1,23 @@
 <%= render "dashboard/layouts/main" do %>
   <div class="flex flex-col justify-center items-center p-4 text-lg">
-    <h1 class="mt-8 mb-12"><span class="underline-red">Settings</span></h1>
+    <h1 class="mt-12 mb-8"><span class="underline-red">Settings</span></h1>
 
     <div class="max-w-prose">
-      <h2>Subscription</h2>
-      <% if current_user.account.trial? || current_user.account.inactive? %>
-        <%= render "subscription" %>
-      <% else %>
-        <%= render "subscription_management" %>
-      <% end %>
+    <div class="w-full mx-2 my-2 md:mb-12 p-4">
+        <h2>Subscription</h2>
+        <% if current_user.account.trial? || current_user.account.inactive? %>
+          <%= render "subscription" %>
+        <% else %>
+          <%= render "subscription_management" %>
+        <% end %>
 
-      <h2 class=>Account</h2>
-      <p class=><%= current_user.name %></p>
-      <p class="mb-4"><%= current_user.email %></p>
+        <h2 class=>Account</h2>
+        <p class=><%= current_user.name %></p>
+        <p class="mb-4"><%= current_user.email %></p>
 
-      <%= link_to "Change Name, Email or Password", edit_user_registration_path %> <br>
-      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+        <%= link_to "Change Name, Email or Password", edit_user_registration_path %> <br>
+        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+      </div>
     </div>
   </div>
 <% end %>

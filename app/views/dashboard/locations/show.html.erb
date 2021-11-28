@@ -10,7 +10,7 @@
       <%= render "shared/location" %>
     </div>
 
-    <div class="relative w-full">
+    <div class="relative w-full mt-8">
       <div class="flex-auto flex space-x-6">
         <%= link_to "Delete", dashboard_map_location_path(map_id: @map.id, id: @location.id),
             data: { confirm: "Once deleted, it's deleted! Are you sure you want to delete this location?" },
