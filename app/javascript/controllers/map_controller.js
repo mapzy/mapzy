@@ -8,8 +8,7 @@ export default class extends Controller {
     "mapboxAccessToken" : String,
     "markers": Object,
     "bounds": Array,
-    "locationBaseUrl": String,
-    "askLocationPermission": Boolean,
+    "locationBaseUrl": String
   }
 
   initialize() {
@@ -17,11 +16,6 @@ export default class extends Controller {
     this.fitToMarkers();
 
   }
-
-  // requestPermission() {
-  //   // request location permission from browser
-  //   this.geolocate.trigger();
-  // }
 
   showLocationView() {
     this.locationViewTarget.classList.remove("hidden");
