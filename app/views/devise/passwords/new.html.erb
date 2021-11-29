@@ -1,14 +1,14 @@
 <%= render "devise/shared/layout" do %>
-  <h2 class="mb-8">Forgot your password?</h2>
+  <h1 class="text-center mb-8">Reset password</h1>
 
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "max-w-sm" }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <div class="field">
       <%= f.label :email, class: "label--default" %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input--default" %>
     </div>
 
     <div class="actions mt-8 mb-4">
-      <%= f.submit "Reset password", class: "w-full button--main" %>
+      <%= f.submit "Send me instructions", class: "w-full button--main" %>
     </div>
   <% end %>
 
