@@ -8,7 +8,8 @@ export default class extends Controller {
     "mapboxAccessToken" : String,
     "markers": Object,
     "bounds": Array,
-    "locationBaseUrl": String
+    "locationBaseUrl": String,
+    "dashboard": Boolean
   }
 
   initialize() {
@@ -32,10 +33,10 @@ export default class extends Controller {
   initMapbox() {
     // get access token
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
-    
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
+      cooperativeGestures: !this.dashboardValue
     });
 
     // create markers
