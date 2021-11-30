@@ -12,25 +12,6 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initMapbox();
-    this.fitToMarkers();
-
-  }
-
-  showLocationView() {
-    this.locationViewTarget.classList.remove("hidden");
-  }
-
-  hideLocationView() {
-    this.locationViewTarget.classList.add("hidden");
-  }
-
-  fitToMarkers() {
-    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
-   }
-
-  initMapbox() {
-    // get access token
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
     
     this.map = new mapboxgl.Map({
@@ -77,7 +58,6 @@ export default class extends Controller {
     var nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, "bottom-right");
 
-
     // add geolocation button
     this.map.addControl(this.geolocate, "bottom-right");
 
@@ -93,5 +73,15 @@ export default class extends Controller {
       "top-right"
      );
 
+    // Fit to markers
+    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
+  }
+
+  showLocationView() {
+    this.locationViewTarget.classList.remove("hidden");
+  }
+
+  hideLocationView() {
+    this.locationViewTarget.classList.add("hidden");
   }
 }
