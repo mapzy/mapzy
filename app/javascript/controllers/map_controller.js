@@ -17,6 +17,8 @@ export default class extends Controller {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
+      bounds: this.boundsValue,
+      fitBoundsOptions: { padding: 50, maxZoom: 12 }
     });
 
     // create markers
@@ -72,9 +74,6 @@ export default class extends Controller {
       }),
       "top-right"
      );
-
-    // Fit to markers
-    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
   }
 
   showLocationView() {
