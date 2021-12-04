@@ -17,6 +17,10 @@ export default class extends Controller {
 
   }
 
+  isMobile() {
+    return window.innerWidth <= 768;
+  }
+
   showLocationView() {
     this.locationViewTarget.classList.remove("hidden");
   }
@@ -64,6 +68,12 @@ export default class extends Controller {
         .addTo(this.map);
     }
 
+    // add zoom buttons
+    if (!this.isMobile()) {
+      var nav = new mapboxgl.NavigationControl();
+      this.map.addControl(nav, "bottom-right");
+    }
+
     // Add geolocate control to the map.
     this.geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -75,34 +85,36 @@ export default class extends Controller {
       },
     });
 
-    // add zoom buttons
-    var nav = new mapboxgl.NavigationControl();
-    this.map.addControl(nav, "bottom-right");
-
-
     // add geolocation button
-    this.map.addControl(this.geolocate, "bottom-right");
+    if (this.isMobile()) {
+      this.map.addControl(this.geolocate, "top-right");
+    } else {
+      this.map.addControl(this.geolocate, "bottom-right");
+    }
+    
 
-    // add search bar
-    this.map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        collapsed: false,
-        marker: false,
-        zoom: 15,
-      }),
-      "top-right"
-     );
-  }
+    if (!this.isMobile()) {
+      // add search bar
+      this.map.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl,
+          collapsed: false,
+          marker: false,
+          zoom: 15,
+        }),
+        "top-right"
+      );
+    }
+    }
 
   moveMapOnHiddenMarker(event) {
     const minX = 460;
     const paddingY = 30;
     const panelHeight = (window.innerHeight / 2) - paddingY;
-    if (window.innerWidth >= 768 && event.screenX < minX) {
+    if (!this.isMobile() && event.screenX < minX) {
       this.map.panBy([event.screenX - minX, 0]);
-    } else if (window.innerWidth < 768 && event.screenY > panelHeight) {
+    } else if (this.isMobile() && event.screenY > panelHeight) {
       this.map.panBy([0, event.screenY - panelHeight + paddingY]);
     }
   }
