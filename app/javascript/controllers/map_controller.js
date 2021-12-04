@@ -53,7 +53,10 @@ export default class extends Controller {
 
       anchor.appendChild(marker.getElement())
 
-      anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
+      if (window.innerWidth > 768) {
+        // only add for non-mobile screens
+        anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
+      }
 
       new mapboxgl.Marker({ 
         element: anchor,
