@@ -53,10 +53,7 @@ export default class extends Controller {
 
       anchor.appendChild(marker.getElement())
 
-      if (window.innerWidth > 768) {
-        // only add for non-mobile screens
-        anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
-      }
+      anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
 
       new mapboxgl.Marker({ 
         element: anchor,
@@ -101,9 +98,12 @@ export default class extends Controller {
 
   moveMapOnHiddenMarker(event) {
     const minX = 460;
-
-    if (event.screenX < minX) {
+    const paddingY = 30;
+    const panelHeight = (window.innerHeight / 2) - paddingY;
+    if (window.innerWidth >= 768 && event.screenX < minX) {
       this.map.panBy([event.screenX - minX, 0]);
+    } else if (window.innerWidth < 768 && event.screenY > panelHeight) {
+      this.map.panBy([0, event.screenY - panelHeight + paddingY]);
     }
   }
 }
