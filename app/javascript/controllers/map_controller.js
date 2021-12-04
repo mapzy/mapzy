@@ -110,12 +110,11 @@ export default class extends Controller {
 
   moveMapOnHiddenMarker(event) {
     const minX = 460;
-    const paddingY = 30;
-    const panelHeight = (window.innerHeight / 2) - paddingY;
-    if (!this.isMobile() && event.screenX < minX) {
-      this.map.panBy([event.screenX - minX, 0]);
-    } else if (this.isMobile() && event.screenY > panelHeight) {
-      this.map.panBy([0, event.screenY - panelHeight + paddingY]);
+    const panelHeight = (window.innerHeight / 2);
+    if (!this.isMobile() && event.x < minX) {
+      this.map.panBy([event.x - minX, 0]);
+    } else if (this.isMobile() && event.y > panelHeight * 0.9) {
+      this.map.panBy([0, event.y - panelHeight + 35]);
     }
   }
 }
