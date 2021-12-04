@@ -56,7 +56,7 @@ RSpec.describe "Registrations", type: :request do
         user_params[:user][:password] = "123456"
         user_params[:user][:password_confirmation] = "654321"
         post user_registration_path(params: user_params)
-        expect(User.where(email: user.email, name: user.name)).not_to exist
+        expect(User.where(email: user.email)).not_to exist
       end
     end
   end
