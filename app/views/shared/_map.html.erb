@@ -6,6 +6,7 @@
   data-map-location-base-url-value="<%= @location_base_url %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>"
   data-map-dashboard-value="<%= controller.controller_path.include?('dashboard') %>"
+  data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>"
 >
     <div
       class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0

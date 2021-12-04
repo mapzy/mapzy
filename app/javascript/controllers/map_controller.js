@@ -9,13 +9,13 @@ export default class extends Controller {
     "markers": Object,
     "bounds": Array,
     "locationBaseUrl": String,
-    "dashboard": Boolean
+    "dashboard": Boolean,
+    "paramNoAccidentalZoom": Boolean
   }
 
   initialize() {
     this.initMapbox();
     this.fitToMarkers();
-
   }
 
   showLocationView() {
@@ -31,12 +31,13 @@ export default class extends Controller {
    }
 
   initMapbox() {
+    console.log(this.paramNoAccidentalZoomValue)
     // get access token
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      cooperativeGestures: !this.dashboardValue
+      cooperativeGestures: !this.dashboardValue && this.paramNoAccidentalZoomValue
     });
 
     // create markers
