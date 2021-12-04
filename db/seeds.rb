@@ -1,6 +1,6 @@
 # Map 1: Global
 
-user = User.create!(name: "Jon Snow", email: "aegon@mapzy.io", password: "iloveghost12",  password_confirmation: "iloveghost12")
+user = User.create!(email: "aegon@mapzy.io", password: "iloveghost12",  password_confirmation: "iloveghost12")
 user.create_account
 
 map = user.maps.create!(name: "Global")
@@ -12,7 +12,7 @@ end
 
 # Map 2: US
 
-user = User.create!(name: "Daenerys Targaryen", email: "danny@mapzy.io", password: "breakerofchains10", password_confirmation: "breakerofchains10")
+user = User.create!(email: "danny@mapzy.io", password: "breakerofchains10", password_confirmation: "breakerofchains10")
 user.create_account
 
 map = user.maps.create!(name: "US")
@@ -24,7 +24,7 @@ end
 
 # Map 3: Zürich
 
-user = User.create!(name: "Tyrion Lannister", email: "tyrion@mapzy.io", password: "smartass007", password_confirmation: "smartass007")
+user = User.create!(email: "tyrion@mapzy.io", password: "smartass007", password_confirmation: "smartass007")
 user.create_account
 
 map = user.maps.create!(name: "Zürich")
