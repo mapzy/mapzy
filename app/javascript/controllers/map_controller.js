@@ -27,7 +27,7 @@ export default class extends Controller {
 
   fitToMarkers() {
     this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
-   }
+  }
 
   initMapbox() {
     // get access token
@@ -52,6 +52,8 @@ export default class extends Controller {
       });
 
       anchor.appendChild(marker.getElement())
+
+      anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
 
       new mapboxgl.Marker({ 
         element: anchor,
@@ -92,6 +94,13 @@ export default class extends Controller {
       }),
       "top-right"
      );
+  }
 
+  moveMapOnHiddenMarker(event) {
+    const minX = 460;
+
+    if (event.screenX < minX) {
+      this.map.panBy([event.screenX - minX, 0]);
+    }
   }
 }
