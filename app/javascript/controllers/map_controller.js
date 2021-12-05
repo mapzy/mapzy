@@ -12,37 +12,70 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initMapbox();
-    this.fitToMarkers();
-
-  }
-
-  isMobile() {
-    return window.innerWidth <= 768;
-  }
-
-  showLocationView() {
-    this.locationViewTarget.classList.remove("hidden");
-  }
-
-  hideLocationView() {
-    this.locationViewTarget.classList.add("hidden");
-  }
-
-  fitToMarkers() {
-    this.map.fitBounds(this.boundsValue, {padding: 50, maxZoom: 12});
-  }
-
-  initMapbox() {
-    // get access token
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
     
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
+      bounds: this.boundsValue,
+      fitBoundsOptions: { padding: 50, maxZoom: 12 }
     });
 
     // create markers
+    this.createMarkers();
+
+    // add zoom buttons
+    this.addZoomButtons();
+
+    // Add geolocate control to the map.
+    this.addGeolocateButton();
+
+    // Add search bar to the map
+    this.addSearchBar();
+  }
+
+  addGeolocateButton() {
+    this.geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: false,
+      fitBoundsOptions: {
+        maxZoom: 12,
+      },
+    });
+
+    // add geolocation button
+    if (this.isMobile()) {
+      this.map.addControl(this.geolocate, "top-right");
+    } else {
+      this.map.addControl(this.geolocate, "bottom-right");
+    }
+  }
+
+  addZoomButtons() {
+    if (!this.isMobile()) {
+      var nav = new mapboxgl.NavigationControl();
+      this.map.addControl(nav, "bottom-right");
+    }
+  }
+
+  addSearchBar() {
+    if (!this.isMobile()) {
+      this.map.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl,
+          collapsed: false,
+          marker: false,
+          zoom: 15,
+        }),
+        "top-right"
+      );
+    }
+  }
+
+  createMarkers() {
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
 
@@ -67,46 +100,19 @@ export default class extends Controller {
         .setLngLat(feature.geometry.coordinates)
         .addTo(this.map);
     }
+  }
 
-    // add zoom buttons
-    if (!this.isMobile()) {
-      var nav = new mapboxgl.NavigationControl();
-      this.map.addControl(nav, "bottom-right");
-    }
+  hideLocationView() {
+    this.locationViewTarget.classList.add("hidden");
+  }
 
-    // Add geolocate control to the map.
-    this.geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true
-      },
-      trackUserLocation: false,
-      fitBoundsOptions: {
-        maxZoom: 12,
-      },
-    });
+  showLocationView() {
+    this.locationViewTarget.classList.remove("hidden");
+  }
 
-    // add geolocation button
-    if (this.isMobile()) {
-      this.map.addControl(this.geolocate, "top-right");
-    } else {
-      this.map.addControl(this.geolocate, "bottom-right");
-    }
-    
-
-    if (!this.isMobile()) {
-      // add search bar
-      this.map.addControl(
-        new MapboxGeocoder({
-          accessToken: mapboxgl.accessToken,
-          mapboxgl: mapboxgl,
-          collapsed: false,
-          marker: false,
-          zoom: 15,
-        }),
-        "top-right"
-      );
-    }
-    }
+  isMobile() {
+    return window.innerWidth <= 768;
+  }
 
   moveMapOnHiddenMarker(event) {
     const minX = 460;
