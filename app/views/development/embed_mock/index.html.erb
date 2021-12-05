@@ -1,10 +1,12 @@
-<iframe
-  src="http://localhost:3000/maps/14"
+<h1 class="text-center my-10">Embedding testing ground</h1>
+  <iframe
+  src="<%= map_url(current_user.map.hashid) %>"
   title="Map for Map Name"
   scrolling="no"
   loading="lazy"
   referrerpolicy="no-referrer"
-  height="600px"
-  width="100%"
+  height="<%= params[:height] || '600' %>"
+  width="<%= params[:width] || '1000' %>"
+  class="mx-auto mt-10"
 >
 </iframe>

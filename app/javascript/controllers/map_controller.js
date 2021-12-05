@@ -22,6 +22,60 @@ export default class extends Controller {
     });
 
     // create markers
+    this.createMarkers();
+
+    // add zoom buttons
+    this.addZoomButtons();
+
+    // Add geolocate control to the map.
+    this.addGeolocateButton();
+
+    // Add search bar to the map
+    this.addSearchBar();
+  }
+
+  addGeolocateButton() {
+    this.geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: false,
+      fitBoundsOptions: {
+        maxZoom: 12,
+      },
+    });
+
+    // add geolocation button
+    if (this.isMobile()) {
+      this.map.addControl(this.geolocate, "top-right");
+    } else {
+      this.map.addControl(this.geolocate, "bottom-right");
+    }
+  }
+
+  addZoomButtons() {
+    if (!this.isMobile()) {
+      var nav = new mapboxgl.NavigationControl();
+      this.map.addControl(nav, "bottom-right");
+    }
+  }
+
+  addSearchBar() {
+    if (!this.isMobile()) {
+      this.map.addControl(
+        new MapboxGeocoder({
+          accessToken: mapboxgl.accessToken,
+          mapboxgl: mapboxgl,
+          collapsed: false,
+          marker: false,
+          zoom: 15,
+        }),
+        "top-right"
+      );
+    }
+  }
+
+  createMarkers() {
     for (var feature of this.markersValue.features) {
       let anchor = document.createElement('a');
 
@@ -36,6 +90,8 @@ export default class extends Controller {
 
       anchor.appendChild(marker.getElement())
 
+      anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
+
       new mapboxgl.Marker({ 
         element: anchor,
         // offset is necessary because we are using a custom element
@@ -44,43 +100,27 @@ export default class extends Controller {
         .setLngLat(feature.geometry.coordinates)
         .addTo(this.map);
     }
+  }
 
-    // Add geolocate control to the map.
-    this.geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true
-      },
-      trackUserLocation: false,
-      fitBoundsOptions: {
-        maxZoom: 12,
-      },
-    });
-
-    // add zoom buttons
-    var nav = new mapboxgl.NavigationControl();
-    this.map.addControl(nav, "bottom-right");
-
-    // add geolocation button
-    this.map.addControl(this.geolocate, "bottom-right");
-
-    // add search bar
-    this.map.addControl(
-      new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        collapsed: false,
-        marker: false,
-        zoom: 15,
-      }),
-      "top-right"
-     );
+  hideLocationView() {
+    this.locationViewTarget.classList.add("hidden");
   }
 
   showLocationView() {
     this.locationViewTarget.classList.remove("hidden");
   }
 
-  hideLocationView() {
-    this.locationViewTarget.classList.add("hidden");
+  isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  moveMapOnHiddenMarker(event) {
+    const minX = 460;
+    const panelHeight = (window.innerHeight / 2);
+    if (!this.isMobile() && event.x < minX) {
+      this.map.panBy([event.x - minX, 0]);
+    } else if (this.isMobile() && event.y > panelHeight * 0.9) {
+      this.map.panBy([0, event.y - panelHeight + 35]);
+    }
   }
 }
