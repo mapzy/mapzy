@@ -8,15 +8,18 @@ export default class extends Controller {
     "mapboxAccessToken" : String,
     "markers": Object,
     "bounds": Array,
-    "locationBaseUrl": String
+    "locationBaseUrl": String,
+    "dashboard": Boolean,
+    "paramNoAccidentalZoom": Boolean
   }
 
   initialize() {
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
-    
+
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
+      cooperativeGestures: !this.dashboardValue && this.paramNoAccidentalZoomValue,
       bounds: this.boundsValue,
       fitBoundsOptions: { padding: 50, maxZoom: 12 }
     });

@@ -3,12 +3,6 @@
     <h2 class="mt-8 mb-4">Account Settings</h2>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <div class="field mt-4">
-        <%= f.label :name, class: "label--default" %>
-        <%= f.text_field :name, autocomplete: "name",
-            class: "input--default" %>
-      </div>
-
-      <div class="field mt-4">
         <%= f.label :email, class: "label--default" %>
         <%= f.email_field :email, autocomplete: "email", required: true,
             class: "input--default" %>
