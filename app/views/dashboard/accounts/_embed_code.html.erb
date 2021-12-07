@@ -1,23 +1,33 @@
 <div class="w-full">
   <p>
-    Copy and paste the following HTML code to your website:
+    To install your map, simply copy and paste the following HTML code to your website:
   </p>
-  <div class="p-4 bg-gray-900 rounded my-4 w-full text-white text-sm">
+  <div class="code--multiline">
     <code>
       <%=
         %(<iframe src="#{map_url(map_hashid)}" allow="geolocation" title="Map by mapzy.io" loading="lazy" referrerpolicy="no-referrer" height="600px" width="100%"></iframe>)
       %>
     </code>
   </div>
-  <p class="pt-1">
-    💡 Pro tip: to change the size of the displayed map, simply change the values of <code>width</code> and <code>height</code>.
-  </p>
-  <p class="pt-1">
-    💡 Pro tip: Append <code>?no_accidental_zoom=true</code> to the of the URL in the <code>iframe src property</code> to
-    prevent your visitors from accidentally zooming into the map when scrolling with their mouse, touchpad or fingers.
-  </p>
+  <div class="py-4">
+    <h3>💡 How to change the size of my map?</h3>
+    <p>
+      You can change the values of <code>height</code> and <code>width</code> attributes to make your embedded map bigger or smaller.
+      These are standard HTML attributes: they can take fixed pixel values (e.g., <code>height=600px</code>) or variable percentage values (e.g., <code>width="100%"</code>).
+      <br>Read more about changing the size of your map on our <a href="https://docs.mapzy.io/embedding-options/height-and-width">documentation</a>.
+    </p>
+  </div>
+  <div class="py-4">
+    <h3>💡 How to avoid accidental zooms?</h3>
+    <p>
+      By default, your visitors can zoom in and out on the map when they scroll. In some cases, this is not ideal. For example, if your embedded map takes the full width of your page.
+      You can prevent accidental zooms by changing the <code>src</code> attribute above to
+      <code><%= %(src="#{map_url(map_hashid)}?no_accidental_zoom=true") %></code>.<br>
+      Read more about disabling accidental zooms on our <a href="https://docs.mapzy.io/embedding-options/disable-accidental-zoom">documentation</a>.
+    </p>
+  </div>
 
-  <p class="pt-4">
-    Contact us at <a href="mailto:bonjour@mapzy.io">bonjour@mapzy.io</a> if you need any help. We'd be happy to!
+  <p class="py-2">
+    You can contact us at <a href="mailto:bonjour@mapzy.io">bonjour@mapzy.io</a> if you need any help. We'd be happy to!
   </p>
 </div>

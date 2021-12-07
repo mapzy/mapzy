@@ -31,7 +31,15 @@ p {
 }
 
 code {
-  font-family: monospace;
+  @apply font-mono text-sm bg-gray-100 py-1
+}
+
+.code--multiline {
+  @apply p-4 rounded my-4 w-full bg-gray-900 text-white
+}
+
+.code--multiline > code {
+  @apply bg-transparent
 }
 
 /* Emphasis */
