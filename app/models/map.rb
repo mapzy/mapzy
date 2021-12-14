@@ -46,8 +46,6 @@ class Map < ApplicationRecord
   #
   # @return [Hash] GeoJson format
   def markers
-    @markers ||= LocationServices::GeoJson
-                 .new(locations)
-                 .convert_to_geo_json_hash
+    @markers ||= GeoJsonHelper.convert(locations)
   end
 end
