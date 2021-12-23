@@ -2,7 +2,7 @@
  <% if value.present? %>
     <div data-controller="flash">
       <div data-flash-target="message"
-           class="absolute w-full md:max-w-2xl top-7 left-1/2 transform -translate-x-1/2 z-50">
+           class="absolute w-full md:max-w-2xl top-20 md:top-7 left-1/2 transform -translate-x-1/2 z-50">
         <div class="flash">
           <span class="sm:inline"><%= value.to_s.html_safe %></span>
           <button data-action="flash#dismiss">
