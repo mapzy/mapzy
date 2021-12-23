@@ -1,11 +1,14 @@
 <% flash.each do |key, value| %>
  <% if value.present? %>
-    <div data-controller="flash" class="absolute w-full md:max-w-2xl top-7 left-1/2 transform -translate-x-1/2 z-50">
-      <div class="flash" data-flash-target="message">
-        <span class="sm:inline"><%= value.to_s.html_safe %></span>
-        <button data-action="flash#dismiss">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div data-controller="flash">
+      <div data-flash-target="message"
+           class="absolute w-full md:max-w-2xl top-7 left-1/2 transform -translate-x-1/2 z-50">
+        <div class="flash">
+          <span class="sm:inline"><%= value.to_s.html_safe %></span>
+          <button data-action="flash#dismiss">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   <% end %>
