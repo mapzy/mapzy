@@ -1,4 +1,6 @@
-module InactiveNotifier
+# frozen_string_literal: true
+
+module InactiveNotifiable
   extend ActiveSupport::Concern
 
   included do
