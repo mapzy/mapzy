@@ -29,7 +29,7 @@ RSpec.describe AccountMailer, type: :mailer do
 
       it_behaves_like(
         "a correct email",
-        "Welcome to Mapzy 👋",
+        "Welcome to Mapzy",
         "Welcome to Mapzy!"
       )
     end

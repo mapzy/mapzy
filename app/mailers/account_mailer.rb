@@ -4,7 +4,7 @@ class AccountMailer < ApplicationMailer
   def welcome_email
     mail(
       to: params[:email],
-      subject: "Welcome to Mapzy 👋"
+      subject: "Welcome to Mapzy"
     )
   end
 
