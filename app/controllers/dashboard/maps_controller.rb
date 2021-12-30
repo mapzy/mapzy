@@ -3,6 +3,7 @@
 module Dashboard
   class MapsController < DashboardController
     include TrialNotifier
+    include InactiveNotifier
 
     def show
       @map = Map.find(params[:id])
