@@ -5,8 +5,6 @@
       Your subscription is currently active and you are on the <%= @product.name %> plan.
     <% when "canceled" %>
       You have canceled your subscription. Your account will stay active until the end of your billing cycle (<%= @cancel_at %>). You can restart your subscription by clicking on manage subscription below.
-    <% when "inactive" %>
-      Your subscription is currently inactive. You can restart it by clicking on manage subscription below.
     <% end %>
   </p>
   <p class="text-base">
