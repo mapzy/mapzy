@@ -29,8 +29,4 @@ class Account < ApplicationRecord
     canceled: 2,
     inactive: 3
   }
-
-  def valid_state?
-    trial? || stripe_customer_id.present?
-  end
 end

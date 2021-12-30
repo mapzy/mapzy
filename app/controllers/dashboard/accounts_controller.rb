@@ -3,11 +3,6 @@
 module Dashboard
   class AccountsController < DashboardController
     def settings
-      unless account.valid_state?
-        flash[:alert] = problem_with_account
-        return
-      end
-
       return if current_user.account.trial? || current_user.account.inactive?
       return if stripe_customer.blank? || stripe_subscription.blank?
 
@@ -18,10 +13,6 @@ module Dashboard
     def embed; end
 
     private
-
-    def problem_with_account
-      "There is something wrong with your account. Please contact us at bonjour@mapzy.io"
-    end
 
     def format_cancel_time(unix_time)
       return unless unix_time
