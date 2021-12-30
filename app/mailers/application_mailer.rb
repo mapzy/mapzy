@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: "bonjour@mapzy.io"
+  default from: email_address_with_name("bonjour@mapzy.io", "Mapzy")
   layout "mailer"
 end
