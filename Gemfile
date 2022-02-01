@@ -55,6 +55,8 @@ gem "ohmysmtp-rails", "~> 0.1.9"
 
 gem "sidekiq", "~> 6.4"
 
+gem "faraday", "~> 1.8.0"
+
 # Utility to use short hash IDs instead of the database IDs
 gem "hashid-rails", "~> 1.0"
 

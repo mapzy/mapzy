@@ -2,6 +2,9 @@
 
 module Dashboard
   class AccountsController < DashboardController
+    before_action :track_settings_event, only: %i[settings]
+    before_action :track_embed_event, only: %i[embed]
+
     def settings
       return if current_user.account.trial? || current_user.account.inactive?
       return if stripe_customer.blank? || stripe_subscription.blank?
@@ -37,6 +40,14 @@ module Dashboard
         id: current_user.account.stripe_customer_id,
         expand: ["subscriptions"]
       )
+    end
+
+    def track_settings_event
+      FuguWorker.perform_async("Viewed Account Settings")
+    end
+
+    def track_embed_event
+      FuguWorker.perform_async("Viewed Embed Instructions")
     end
   end
 end
