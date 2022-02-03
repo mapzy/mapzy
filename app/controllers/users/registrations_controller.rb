@@ -6,12 +6,18 @@ module Users
     before_action :configure_account_update_params, only: [:update]
     after_action :remove_notice, only: %i[create]
 
+    def new
+      super
+      FuguWorker.perform_async("Viewed Sign Up")
+    end
+
     def create
       super do |resource|
         if resource.persisted?
           resource.create_account
           resource.setup_email_workers
           resource.send_welcome_email
+          FuguWorker.perform_async("New Sign Up")
         end
 
         flash.now[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?

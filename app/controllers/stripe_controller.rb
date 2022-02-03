@@ -6,6 +6,7 @@ class StripeController < ApplicationController
 
   def checkout_session
     session = Stripe::Checkout::Session.create(checkout_session_args)
+    FuguWorker.perform_async("Clicked Start Sub", { subscription: params[:sub] })
     redirect_to session.url
   rescue StandardError
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
@@ -19,6 +20,9 @@ class StripeController < ApplicationController
     update_user_account
 
     flash[:notice] = "Subscription successful! Enjoy Mapzy!"
+
+    FuguWorker.perform_async("New Subscription")
+
     redirect_to dashboard_account_settings_url
   rescue StandardError
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"

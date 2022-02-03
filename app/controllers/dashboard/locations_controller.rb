@@ -8,9 +8,10 @@ module Dashboard
     before_action :set_bounds, only: %i[new edit create update]
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
-    before_action :track_new_location_event, only: %i[new]
-    before_action :track_create_location_event, only: %i[create]
-    before_action :track_update_location_event, only: %i[create]
+    after_action :track_new_location_event, only: %i[new]
+    after_action :track_create_location_event, only: %i[create]
+    after_action :track_update_location_event, only: %i[update]
+    after_action :track_view_location_event, only: %i[show]
 
     def new
       @location = @map.locations.new
@@ -91,6 +92,10 @@ module Dashboard
 
     def track_update_location_event
       FuguWorker.perform_async("Updated Location")
+    end
+
+    def track_view_location_event
+      FuguWorker.perform_async("Viewed Dash Location")
     end
   end
 end

@@ -2,6 +2,7 @@
 
 class MapsController < ApplicationController
   after_action :allow_iframe, only: %i[show]
+  after_action :track_viewed_map_event, only: %i[show]
 
   def show
     @map = Map.find(params[:id])
@@ -13,5 +14,9 @@ class MapsController < ApplicationController
 
   def allow_iframe
     response.headers.except! "X-Frame-Options"
+  end
+
+  def track_viewed_map_event
+    FuguWorker.perform_async("Viewed Map")
   end
 end

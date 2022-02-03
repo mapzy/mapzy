@@ -5,7 +5,7 @@ module Dashboard
     include TrialNotifiable
     include InactiveNotifiable
 
-    before_action :track_show_event, only: %i[show]
+    after_action :track_viewed_map_event, only: %i[show]
 
     def show
       @map = Map.find(params[:id])
@@ -21,8 +21,8 @@ module Dashboard
 
     private
 
-    def track_show_event
-      FuguWorker.perform_async("Viewed Dashboard Map")
+    def track_viewed_map_event
+      FuguWorker.perform_async("Viewed Dash Map")
     end
   end
 end

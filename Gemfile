@@ -15,8 +15,6 @@ gem "puma", "~> 5.0", ">= 5.5.1"
 gem "sass-rails", ">= 6"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker", "~> 5.0"
-# Turbolinks makes navigating your web application faster.
-# Read more: https://github.com/turbolinks/turbolinks
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
@@ -44,8 +42,8 @@ gem "countries", "~> 3.1"
 gem "geocoder", "~> 1.6"
 
 # Hotwired
-gem "stimulus-rails", "~> 0.7", ">= 0.7.2"
-gem "turbo-rails", "~> 0.8", ">= 0.8.3"
+gem "stimulus-rails", "~> 1.0.2"
+gem "turbo-rails", "~> 1.0.1"
 
 gem "stripe", "~> 5.41"
 

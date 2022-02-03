@@ -4,6 +4,11 @@ module Users
   class SessionsController < Devise::SessionsController
     after_action :remove_notice, only: %i[destroy create]
 
+    def new
+      super
+      FuguWorker.perform_async("Viewed Sign In")
+    end
+
     def create
       super do |resource|
         if resource.errors.present?
