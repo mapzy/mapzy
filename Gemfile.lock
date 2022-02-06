@@ -363,7 +363,7 @@ DEPENDENCIES
   bundler-audit (~> 0.9)
   byebug
   cancancan (~> 3.2)
-  capybara (>= 3.26)
+  capybara (>= 3.36)
   countries (~> 3.1)
   database_cleaner-active_record
   devise

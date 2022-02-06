@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "interacting with the map", type: :feature do
+RSpec.describe "interacting with the map", type: :feature, :js => true do
   let(:location) { create(:location) }
   let(:map) { location.map }
 
@@ -14,12 +14,8 @@ RSpec.describe "interacting with the map", type: :feature do
     expect(page).not_to have_content(location.name)
   end
 
-  # this test throws a weird error
-  # Selenium::WebDriver::Error::ElementNotInteractableError:
-  # element not interactable: element has zero size
-
-  xit "shows location view on pin click" do
-    page.find_link("", href: location_path(location.id)).click
+  it "shows location view on pin click" do
+    page.scroll_to(page.find_link(href: location_path(location.hashid))).click
     expect(page).to have_content(location.name)
   end
 end

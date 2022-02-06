@@ -35,13 +35,6 @@ jobs:
           ruby-version: 3.0.0
           bundler-cache: true
 
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn install
-
       - name: Set up PostgreSQL client
         run: |
           sudo apt-get -yqq install libpq-dev
@@ -49,6 +42,10 @@ jobs:
       - name: Setup test database
         run: |
           bin/rails db:setup
+      
+      - name: Build Tailwind
+        run: |
+          bin/rails tailwindcss:build
 
       - name: Run specs
         run: |
