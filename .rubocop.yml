@@ -57,6 +57,9 @@ RSpec/NestedGroups:
 RSpec/NamedSubject:
   Enabled: false
 
+RSpec/FilePath:
+  SpecSuffixOnly: true
+
 Rails/LexicallyScopedActionFilter:
   Exclude:
    - app/controllers/users/**/*

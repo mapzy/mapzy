@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "interacting with the map", type: :feature, :js => true do
+RSpec.describe "interacting with the map", type: :feature, js: true do
   let(:location) { create(:location) }
   let(:map) { location.map }
 
