@@ -8,9 +8,6 @@ ports:
   # PostgreSQL server
   - port: 5432
     onOpen: ignore
-  # Webpack dev server
-  - port: 3035
-    onOpen: ignore
   # Redis server
   - port: 6379
     onOpen: ignore
@@ -26,12 +23,11 @@ tasks:
 
   # Install dependencies, prepare dev & test databases
   # Seed dev database
-  - init: >
-      bundle install &&
-      rails db:create db:schema:load RAILS_ENV=development &&
-      rails db:create db:schema:load RAILS_ENV=test &&
-      yarn install
-    command: rails db:seed
+  - init: |
+      bundle install
+      rails db:create db:schema:load RAILS_ENV=development
+      rails db:create db:schema:load RAILS_ENV=test
+      rails db:seed
 
 github:
   prebuilds:

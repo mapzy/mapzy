@@ -1,7 +1,7 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "tailwindcss/screens";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
 
 /* Base styles */
 
@@ -95,7 +95,7 @@ code {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  @apply pr-3 pl-2 rounded bg-white text-gray-700 border-2
+  @apply pr-4 pl-2 rounded bg-white text-gray-700 border-2
 }
 
 .checkbox-label--default {
@@ -108,4 +108,14 @@ code {
   width: 100% !important;
   max-width: none !important;
   box-shadow: none !important;
+  padding-left: 20px;
+}
+
+.mapboxgl-ctrl-geocoder:focus-within {
+  border-color: #2563eb;
+}
+
+.mapboxgl-ctrl-geocoder--input:focus {
+  box-shadow: none;
+  outline: none;
 }

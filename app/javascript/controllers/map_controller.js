@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [
@@ -17,11 +17,12 @@ export default class extends Controller {
     mapboxgl.accessToken = this.mapboxAccessTokenValue;
 
     this.map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v11",
       cooperativeGestures: !this.dashboardValue && this.paramNoAccidentalZoomValue,
       bounds: this.boundsValue,
-      fitBoundsOptions: { padding: 50, maxZoom: 12 }
+      fitBoundsOptions: { padding: 50, maxZoom: 12 },
+      logoPosition: "top-left"
     });
 
     // create markers
@@ -80,7 +81,7 @@ export default class extends Controller {
 
   createMarkers() {
     for (var feature of this.markersValue.features) {
-      let anchor = document.createElement('a');
+      let anchor = document.createElement("a");
 
       anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
       anchor.setAttribute("data-turbo-frame", "locations_show");

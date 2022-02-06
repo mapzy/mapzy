@@ -11,12 +11,6 @@ gem "rails", "~> 6.1.4", ">= 6.1.4.4"
 gem "pg", "~> 1.1"
 # Use Puma as the app server
 gem "puma", "~> 5.0", ">= 5.5.1"
-# Use SCSS for stylesheets
-gem "sass-rails", ">= 6"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 5.0"
-# Turbolinks makes navigating your web application faster.
-# Read more: https://github.com/turbolinks/turbolinks
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
@@ -43,9 +37,11 @@ gem "countries", "~> 3.1"
 # Forward & reverse geocoder
 gem "geocoder", "~> 1.6"
 
+gem "importmap-rails", "~> 1.0.2"
+
 # Hotwired
-gem "stimulus-rails", "~> 0.7", ">= 0.7.2"
-gem "turbo-rails", "~> 0.8", ">= 0.8.3"
+gem "stimulus-rails", "~> 1.0.2"
+gem "turbo-rails", "~> 1.0.1"
 
 gem "stripe", "~> 5.41"
 
@@ -57,6 +53,8 @@ gem "sidekiq", "~> 6.4"
 
 # Utility to use short hash IDs instead of the database IDs
 gem "hashid-rails", "~> 1.0"
+
+gem "tailwindcss-rails", "~> 2.0.5"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

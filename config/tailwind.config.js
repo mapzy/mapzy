@@ -1,10 +1,11 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
-  purge: [
-    "./app/**/*.html.erb",
-    "./app/helpers/**/*.rb",
-    "./app/javascript/**/*.js",
+  content: [
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+    './app/views/**/*'
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -17,6 +18,9 @@ module.exports = {
     },
   },
   plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
     // Use mapzy-violet as underline color
     function ({addUtilities}) {
       const extendUnderline = {

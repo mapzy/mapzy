@@ -150,6 +150,9 @@ GEM
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     i18n_data (0.11.0)
+    importmap-rails (1.0.2)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     launchy (2.5.0)
@@ -203,8 +206,6 @@ GEM
     rack (2.2.3)
     rack-mini-profiler (2.3.3)
       rack (>= 1.2.0)
-    rack-proxy (0.7.0)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.1.4.4)
@@ -290,21 +291,10 @@ GEM
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     selenium-webdriver (4.0.3)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
-    semantic_range (3.0.0)
     shellany (0.0.1)
     shoulda-matchers (5.0.0)
       activesupport (>= 5.2.0)
@@ -321,17 +311,21 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stimulus-rails (0.7.2)
-      rails (>= 6.0.0)
+    stimulus-rails (1.0.2)
+      railties (>= 6.0.0)
     stripe (5.41.0)
     stripe-ruby-mock (3.1.0.rc3)
       dante (>= 0.2.0)
       multi_json (~> 1.0)
       stripe (> 5, < 6)
+    tailwindcss-rails (2.0.5-x86_64-darwin)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.5-x86_64-linux)
+      railties (>= 6.0.0)
     thor (1.1.0)
-    tilt (2.0.10)
-    turbo-rails (0.8.3)
-      rails (>= 6.0.0)
+    turbo-rails (1.0.1)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -351,11 +345,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -384,6 +373,7 @@ DEPENDENCIES
   geocoder (~> 1.6)
   guard-rspec
   hashid-rails (~> 1.0)
+  importmap-rails (~> 1.0.2)
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.3)
@@ -403,20 +393,19 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
-  sass-rails (>= 6)
   selenium-webdriver
   shoulda-matchers
   sidekiq (~> 6.4)
   spring
-  stimulus-rails (~> 0.7, >= 0.7.2)
+  stimulus-rails (~> 1.0.2)
   stripe (~> 5.41)
   stripe-ruby-mock (~> 3.1.0.rc3)
-  turbo-rails (~> 0.8, >= 0.8.3)
+  tailwindcss-rails (~> 2.0.5)
+  turbo-rails (~> 1.0.1)
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers
   webmock (~> 3.14.0)
-  webpacker (~> 5.0)
 
 RUBY VERSION
    ruby 3.0.0p0
