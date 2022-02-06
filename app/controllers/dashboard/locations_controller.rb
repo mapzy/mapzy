@@ -2,16 +2,19 @@
 
 module Dashboard
   class LocationsController < DashboardController
+    include Trackable
+
     skip_authorize_resource only: %i[new create]
 
     before_action :set_map
     before_action :set_bounds, only: %i[new edit create update]
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
-    after_action :track_new_location_event, only: %i[new]
-    after_action :track_create_location_event, only: %i[create]
-    after_action :track_update_location_event, only: %i[update]
-    after_action :track_view_location_event, only: %i[show]
+
+    after_action -> { track_event("Viewed Add Location") }, only: %i[new]
+    after_action -> { track_event("Added Location") }, only: %i[create]
+    after_action -> { track_event("Updated Location") }, only: %i[update]
+    after_action -> { track_event("Viewed Dash Location") }, only: %i[show]
 
     def new
       @location = @map.locations.new
@@ -80,22 +83,6 @@ module Dashboard
             .permit(:name, :description, :address, :latitude, :longitude,
                     opening_times_attributes: \
                       %i[id location_id day opens_at closes_at closed open_24h])
-    end
-
-    def track_new_location_event
-      FuguWorker.perform_async("Viewed Add Location")
-    end
-
-    def track_create_location_event
-      FuguWorker.perform_async("Added Location")
-    end
-
-    def track_update_location_event
-      FuguWorker.perform_async("Updated Location")
-    end
-
-    def track_view_location_event
-      FuguWorker.perform_async("Viewed Dash Location")
     end
   end
 end

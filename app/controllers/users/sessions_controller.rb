@@ -2,12 +2,10 @@
 
 module Users
   class SessionsController < Devise::SessionsController
-    after_action :remove_notice, only: %i[destroy create]
+    include Trackable
 
-    def new
-      super
-      FuguWorker.perform_async("Viewed Sign In")
-    end
+    after_action :remove_notice, only: %i[destroy create]
+    after_action -> { track_event("Viewed Sign In") }, only: %i[new]
 
     def create
       super do |resource|

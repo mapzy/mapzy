@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class StripeController < ApplicationController
+  include Trackable
+
   skip_before_action :verify_authenticity_token, only: %i[webhooks]
   before_action :verify_webhook, only: %i[webhooks]
 
   def checkout_session
     session = Stripe::Checkout::Session.create(checkout_session_args)
-    FuguWorker.perform_async("Clicked Start Sub", { subscription: params[:sub] })
+    track_event("Clicked Start Sub", { subscription: params[:sub] })
     redirect_to session.url
   rescue StandardError
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
@@ -21,7 +23,7 @@ class StripeController < ApplicationController
 
     flash[:notice] = "Subscription successful! Enjoy Mapzy!"
 
-    FuguWorker.perform_async("New Subscription")
+    track_event("New Subscription", { subscription: params[:sub] })
 
     redirect_to dashboard_account_settings_url
   rescue StandardError

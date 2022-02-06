@@ -2,14 +2,12 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    include Trackable
+
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]
     after_action :remove_notice, only: %i[create]
-
-    def new
-      super
-      FuguWorker.perform_async("Viewed Sign Up")
-    end
+    after_action -> { track_event("Viewed Sign Up") }, only: %i[new]
 
     def create
       super do |resource|
@@ -17,7 +15,7 @@ module Users
           resource.create_account
           resource.setup_email_workers
           resource.send_welcome_email
-          FuguWorker.perform_async("New Sign Up")
+          track_event("New Sign Up")
         end
 
         flash.now[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?

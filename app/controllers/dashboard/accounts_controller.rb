@@ -2,8 +2,10 @@
 
 module Dashboard
   class AccountsController < DashboardController
-    after_action :track_settings_event, only: %i[settings]
-    after_action :track_embed_event, only: %i[embed]
+    include Trackable
+
+    after_action -> { track_event("Viewed Account Settings") }, only: %i[settings]
+    after_action -> { track_event("Viewed Embed Code") }, only: %i[embed]
 
     def settings
       return if current_user.account.trial? || current_user.account.inactive?
@@ -40,14 +42,6 @@ module Dashboard
         id: current_user.account.stripe_customer_id,
         expand: ["subscriptions"]
       )
-    end
-
-    def track_settings_event
-      FuguWorker.perform_async("Viewed Account Settings")
-    end
-
-    def track_embed_event
-      FuguWorker.perform_async("Viewed Embed Code")
     end
   end
 end

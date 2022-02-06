@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class MapsController < ApplicationController
+  include Trackable
+
   after_action :allow_iframe, only: %i[show]
-  after_action :track_viewed_map_event, only: %i[show]
+  after_action -> { track_event("Viewed Map") }, only: %i[show]
 
   def show
     @map = Map.find(params[:id])
@@ -14,9 +16,5 @@ class MapsController < ApplicationController
 
   def allow_iframe
     response.headers.except! "X-Frame-Options"
-  end
-
-  def track_viewed_map_event
-    FuguWorker.perform_async("Viewed Map")
   end
 end
