@@ -2,7 +2,10 @@
 
 module Users
   class SessionsController < Devise::SessionsController
+    include Trackable
+
     after_action :remove_notice, only: %i[destroy create]
+    after_action -> { track_event("Viewed Sign In") }, only: %i[new]
 
     def create
       super do |resource|

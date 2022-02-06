@@ -2,9 +2,13 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    include Trackable
+
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]
     after_action :remove_notice, only: %i[create]
+    after_action -> { track_event("Viewed Sign Up") }, only: %i[new]
+    after_action -> { track_event("New Sign Up") }, only: %i[create], if: -> { resource.persisted? }
 
     def create
       super do |resource|
