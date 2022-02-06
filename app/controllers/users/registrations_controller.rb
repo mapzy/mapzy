@@ -8,6 +8,7 @@ module Users
     before_action :configure_account_update_params, only: [:update]
     after_action :remove_notice, only: %i[create]
     after_action -> { track_event("Viewed Sign Up") }, only: %i[new]
+    after_action -> { track_event("New Sign Up") }, only: %i[create], if: -> { resource.persisted? }
 
     def create
       super do |resource|
@@ -15,7 +16,6 @@ module Users
           resource.create_account
           resource.setup_email_workers
           resource.send_welcome_email
-          track_event("New Sign Up")
         end
 
         flash.now[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?

@@ -5,10 +5,15 @@ class StripeController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: %i[webhooks]
   before_action :verify_webhook, only: %i[webhooks]
+  after_action lambda {
+                 track_event("Clicked Start Sub", { subscription: params[:sub] })
+               }, only: %i[checkout_session]
+  after_action lambda {
+                 track_event("New Subscription", { subscription: params[:sub] })
+               }, only: %i[success_callback]
 
   def checkout_session
     session = Stripe::Checkout::Session.create(checkout_session_args)
-    track_event("Clicked Start Sub", { subscription: params[:sub] })
     redirect_to session.url
   rescue StandardError
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
@@ -22,8 +27,6 @@ class StripeController < ApplicationController
     update_user_account
 
     flash[:notice] = "Subscription successful! Enjoy Mapzy!"
-
-    track_event("New Subscription", { subscription: params[:sub] })
 
     redirect_to dashboard_account_settings_url
   rescue StandardError
@@ -113,7 +116,8 @@ class StripeController < ApplicationController
         quantity: 1
       }],
       mode: "subscription",
-      success_url: "#{stripe_success_callback_url}?session_id={CHECKOUT_SESSION_ID}",
+      success_url: "#{stripe_success_callback_url}?session_id={CHECKOUT_SESSION_ID}"\
+                   "&sub=#{params[:sub]}",
       cancel_url: dashboard_account_settings_url
     }
   end
