@@ -126,7 +126,9 @@ end
 
 Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new app, browser: :chrome,
-    capabilities: Selenium::WebDriver::Chrome::Options.new(args: %w[headless no-sandbox disable-dev-shm-usage])
+                                      capabilities: Selenium::WebDriver::Chrome::Options.new(
+                                        args: %w[headless no-sandbox disable-dev-shm-usage]
+                                      )
 end
 
 Capybara.javascript_driver = :chrome
