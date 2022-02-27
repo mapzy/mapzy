@@ -2,12 +2,19 @@
 
 module Dashboard
   class LocationsController < DashboardController
+    include Trackable
+
     skip_authorize_resource only: %i[new create]
 
     before_action :set_map
     before_action :set_bounds, only: %i[new edit create update]
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
+
+    after_action -> { track_event("Viewed Add Location") }, only: %i[new]
+    after_action -> { track_event("Added Location") }, only: %i[create]
+    after_action -> { track_event("Updated Location") }, only: %i[update]
+    after_action -> { track_event("Viewed Dash Location") }, only: %i[show]
 
     def new
       @location = @map.locations.new

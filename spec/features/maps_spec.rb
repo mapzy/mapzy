@@ -7,7 +7,7 @@ RSpec.describe "interacting with the map", type: :feature, js: true do
   let(:map) { location.map }
 
   before do
-    visit map_path(map.id)
+    visit map_path(map.hashid)
   end
 
   it "does not show location name before click" do

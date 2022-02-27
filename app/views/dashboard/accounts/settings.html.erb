@@ -15,7 +15,10 @@
         <p class="mb-4"><%= current_user.email %></p>
 
         <%= link_to "Change Email or Password", edit_user_registration_path %> <br>
-        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+        <%= button_to "Log out", destroy_user_session_path,
+            method: :delete,
+            class: "no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold"
+        %>
       </div>
     </div>
   </div>

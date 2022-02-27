@@ -60,6 +60,9 @@ RSpec/NamedSubject:
 RSpec/FilePath:
   SpecSuffixOnly: true
 
+RSpec/ExampleLength:
+  Max: 15
+
 Rails/LexicallyScopedActionFilter:
   Exclude:
    - app/controllers/users/**/*

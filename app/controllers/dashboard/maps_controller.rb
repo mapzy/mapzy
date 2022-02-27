@@ -2,8 +2,11 @@
 
 module Dashboard
   class MapsController < DashboardController
+    include Trackable
     include TrialNotifiable
     include InactiveNotifiable
+
+    after_action -> { track_event("Viewed Dash Map") }, only: %i[show]
 
     def show
       @map = Map.find(params[:id])

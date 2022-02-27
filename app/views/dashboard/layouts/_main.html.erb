@@ -17,9 +17,9 @@
             <% if params[:controller] == "dashboard/maps" && params[:action] == "show" %>
               <%= link_to "Embed Map", dashboard_account_embed_path, class: "button--top-menu" %>
             <% else %>
-              <%= link_to "View Map", root_path, class: "button--top-menu" %>
+              <%= link_to "View Map", root_path, class: "button--top-menu", data: { turbo: false } %>
             <% end %>
-            <%= link_to "Settings", dashboard_account_settings_path, class: "button--top-menu" %>
+            <%= link_to "Settings", dashboard_account_settings_path, class: "button--top-menu", data: { turbo: false } %>
           </div>
       </div>
   </header>
@@ -30,8 +30,6 @@
   </main>
 
   <!-- Bottom menu -->
-  <nav class="absolute w-full bottom-0">
-    <%= yield :bottom_menu %>
-  </nav>
+  <%= yield :bottom_menu %>
 
 </div>

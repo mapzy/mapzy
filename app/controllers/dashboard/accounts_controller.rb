@@ -2,6 +2,11 @@
 
 module Dashboard
   class AccountsController < DashboardController
+    include Trackable
+
+    after_action -> { track_event("Viewed Account Settings") }, only: %i[settings]
+    after_action -> { track_event("Viewed Embed Code") }, only: %i[embed]
+
     def settings
       return if current_user.account.trial? || current_user.account.inactive?
       return if stripe_customer.blank? || stripe_subscription.blank?

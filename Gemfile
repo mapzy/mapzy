@@ -10,7 +10,7 @@ gem "rails", "~> 6.1.4", ">= 6.1.4.4"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
-gem "puma", "~> 5.0", ">= 5.5.1"
+gem "puma", "~> 5.6.2"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
@@ -50,6 +50,8 @@ gem "foreman", "~> 0.87.2"
 gem "ohmysmtp-rails", "~> 0.1.9"
 
 gem "sidekiq", "~> 6.4"
+
+gem "faraday", "~> 1.8.0"
 
 # Utility to use short hash IDs instead of the database IDs
 gem "hashid-rails", "~> 1.0"
