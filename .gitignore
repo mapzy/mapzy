@@ -44,3 +44,5 @@ yarn-debug.log*
 
 # Redis dump
 dump.rdb
+/app/assets/builds/*
+!/app/assets/builds/.keep

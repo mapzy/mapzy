@@ -10,11 +10,7 @@ gem "rails", "~> 6.1.4", ">= 6.1.4.4"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use Puma as the app server
-gem "puma", "~> 5.0", ">= 5.5.1"
-# Use SCSS for stylesheets
-gem "sass-rails", ">= 6"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 5.0"
+gem "puma", "~> 5.6.2"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem "jbuilder", "~> 2.7"
@@ -41,6 +37,8 @@ gem "countries", "~> 3.1"
 # Forward & reverse geocoder
 gem "geocoder", "~> 1.6"
 
+gem "importmap-rails", "~> 1.0.2"
+
 # Hotwired
 gem "stimulus-rails", "~> 1.0.2"
 gem "turbo-rails", "~> 1.0.1"
@@ -57,6 +55,8 @@ gem "faraday", "~> 1.8.0"
 
 # Utility to use short hash IDs instead of the database IDs
 gem "hashid-rails", "~> 1.0"
+
+gem "tailwindcss-rails", "~> 2.0.5"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -110,7 +110,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem "capybara", ">= 3.26"
+  gem "capybara", ">= 3.36"
   gem "selenium-webdriver"
   # Easy installation and use of web drivers to run system tests with browsers
   gem "webdrivers"

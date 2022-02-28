@@ -124,5 +124,12 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Capybara.default_driver = :selenium_chrome_headless
-Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new app, browser: :chrome,
+                                      capabilities: Selenium::WebDriver::Chrome::Options.new(
+                                        args: %w[headless no-sandbox disable-dev-shm-usage]
+                                      )
+end
+
+Capybara.javascript_driver = :chrome
+Capybara.default_driver = :chrome

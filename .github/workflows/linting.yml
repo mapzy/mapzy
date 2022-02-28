@@ -23,13 +23,6 @@ jobs:
           ruby-version: 3.0.0
           bundler-cache: true
 
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn install
-
       - name: Run linters
         run: |
           bundle exec rubocop
