@@ -11,15 +11,6 @@ RUN apt-get update -qq && \
     postgresql-client && \
     rm -rf /var/lib/apt/lists
 
-# Install node from source
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-  && apt-get install -y nodejs
-
-# Install yarn from source
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update -qq \
-  && apt-get install -y yarn
 
 # Set env variables
 ENV BUNDLER_VERSION 2.2.3
@@ -43,10 +34,6 @@ RUN bundle config --global frozen 1 && \
   rm -rf /usr/local/bundle/cache/*.gem && \
   find /usr/local/bundle/gems/ -name "*.c" -delete && \
   find /usr/local/bundle/gems/ -name "*.o" -delete
-
-# Install node packages
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --non-interactive --production
 
 # Copy app files
 ADD . $APP_PATH
