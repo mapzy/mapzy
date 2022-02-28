@@ -41,9 +41,7 @@ ADD . $APP_PATH
 # Precompile assets
 # SECRET_KEY_BASE=`bin/rake secret` is added here as a workaround for
 # https://github.com/rails/rails/issues/32947
-RUN SECRET_KEY_BASE=`bin/rake secret` rails assets:precompile --trace && \
-  yarn cache clean && \
-  rm -rf node_modules tmp/cache vendor/assets test
+RUN SECRET_KEY_BASE=`bin/rake secret` rails assets:precompile --trace
 
 ###############################################################################
 # Stage 2: Run
