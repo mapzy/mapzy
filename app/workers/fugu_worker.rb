@@ -10,7 +10,7 @@ class FuguWorker
     Fugu.track(name, properties)
   end
 
-  def perform_async_with_failover(*args)
+  def self.perform_async_with_failover(*args)
     # process the job asynchronously
     perform_async(*args)
   rescue Redis::CannotConnectError
