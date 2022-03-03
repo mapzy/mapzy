@@ -8,6 +8,6 @@ module Trackable
 
     # default if no event name is provided
     name = "Viewed #{controller_name} #{action_name}" if name.empty?
-    FuguWorker.perform_async(name, properties)
+    FuguWorker.perform_async_with_failover(name, properties)
   end
 end
