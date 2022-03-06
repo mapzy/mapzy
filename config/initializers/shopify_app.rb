@@ -6,7 +6,7 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = "2022-01"
-  config.shop_session_repository = 'Shop'
+  config.shop_session_repository = 'User'
 
   config.reauth_on_access_scope_changes = true
 

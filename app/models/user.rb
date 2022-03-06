@@ -27,6 +27,7 @@
 class User < ApplicationRecord
   include Hashid::Rails
   include Sidekiq::Worker
+  include ShopifyApp::ShopSessionStorageWithScopes
 
   has_many :maps, dependent: :destroy
   has_one :account, dependent: :destroy
@@ -68,5 +69,9 @@ class User < ApplicationRecord
 
   def send_welcome_email
     AccountMailer.with(email: email).welcome_email.deliver_later
+  end
+
+  def shopify_api_version
+    ShopifyApp.configuration.api_version
   end
 end
