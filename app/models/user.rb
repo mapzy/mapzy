@@ -5,13 +5,13 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  access_scopes          :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  shopify_access_scopes  :string
 #  shopify_domain         :string
 #  shopify_token          :string
 #  uid                    :string
@@ -71,7 +71,8 @@ class User < ApplicationRecord
     AccountMailer.with(email: email).welcome_email.deliver_later
   end
 
-  def shopify_api_version
+  # Required by shopify_app gem
+  def api_version
     ShopifyApp.configuration.api_version
   end
 end

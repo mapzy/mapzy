@@ -1,23 +1,25 @@
 ShopifyApp.configure do |config|
-  config.application_name = "My Shopify App"
+  config.application_name = "Mapzy"
   config.old_secret = ""
-  config.scope = "read_products" # Consult this page for more scope options:
+  config.scope = "read_locations" # Consult this page for more scope options:
                                   # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
   config.embedded_app = true
   config.after_authenticate_job = false
   config.api_version = "2022-01"
-  config.shop_session_repository = 'User'
+  config.shop_session_repository = "User"
 
-  config.reauth_on_access_scope_changes = true
+  config.root_url = "/shopify"
+
+  config.reauth_on_access_scope_changes = false
 
   config.allow_jwt_authentication = true
   config.allow_cookie_authentication = false
 
-  config.api_key = ENV.fetch('SHOPIFY_API_KEY', '').presence
-  config.secret = ENV.fetch('SHOPIFY_API_SECRET', '').presence
+  config.api_key = ENV.fetch("SHOPIFY_API_KEY", "").presence
+  config.secret = ENV.fetch("SHOPIFY_API_SECRET", "").presence
   if defined? Rails::Server
-    raise('Missing SHOPIFY_API_KEY. See https://github.com/Shopify/shopify_app#requirements') unless config.api_key
-    raise('Missing SHOPIFY_API_SECRET. See https://github.com/Shopify/shopify_app#requirements') unless config.secret
+    raise("Missing SHOPIFY_API_KEY. See https://github.com/Shopify/shopify_app#requirements") unless config.api_key
+    raise("Missing SHOPIFY_API_SECRET. See https://github.com/Shopify/shopify_app#requirements") unless config.secret
   end
 end
 

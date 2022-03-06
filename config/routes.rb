@@ -3,7 +3,6 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  mount ShopifyApp::Engine, at: '/'
   devise_scope :user do
     authenticated do
       root to: "dashboard/maps#index", as: :authenticated_root_url
@@ -12,7 +11,6 @@ Rails.application.routes.draw do
       root to: (Rails.env.production? ? redirect("https://mapzy.io") : "home#index")
     end
   end
-
 
   devise_for \
     :users,
@@ -23,6 +21,8 @@ Rails.application.routes.draw do
       registrations: "users/registrations",
       passwords: "users/passwords"
     }
+
+  mount ShopifyApp::Engine, at: "/shopify"
 
   resources :maps, only: %i[index show]
   resources :locations
