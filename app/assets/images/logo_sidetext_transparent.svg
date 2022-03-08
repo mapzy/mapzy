@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="866.88pt"
+    height="230.4pt"
+    viewBox="0 0 866.88 230.4">
+<defs/>
+<g id="group0" transform="matrix(1.00000000959306 0 0 1.00000000959306 47.9324185939349 30.4579927490037)" fill="none">
+  <path id="shape03" transform="matrix(1.01216862076474 0 0 1.01216862076474 120.384002308801 0.00244840586785244)" fill="#e74d67" stroke="#e74d67" stroke-width="4.32" stroke-linecap="round" stroke-linejoin="round" d="M0 35.4877L51.2135 0L51.2135 131.956L0 167.444Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shape031" transform="matrix(1.01216865150382 0 0 1.01216865150382 0 -3.5527136788005e-15)" fill="#e74d67" stroke="#e74d67" stroke-width="4.32" stroke-linecap="round" stroke-linejoin="round" d="M0 35.4877L51.2135 0L51.2135 131.956L0 167.444Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shape0" transform="matrix(-1.01216871092849 0 0 1.01216871092849 112.093512031252 3.5527136788005e-15)" fill="#f99b46" stroke="#f99b46" stroke-width="4.26" stroke-linecap="round" stroke-linejoin="round" d="M0 35.4877L51.2135 0L51.2135 131.956L0 167.444Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shape01" transform="matrix(-1.01216871677819 0 0 1.01216871677819 232.412702426928 0.00244036742996911)" fill="#f99b46" stroke="#f99b46" stroke-width="4.26" stroke-linecap="round" stroke-linejoin="round" d="M0 35.4877L51.2135 0L51.2135 131.956L0 167.444Z" sodipodi:nodetypes="ccccc"/>
+ </g><text id="shape01" krita:useRichText="true" krita:textVersion="2" transform="matrix(0.999999944902982 0 0 0.999999944902982 310.48846621472 156.523434470046)" fill="#000000" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" font-family="Comfortaa" font-size="150" font-size-adjust="0.491228" font-stretch="normal" font-weight="600" kerning="0" letter-spacing="0" text-anchor="middle" word-spacing="0"><tspan x="256.25">mapzy</tspan></text>
+</svg>

@@ -18,6 +18,9 @@
     </div>
     <%= render "shared/mapbox" %>
     <%= link_to "https://mapzy.io/?source=embedded", class: "absolute bottom-2 left-2 z-10", target: "_blank" do %>
-      <%= image_tag "mapzy_logo_text_side.png", class: "h-[1.7rem]" %>
+      <%= image_tag "logo_white_border_sidetext_transparent.svg", class: "h-[1.4rem] md:h-[1.8rem] hover:opacity-0" %>
+    <% end %>
+    <%= link_to "https://mapzy.io/?source=embedded", class: "absolute bottom-2 left-2 z-10", target: "_blank" do %>
+      <%= image_tag "logo_sidetext_transparent.svg", class: "h-[1.4rem] md:h-[1.8rem] opacity-0 hover:opacity-100" %>
     <% end %>
 </div>
