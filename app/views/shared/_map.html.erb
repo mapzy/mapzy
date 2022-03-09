@@ -17,10 +17,9 @@
       </turbo-frame>
     </div>
     <%= render "shared/mapbox" %>
+
     <%= link_to "https://mapzy.io/?source=embedded", class: "absolute bottom-2 left-2 z-0", target: "_blank" do %>
-      <%= image_tag "mapzy_black_white_logo_sidetext.png", class: "h-[1.4rem] md:h-[1.6rem] hover:opacity-0" %>
-    <% end %>
-    <%= link_to "https://mapzy.io/?source=embedded", class: "absolute bottom-2 left-2 z-0", target: "_blank" do %>
-      <%= image_tag "mapzy_logo_sidetext_aligned.png", class: "h-[1.4rem] md:h-[1.6rem] opacity-0 hover:opacity-100" %>
+      <div class="h-[1.4rem] w-24 md:h-[1.6rem] bg-contain bg-no-repeat bg-[url('logo_white_border_sidetext_transparent.svg')] hover:bg-[url('logo_sidetext_transparent.svg')]">
+      </div>
     <% end %>
 </div>
