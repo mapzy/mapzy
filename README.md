@@ -1,9 +1,18 @@
 # Mapzy
 
-A privacy-first, self-hostable store finder.
+A simple, self-hostable store finder that cares about your privacy.
 
 [![Specs](https://github.com/mapzy/mapzy/actions/workflows/specs.yml/badge.svg)](https://github.com/mapzy/mapzy/actions/workflows/specs.yml)
 [![Security](https://github.com/mapzy/mapzy/actions/workflows/security.yml/badge.svg)](https://github.com/mapzy/mapzy/actions/workflows/security.yml)
+
+## Docs
+
+Visit the [Mapzy Docs](https://docs.mapzy.io).
+
+## Self-hosting
+
+Mapzy is and will always be free to host on your own server/cloud. Check out the [self-hosting guide](/SELFHOSTING.md) to learn more.
+
 
 ## Contributing
 
