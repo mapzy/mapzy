@@ -4,7 +4,9 @@ module TrialNotifiable
   extend ActiveSupport::Concern
 
   included do
-    before_action :show_trial_reminder, if: :reminder_time?, only: [:show]
+    before_action :show_trial_reminder, if: lambda {
+                                              reminder_time? && ENV["MAPZY_CLOUD"] == "true"
+                                            }, only: [:show]
   end
 
   private

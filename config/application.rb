@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,7 +24,7 @@ module Mapzy
     config.action_mailer.default_url_options = { host: "localhost" }
 
     config.action_mailer.delivery_method = :ohmysmtp
-    config.action_mailer.ohmysmtp_settings = { api_token: ENV["OHMYSMTP_TOKEN"] }
+    config.action_mailer.mailpace_settings = { api_token: ENV["MAILPACE_TOKEN"] }
 
     config.active_job.queue_adapter = :sidekiq
 

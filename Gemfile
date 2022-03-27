@@ -47,7 +47,7 @@ gem "stripe", "~> 5.41"
 
 gem "foreman", "~> 0.87.2"
 
-gem "ohmysmtp-rails", "~> 0.1.9"
+gem 'mailpace-rails', "~> 0.3.0"
 
 gem "sidekiq", "~> 6.4"
 

@@ -11,11 +11,13 @@ module Users
     after_action -> { track_event("New Sign Up") }, only: %i[create], if: -> { resource.persisted? }
 
     def create
+      return unless ENV["ALLOW_REGISTRATION"] == "true"
+
       super do |resource|
         if resource.persisted?
           resource.create_account
-          resource.setup_email_workers
-          resource.send_welcome_email
+          resource.cloud_emails.setup_email_workers
+          resource.cloud_emails.send_welcome_email
         end
 
         flash.now[:alert] = resource.errors.full_messages.join(", ") if resource.errors.present?
