@@ -11,7 +11,7 @@ rails db:migrate
 if [ -n "${INIT_USER_EMAIL}" ] && [ -n "${INIT_USER_PASSWORD}" ] && [ "$(rails runner "puts User.exists?(email: '${INIT_USER_EMAIL}')")" = 'false' ]
 then
   echo "Creating initial user..."
-  rails runner "User.create!({email: '${INIT_USER_EMAIL}', password: '${INIT_USER_PASSWORD}', password_confirmation: '${INIT_USER_PASSWORD}', status: 'active' })"
+  rails runner "User.create!({email: '${INIT_USER_EMAIL}', password: '${INIT_USER_PASSWORD}', password_confirmation: '${INIT_USER_PASSWORD}' }).create_account.update(status: 'active')"
 fi
 
 exec "$@"

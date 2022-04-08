@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def mapzy_cloud?
+    ENV["MAPZY_CLOUD"] == "true"
+  end
 end

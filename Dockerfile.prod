@@ -48,7 +48,6 @@ RUN SECRET_KEY_BASE=`bin/rake secret` rails assets:precompile --trace && \
 FROM ruby:3.0.0
 
 ENV RAILS_ENV production
-ENV NODE_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV APP_HOME /app
 

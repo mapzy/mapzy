@@ -4,7 +4,7 @@
 
     <div class="max-w-prose">
     <div class="w-full mx-2 my-2 md:mb-12 p-4">
-        <% if ENV["MAPZY_CLOUD"] == "true" %>
+        <% if mapzy_cloud? %>
           <h2>Subscription</h2>
           <% if current_user.account.trial? || current_user.account.inactive? %>
             <%= render "subscription" %>

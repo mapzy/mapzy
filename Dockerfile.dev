@@ -19,7 +19,6 @@ ENV BUNDLE_CACHE_ALL true
 ENV APP_HOME /app
 ENV RAILS_ENV development
 ENV RACK_ENV development
-ENV NODE_ENV development
 
 # Set working directory
 WORKDIR $APP_HOME
@@ -41,7 +40,6 @@ ADD . .
 FROM ruby:3.0.0
 
 ENV RAILS_ENV development
-ENV NODE_ENV development
 ENV APP_HOME /app
 
 RUN mkdir -p $APP_HOME

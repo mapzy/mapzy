@@ -51,8 +51,4 @@ class User < ApplicationRecord
   def create_account
     Account.create(user: self)
   end
-
-  def cloud_emails
-    @cloud_emails ||= Cloud::User::CloudEmails.new(self)
-  end
 end

@@ -1,9 +1,7 @@
 <%= render "devise/shared/layout" do %>
   <h1 class="text-center mb-8 md:mb-12">Create your store locator</h1>
 
-  hello
-  <%= ENV["ALLOW_REGISTRATION"] %>
-  <% unless ENV["ALLOW_REGISTRATION"] == "true" %>
+  <% unless allow_registration? %>
     <div class="my-4">
     <p>
       The admin of this instance currently doesn't allow new registrations for Mapzy.
