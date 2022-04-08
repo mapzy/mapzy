@@ -4,5 +4,10 @@
       <%= render "shared/mapbox" %>
     </div>
   </div>
-  <%= render partial: "dashboard/locations/form", locals: { title: "Edit Location "} %>
+  <%= render partial: "dashboard/locations/form",
+    locals: {
+      title: "Edit Location",
+      init_hide_opening_times: @location.opening_times.empty?
+    }
+  %>
 <% end %>

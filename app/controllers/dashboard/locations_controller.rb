@@ -44,6 +44,7 @@ module Dashboard
 
     def update
       if @location.update(location_params)
+        @location.opening_times.destroy_all unless location_params.key?(:opening_times_attributes)
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
@@ -79,10 +80,14 @@ module Dashboard
     end
 
     def location_params
-      params.require(:location)
-            .permit(:name, :description, :address, :latitude, :longitude,
-                    opening_times_attributes: \
-                      %i[id location_id day opens_at closes_at closed open_24h])
+      current_params = params.require(:location)
+                             .permit(:name, :description, :address, :latitude, :longitude,
+                                     opening_times_attributes: \
+                                     %i[id location_id day opens_at closes_at closed open_24h])
+      return current_params unless params[:no_opening_times] == "yes"
+
+      # remove opening times if we don't need them
+      current_params.except(:opening_times_attributes)
     end
   end
 end

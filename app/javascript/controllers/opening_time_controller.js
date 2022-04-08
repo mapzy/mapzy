@@ -8,7 +8,9 @@ export default class extends Controller {
     "closed",
     "closedBlock",
     "open24h",
-    "open24hBlock"
+    "open24hBlock",
+    "openingTimes",
+    "openingTimesBlock"
   ]
 
   initialize() {
@@ -18,6 +20,11 @@ export default class extends Controller {
     // Call them once to update the view to the status quo
     if (this.open24hTarget.checked) { this.toggleOpen24h() }
     if (this.closedTarget.checked) { this.toggleClosed() }
+
+    // hide opening times block if already checked (e.g. reload)
+    if (this.openingTimesTarget.checked) {
+      this.openingTimesBlockTarget.classList.add("hidden")
+    }
   }
 
   connect() {
@@ -60,6 +67,10 @@ export default class extends Controller {
       this.closedBlockTarget.classList.remove("hidden")
       this.addDefaultTimes()
     }
+  }
+
+  toggleOpeningTimes() {
+    this.openingTimesBlockTarget.classList.toggle("hidden")
   }
 
   clearTimes() {
