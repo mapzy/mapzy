@@ -13,81 +13,78 @@ export default class extends Controller {
     "openingTimesBlock"
   ]
 
-  initialize() {
-    this.toggleClosed = this.toggleClosed.bind(this)
-    this.toggleOpen24h = this.toggleOpen24h.bind(this)
-
-    // Call them once to update the view to the status quo
-    if (this.open24hTarget.checked) { this.toggleOpen24h() }
-    if (this.closedTarget.checked) { this.toggleClosed() }
-
-    // hide opening times block if already checked (e.g. reload)
+  connect() {
+    // hide opening times block if already checked
     if (this.openingTimesTarget.checked) {
       this.openingTimesBlockTarget.classList.add("hidden")
     }
-  }
 
-  connect() {
-    if (!this.closedTarget) return
-    if (!this.open24hTarget) return
+    // hide opening time block if closed already checked
+    this.closedTargets.forEach((target, index) =>{
+      if (target.checked) {
+        this.toggleClosed(target, index)
+      }
+    })
 
-    this.closedTarget.addEventListener('change', this.toggleClosed)
-    this.open24hTarget.addEventListener('change', this.toggleOpen24h)
-  }
-
-  disconnect() {
-    if (!this.closedTarget) return
-    if (!this.open24hTarget) return
-
-    this.closedTarget.removeEventListener('change', this.toggleClosed)
-    this.open24hTarget.removeEventListener('change', this.toggleOpen24h)
-  }
-
-  toggleClosed(e) {
-    if (this.closedTarget.checked) {
-      this.timesBlockTarget.classList.add("hidden")
-      this.open24hBlockTarget.classList.add("hidden")
-      this.clearTimes()
-      this.clearOpen24h()
-    } else {
-      this.timesBlockTarget.classList.remove("hidden")
-      this.open24hBlockTarget.classList.remove("hidden")
-      this.addDefaultTimes()
-    }
-  }
-
-  toggleOpen24h(e) {
-    if (this.open24hTarget.checked) {
-      this.timesBlockTarget.classList.add("hidden")
-      this.closedBlockTarget.classList.add("hidden")
-      this.clearTimes()
-      this.clearClosed()
-    } else {
-      this.timesBlockTarget.classList.remove("hidden")
-      this.closedBlockTarget.classList.remove("hidden")
-      this.addDefaultTimes()
-    }
+    // hide opening time block if open24h already checked
+    this.open24hTargets.forEach((target, index) =>{
+      if (target.checked) {
+        this.toggleOpen24h(target, index)
+      }
+    })
   }
 
   toggleOpeningTimes() {
     this.openingTimesBlockTarget.classList.toggle("hidden")
   }
 
-  clearTimes() {
-    this.opensAtTarget.value = ""
-    this.closesAtTarget.value = ""
+  toggleClosedEl(e) {
+    this.toggleClosed(e.target, e.params["index"])
   }
 
-  clearOpen24h() {
-    this.open24hTarget.checked = false;
+  toggleOpen24hEl(e) {
+    this.toggleOpen24h(e.target, e.params["index"])
   }
 
-  clearClosed() {
-    this.closedTarget.checked = false;
+  toggleClosed(target, index) {
+    this.open24hBlockTargets[index].classList.toggle("hidden")
+    this.timesBlockTargets[index].classList.toggle("hidden")
+
+    if (target.checked) {
+      this.clearTimes(index)
+      this.clearOpen24h(index)
+    } else {
+      this.addDefaultTimes(index)
+    }
   }
 
-  addDefaultTimes() {
-    this.opensAtTarget.value = "08:00"
-    this.closesAtTarget.value = "18:00"
+  toggleOpen24h(target, index) {
+    this.closedBlockTargets[index].classList.toggle("hidden")
+    this.timesBlockTargets[index].classList.toggle("hidden")
+
+    if (target.checked) {
+      this.clearTimes(index)
+      this.clearClosed(index)
+    } else {
+      this.addDefaultTimes(index)
+    }
+  }
+
+  clearTimes(index) {
+    this.opensAtTargets[index].value = ""
+    this.closesAtTargets[index].value = ""
+  }
+
+  clearOpen24h(index) {
+    this.open24hTargets[index].checked = false;
+  }
+
+  clearClosed(index) {
+    this.closedTargets[index].checked = false;
+  }
+
+  addDefaultTimes(index) {
+    this.opensAtTargets[index].value = "08:00"
+    this.closesAtTargets[index].value = "18:00"
   }
 }

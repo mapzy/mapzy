@@ -95,6 +95,7 @@
                 "yes",
                 defined?(init_hide_opening_times) ? init_hide_opening_times : false,
                 required: false,
+                autocomplete: "off",
                 data: { opening_time_target: "openingTimes", action: "opening-time#toggleOpeningTimes" }
               %>
             </div>
@@ -106,7 +107,7 @@
             </div>
           </div>
           <div data-opening-time-target="openingTimesBlock">
-            <% @opening_times.each do |opening_time| %>
+            <% @opening_times.each_with_index do |opening_time, index| %>
               <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
                 <div>
                   <div class="flex flex-row flex-wrap justify-start items-center mb-4 xl:mb-2">
@@ -122,12 +123,12 @@
                       <%= fot.select :opens_at,
                           options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
                           { include_blank: true },
-                          { class: "select--default", "data-opening-time-target": "opensAt" } %>
+                          { class: "select--default", "data-opening-time-target": "opensAt", autocomplete: "off" } %>
                       <div> &nbsp; &mdash; &nbsp; </div>
                       <%= fot.select :closes_at,
                           options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
                           { include_blank: true },
-                          { class: "select--default mr-6", "data-opening-time-target": "closesAt" } %>
+                          { class: "select--default mr-6", "data-opening-time-target": "closesAt", autocomplete: "off" } %>
                     </div>
 
                     <div class="flex flex-row justify-start md:justify-between items-start py-1 text-sm">
@@ -135,7 +136,13 @@
                         <%= fot.check_box :closed,
                             { checked: opening_time.closed,
                               include_hidden: false,
-                              "data-opening-time-target": "closed" } %>
+                              autocomplete: "off",
+                              data: {
+                                opening_time_target: "closed",
+                                action: "opening-time#toggleClosedEl",
+                                opening_time_index_param: index
+                              }
+                            } %>
                         <%= fot.label "Closed", class: "checkbox-label--default" %>
                       </div>
 
@@ -143,7 +150,13 @@
                         <%= fot.check_box :open_24h,
                             { checked: opening_time.open_24h,
                               include_hidden: false,
-                              "data-opening-time-target": "open24h" } %>
+                              autocomplete: "off",
+                              data: {
+                                opening_time_target: "open24h",
+                                action: "opening-time#toggleOpen24hEl",
+                                opening_time_index_param: index
+                              }
+                            } %>
                         <%= fot.label "Open 24h", class: "checkbox-label--default" %>
                       </div>
                     </div>
