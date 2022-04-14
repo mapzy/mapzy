@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       root to: "dashboard/maps#index", as: :authenticated_root_url
     end
     unauthenticated do
-      root to: (Rails.env.production? ? redirect("https://mapzy.io") : "home#index")
+      root to: "users/sessions#new"
     end
   end
 

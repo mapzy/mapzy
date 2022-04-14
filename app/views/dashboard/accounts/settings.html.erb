@@ -4,11 +4,13 @@
 
     <div class="max-w-prose">
     <div class="w-full mx-2 my-2 md:mb-12 p-4">
-        <h2>Subscription</h2>
-        <% if current_user.account.trial? || current_user.account.inactive? %>
-          <%= render "subscription" %>
-        <% else %>
-          <%= render "subscription_management" %>
+        <% if mapzy_cloud? %>
+          <h2>Subscription</h2>
+          <% if current_user.account.trial? || current_user.account.inactive? %>
+            <%= render "subscription" %>
+          <% else %>
+            <%= render "subscription_management" %>
+          <% end %>
         <% end %>
 
         <h2 class=>Account</h2>

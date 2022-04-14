@@ -11,6 +11,8 @@ class FuguWorker
   end
 
   def self.perform_async_with_failover(*args)
+    return unless ENV["FUGU_URL"]
+
     # process the job asynchronously
     perform_async(*args)
   rescue Redis::CannotConnectError

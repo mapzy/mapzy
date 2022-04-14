@@ -44,7 +44,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set up default url
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Use letter opener in development
   config.action_mailer.delivery_method = :letter_opener

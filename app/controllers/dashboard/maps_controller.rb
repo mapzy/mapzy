@@ -3,8 +3,8 @@
 module Dashboard
   class MapsController < DashboardController
     include Trackable
-    include TrialNotifiable
-    include InactiveNotifiable
+    include Cloud::TrialNotifiable
+    include Cloud::InactiveNotifiable
 
     after_action -> { track_event("Viewed Dash Map") }, only: %i[show]
 

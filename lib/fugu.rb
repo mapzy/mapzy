@@ -2,6 +2,8 @@
 
 module Fugu
   def self.track(name, properties = {})
+    return unless ENV["FUGU_URL"]
+
     body = {
       api_key: ENV["FUGU_API_KEY"],
       name: name,

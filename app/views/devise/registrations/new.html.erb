@@ -1,47 +1,55 @@
 <%= render "devise/shared/layout" do %>
   <h1 class="text-center mb-8 md:mb-12">Create your store locator</h1>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <div class="field mt-4">
-      <%= f.label :email, class: "label--default" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,
-        class: "input--default" %>
-    </div>
+  <% unless allow_registration? %>
+    <div class="my-4">
+    <p>
+      The admin of this instance currently doesn't allow new registrations for Mapzy.
+    </p>
+  </div>
+  <% else %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <div class="field mt-4">
+        <%= f.label :email, class: "label--default" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true,
+          class: "input--default" %>
+      </div>
 
-    <div class="field mt-4">
-      <%= f.label :password, class: "label--default" %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", required: true,
-        class: "input--default" %>
-    </div>
+      <div class="field mt-4">
+        <%= f.label :password, class: "label--default" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", required: true,
+          class: "input--default" %>
+      </div>
 
-    <div class="field mt-4">
-      <%= f.label :password_confirmation, class: "label--default" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true,
-        class: "input--default" %>
-    </div>
+      <div class="field mt-4">
+        <%= f.label :password_confirmation, class: "label--default" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true,
+          class: "input--default" %>
+      </div>
 
-    <div class="field mt-4">
-      <div class="flex flex-row items-start justify-center gap-x-4">
-        <div>
-          <%= check_box_tag "tos", "yes", false, required: true %>
-        </div>
-        <div>
-          <%= label_tag "tos",
-            %Q(
-              I have read and agree to the Mapzy 
-              <a href="https://mapzy.io/legal/terms" target="_blank">terms of service</a> and
-              <a href="https://mapzy.io/legal/privacy-policy" target="_blank">privacy policy</a>).html_safe
-          %>
+      <div class="field mt-4">
+        <div class="flex flex-row items-start justify-center gap-x-4">
+          <div>
+            <%= check_box_tag "tos", "yes", false, required: true %>
+          </div>
+          <div>
+            <%= label_tag "tos",
+              %Q(
+                I have read and agree to the Mapzy 
+                <a href="https://mapzy.io/legal/terms" target="_blank">terms of service</a> and
+                <a href="https://mapzy.io/legal/privacy-policy" target="_blank">privacy policy</a>).html_safe
+            %>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="actions mt-8 mb-4">
-      <%= f.submit "Sign up", class: "w-full button--main" %>
-    </div>
+      <div class="actions mt-8 mb-4">
+        <%= f.submit "Sign up", class: "w-full button--main" %>
+      </div>
+    <% end %>
   <% end %>
 
   <%= render "devise/shared/links" %>
