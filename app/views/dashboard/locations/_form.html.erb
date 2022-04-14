@@ -119,7 +119,8 @@
                           <%= fot.check_box :closed,
                               { checked: opening_time.closed,
                                 include_hidden: false,
-                                "data-opening-time-target": "closed" } %>
+                                "data-opening-time-target": "closed",
+                                class: "checkbox--default" } %>
                           <%= fot.label "Closed", class: "checkbox-label--default" %>
                         </div>
 
@@ -127,7 +128,8 @@
                           <%= fot.check_box :open_24h,
                               { checked: opening_time.open_24h,
                                 include_hidden: false,
-                                "data-opening-time-target": "open24h" } %>
+                                "data-opening-time-target": "open24h",
+                                class: "checkbox--default" } %>
                           <%= fot.label "Open 24h", class: "checkbox-label--default" %>
                         </div>
                       </div>

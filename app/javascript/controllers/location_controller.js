@@ -84,9 +84,6 @@ export default class extends Controller {
 
     // Turn off autocomplete
     this.addressInput.autocomplete = "off";
-
-    // Suit up bro
-    this.addressInput.classList.add('input--default')
   }
 
   initMarker() {
