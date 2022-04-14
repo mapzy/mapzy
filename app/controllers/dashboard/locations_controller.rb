@@ -60,6 +60,8 @@ module Dashboard
         "The location #{@location.name} has been successfully deleted."
     end
 
+    def index; end
+
     private
 
     def set_map

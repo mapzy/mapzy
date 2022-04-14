@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   devise_for \
     :users,
     path: "account",
@@ -24,7 +23,7 @@ Rails.application.routes.draw do
     }
 
   resources :maps, only: %i[index show]
-  resources :locations
+  resources :locations, only: %i[index show]
 
   namespace :dashboard do
     resources :maps, only: %i[index show] do
