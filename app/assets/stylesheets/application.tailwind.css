@@ -123,7 +123,7 @@ code {
   border-width: 1px !important;
   width: 100% !important;
   max-width: none !important;
-  padding-left: 25px !important;
+  padding-left: 30px !important;
   box-shadow: none;
   border-color: #6b7280;
 }
@@ -139,8 +139,6 @@ code {
   border-radius: .25rem;
   display: block;
   line-height: 1.25;
-  margin-bottom: .25rem;
-  padding: .75rem 1rem;
   width: 100%;
   box-shadow: none !important;
 }
