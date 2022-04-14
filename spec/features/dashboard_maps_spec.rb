@@ -17,9 +17,21 @@ RSpec.describe "interacting with the dashboard map", type: :feature, js: true do
     fill_in("location_name", with: "Test Store")
     fill_in("location_address", with: "Lindenhofstrasse 200, 8001 Zurich, Switzerland")
     # the sleeping is required because it fetches the value from the Mapbox API
-    sleep(1)
+    sleep(2)
     page.first(".mapboxgl-ctrl-geocoder--suggestion").first(:xpath, ".//..").click
     sleep(1)
     expect { click_button("Save") }.to change(Location, :count).by(1)
+  end
+
+  it "hides opening times if checked" do
+    click_on("Add Location")
+    check("no_opening_times")
+    expect(page).not_to have_content("MONDAY")
+  end
+
+  it "hides time dropdowns if closed is checked" do
+    click_on("Add Location")
+    first("#location_opening_times_attributes__closed").check
+    expect(page).to have_selector("#location_opening_times_attributes__opens_at", count: 4)
   end
 end
