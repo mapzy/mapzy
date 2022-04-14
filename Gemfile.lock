@@ -393,7 +393,7 @@ DEPENDENCIES
   foreman (~> 0.87.2)
   geocoder (~> 1.6)
   guard-rspec
-  hashid-rails (~> 1.0)
+  hashid-rails (~> 1.4)
   importmap-rails (~> 1.0.2)
   jbuilder (~> 2.7)
   letter_opener
