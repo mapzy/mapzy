@@ -28,12 +28,13 @@ class Location < ApplicationRecord
   belongs_to :map
   has_many :opening_times, dependent: :destroy
 
-  accepts_nested_attributes_for :opening_times
+  accepts_nested_attributes_for :opening_times, allow_destroy: true
 
   validates :address, presence: true
   validates :name, presence: true
 
   after_validation :geocode, if: :eligible_for_geocoding?
+
   geocoded_by :address
 
   def eligible_for_geocoding?

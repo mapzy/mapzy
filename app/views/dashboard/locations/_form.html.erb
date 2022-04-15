@@ -106,7 +106,7 @@
               %>
             </div>
           </div>
-          <div data-opening-time-target="openingTimesBlock">
+          <div data-opening-time-target="openingTimesBlock" class="hidden">
             <% @opening_times.each_with_index do |opening_time, index| %>
               <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
                 <div>
@@ -158,6 +158,7 @@
                               }
                             } %>
                         <%= fot.label "Open 24h", class: "checkbox-label--default" %>
+                        <%= fot.hidden_field :_destroy, value: "0", data: { opening_time_target: "destroy" } %>
                       </div>
                     </div>
                   </div>

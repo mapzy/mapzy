@@ -10,13 +10,14 @@ export default class extends Controller {
     "open24h",
     "open24hBlock",
     "openingTimes",
-    "openingTimesBlock"
+    "openingTimesBlock",
+    "destroy"
   ]
 
   connect() {
     // hide opening times block if already checked
-    if (this.openingTimesTarget.checked) {
-      this.openingTimesBlockTarget.classList.add("hidden")
+    if (!this.openingTimesTarget.checked) {
+      this.openingTimesBlockTarget.classList.remove("hidden")
     }
 
     // hide opening time block if closed already checked
@@ -36,6 +37,7 @@ export default class extends Controller {
 
   toggleOpeningTimes() {
     this.openingTimesBlockTarget.classList.toggle("hidden")
+    this.toggle_all_for_destroy()
   }
 
   toggleClosedEl(e) {
@@ -86,5 +88,11 @@ export default class extends Controller {
   addDefaultTimes(index) {
     this.opensAtTargets[index].value = "08:00"
     this.closesAtTargets[index].value = "18:00"
+  }
+
+  toggle_all_for_destroy() {
+    this.destroyTargets.forEach((target, index) => {
+      target.value = target.value == "0" ? "1" : "0"
+    }) 
   }
 }
