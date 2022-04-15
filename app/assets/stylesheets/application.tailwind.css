@@ -3,8 +3,36 @@
 @tailwind utilities;
 @tailwind screens;
 
-/* Base styles */
+/* Custom Variables */
+:root {
+  --black: #000;
+}
 
+/* Override default focus colors for tailwindcss-forms
+https://github.com/tailwindlabs/tailwindcss-forms */
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='checkbox']:focus,
+[type='radio']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  color: var(--black);
+  --tw-ring-color: var(--black);
+  border-color: var(--black);
+}
+
+/* Base styles */
 h1 {
 	@apply text-3xl leading-7 font-bold
 }
@@ -43,13 +71,11 @@ code {
 }
 
 /* Emphasis */
-
 .underline-red {
   @apply border-b-4 border-mapzy-red-light
 }
 
 /* Flash messages */
-
 .flash {
   @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
@@ -86,10 +112,6 @@ code {
   @apply block w-full rounded py-3 px-4 mb-1 leading-tight
 }
 
-.input--default:focus {
-  @apply border-black ring-black ring-1
-}
-
 .input-info {
   @apply text-gray-600 text-xs italic
 }
@@ -100,18 +122,6 @@ code {
   -webkit-appearance: none;
   appearance: none;
   @apply pr-4 pl-2 rounded bg-white text-gray-700
-}
-
-.select--default:focus, .select--default:focus-within, .select--default:focus-visible {
-  @apply border-black ring-black ring-1
-}
-
-.checkbox--default {
-  @apply text-black
-}
-
-.checkbox--default:focus {
-  @apply border-black ring-black ring-1
 }
 
 .checkbox-label--default {
@@ -130,12 +140,11 @@ code {
 
 .mapboxgl-ctrl-geocoder:focus-within {
   border-color: #000;
-  box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   --tw-ring-color: #000;
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 }
 
 .mapboxgl-ctrl-geocoder--input {
-  color: #000 !important;
   border-radius: .25rem;
   display: block;
   line-height: 1.25;
