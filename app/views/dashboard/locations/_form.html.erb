@@ -93,7 +93,7 @@
             <div>
               <%= check_box_tag "no_opening_times",
                 "yes",
-                defined?(init_hide_opening_times) ? init_hide_opening_times : false,
+                no_opening_times?(@location),
                 required: false,
                 autocomplete: "off",
                 data: { opening_time_target: "openingTimes", action: "opening-time#toggleOpeningTimes" }
@@ -114,6 +114,10 @@
                     <%= fot.hidden_field :id %>
                     <%= fot.hidden_field :location_id %>
                     <%= fot.hidden_field :day %>
+                    <%= fot.hidden_field :_destroy,
+                      value: no_opening_times?(@location),
+                      data: { opening_time_target: "destroy" }
+                    %>
 
                     <div class="py-1 my-1 mr-6 w-full xl:w-1/5">
                       <span class="uppercase tracking-wide text-gray-700 text-xs font-bold"><%= opening_time.day %></span>
@@ -158,7 +162,6 @@
                               }
                             } %>
                         <%= fot.label "Open 24h", class: "checkbox-label--default" %>
-                        <%= fot.hidden_field :_destroy, value: "0", data: { opening_time_target: "destroy" } %>
                       </div>
                     </div>
                   </div>

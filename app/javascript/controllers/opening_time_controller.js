@@ -15,7 +15,7 @@ export default class extends Controller {
   ]
 
   connect() {
-    // hide opening times block if already checked
+    // display opening times block if not checked initially
     if (!this.openingTimesTarget.checked) {
       this.openingTimesBlockTarget.classList.remove("hidden")
     }
@@ -91,8 +91,8 @@ export default class extends Controller {
   }
 
   toggle_all_for_destroy() {
-    this.destroyTargets.forEach((target, index) => {
-      target.value = target.value == "0" ? "1" : "0"
+    this.destroyTargets.forEach((target, _index) => {
+      target.value = target.value == "false" ? "true" : "false"
     }) 
   }
 }

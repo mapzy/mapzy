@@ -23,11 +23,28 @@ RSpec.describe "interacting with the dashboard map", type: :feature, js: true do
     expect { click_button("Save") }.to change(Location, :count).by(1)
   end
 
+  # rubocop:disable RSpec/MultipleExpectations
+  it "shows opening times per default" do
+    click_on("Add Location")
+    expect(page).not_to have_content("MONDAY")
+    expect(page).to have_field(
+      "location_opening_times_attributes___destroy",
+      type: :hidden,
+      with: "false"
+    )
+  end
+
   it "hides opening times if checked" do
     click_on("Add Location")
     check("no_opening_times")
     expect(page).not_to have_content("MONDAY")
+    expect(page).to have_field(
+      "location_opening_times_attributes___destroy",
+      type: :hidden,
+      with: "true"
+    )
   end
+  # rubocop:enable RSpec/MultipleExpectations
 
   it "hides time dropdowns if closed is checked" do
     click_on("Add Location")
