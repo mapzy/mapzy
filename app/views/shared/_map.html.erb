@@ -1,30 +1,19 @@
 <div class="relative w-full h-full"
-  data-controller="map"
+  data-controller="map side-panel"
   data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
   data-map-markers-value="<%= @map.markers.to_json %>"
   data-map-bounds-value="<%= @map.bounds %>"
   data-map-location-base-url-value="<%= @location_base_url %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>"
   data-map-dashboard-value="<%= controller.controller_path.include?('dashboard') %>"
-  data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>"
->
-    <div class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
-                inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden"
-         data-map-target="sidePanel" >
+  data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>">
 
-      <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-        <div class="relative w-full">
-          <div class="flex flex-row justify-end mb-12">
-            <a data-action="map#hideSidePanel">Close</a>
-          </div>
-        </div>
+  <%= render "shared/mapbox" %>
 
-        <turbo-frame id="locations_show">
-        </turbo-frame>
+  <%= render "shared/side_panel" do %>
+    <turbo-frame id="locations_show">
+    </turbo-frame>
+  <% end %>
 
-      </div>
-    </div>
-
-    <%= render "shared/all_locations_button" %>
-    <%= render "shared/mapbox" %>
+  <%= render "shared/all_locations_button" %>
 </div>

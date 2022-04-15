@@ -1,9 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [
-    "sidePanel"
-  ]
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
@@ -85,7 +82,7 @@ export default class extends Controller {
 
       anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
       anchor.setAttribute("data-turbo-frame", "locations_show");
-      anchor.setAttribute("data-action", "map#showSidePanel");
+      anchor.setAttribute("data-action", "side-panel#showPanel");
 
       let marker = new mapboxgl.Marker({
         color: "#E74D67",
@@ -104,14 +101,6 @@ export default class extends Controller {
         .setLngLat(feature.geometry.coordinates)
         .addTo(this.map);
     }
-  }
-
-  hideSidePanel() {
-    this.sidePanelTarget.classList.add("hidden");
-  }
-
-  showSidePanel() {
-    this.sidePanelTarget.classList.remove("hidden");
   }
 
   isMobile() {
