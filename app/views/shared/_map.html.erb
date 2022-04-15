@@ -8,13 +8,21 @@
   data-map-dashboard-value="<%= controller.controller_path.include?('dashboard') %>"
   data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>"
 >
-    <div
-      class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
-             inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden"
-      data-map-target="sidePanel"
-    >
-      <turbo-frame id="locations_show">
-      </turbo-frame>
+    <div class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
+                inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden"
+         data-map-target="sidePanel" >
+
+      <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
+        <div class="relative w-full">
+          <div class="flex flex-row justify-end mb-12">
+            <a data-action="map#hideSidePanel">Close</a>
+          </div>
+        </div>
+
+        <turbo-frame id="locations_show">
+        </turbo-frame>
+
+      </div>
     </div>
 
     <%= render "shared/all_locations_button" %>
