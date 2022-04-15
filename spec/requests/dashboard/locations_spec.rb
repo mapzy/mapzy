@@ -13,14 +13,14 @@ RSpec.describe "Locations", type: :request do
 
   describe "GET locations/new" do
     it "responds with a HTTP 200" do
-      get new_dashboard_map_location_path(map_id: map.id)
+      get new_dashboard_map_location_path(map_id: map.hashid)
       expect(response).to be_successful
     end
   end
 
   describe "GET locations/show" do
     before do
-      get dashboard_map_location_path(map_id: map.id, id: location.id)
+      get dashboard_map_location_path(map_id: map.hashid, id: location.hashid)
     end
 
     it "responds with a HTTP 200" do
