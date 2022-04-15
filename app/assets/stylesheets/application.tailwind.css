@@ -6,22 +6,22 @@
 /* Base styles */
 
 h1 {
-	@apply text-3xl leading-7 font-bold
+  @apply text-3xl leading-7 font-bold
 }
 
 h2 {
-	@apply text-2xl leading-7 font-bold
+  @apply text-2xl leading-7 font-bold
 }
 
 h3 {
-	@apply text-xl leading-7 font-bold
+  @apply text-xl leading-7 font-bold
 }
 
 i {
-	@apply text-sm text-gray-800
+  @apply text-sm text-gray-800
 }
 
-a {
+a, .button_to>[type="submit"] {
   text-underline-position: under;
   @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
 }

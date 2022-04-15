@@ -16,6 +16,14 @@ module Dashboard
     after_action -> { track_event("Updated Location") }, only: %i[update]
     after_action -> { track_event("Viewed Dash Location") }, only: %i[show]
 
+    def show
+      @location = @map.locations.find(params[:id])
+    end
+
+    def index
+      @locations = @map.locations
+    end
+
     def new
       @location = @map.locations.new
       authorize! :new, @location
@@ -32,10 +40,6 @@ module Dashboard
         flash.now[:error] = @location.errors.full_messages
         render :new, status: :unprocessable_entity
       end
-    end
-
-    def show
-      @location = @map.locations.find(params[:id])
     end
 
     def edit
@@ -59,8 +63,6 @@ module Dashboard
       redirect_to dashboard_map_path(@map), notice: \
         "The location #{@location.name} has been successfully deleted."
     end
-
-    def index; end
 
     private
 
