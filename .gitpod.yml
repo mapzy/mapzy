@@ -27,7 +27,7 @@ tasks:
       bundle install
       rails db:create db:schema:load RAILS_ENV=development
       rails db:create db:schema:load RAILS_ENV=test
-      rails db:seed
+    command: rails db:seed
 
 github:
   prebuilds:

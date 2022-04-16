@@ -8,75 +8,91 @@ export default class extends Controller {
     "closed",
     "closedBlock",
     "open24h",
-    "open24hBlock"
+    "open24hBlock",
+    "openingTimes",
+    "openingTimesBlock",
+    "destroy"
   ]
 
-  initialize() {
-    this.toggleClosed = this.toggleClosed.bind(this)
-    this.toggleOpen24h = this.toggleOpen24h.bind(this)
-
-    // Call them once to update the view to the status quo
-    if (this.open24hTarget.checked) { this.toggleOpen24h() }
-    if (this.closedTarget.checked) { this.toggleClosed() }
-  }
-
   connect() {
-    if (!this.closedTarget) return
-    if (!this.open24hTarget) return
+    // display opening times block if not checked initially
+    if (!this.openingTimesTarget.checked) {
+      this.openingTimesBlockTarget.classList.remove("hidden")
+    }
 
-    this.closedTarget.addEventListener('change', this.toggleClosed)
-    this.open24hTarget.addEventListener('change', this.toggleOpen24h)
+    // hide opening time block if closed already checked
+    this.closedTargets.forEach((target, index) =>{
+      if (target.checked) {
+        this.toggleClosed(target, index)
+      }
+    })
+
+    // hide opening time block if open24h already checked
+    this.open24hTargets.forEach((target, index) =>{
+      if (target.checked) {
+        this.toggleOpen24h(target, index)
+      }
+    })
   }
 
-  disconnect() {
-    if (!this.closedTarget) return
-    if (!this.open24hTarget) return
-
-    this.closedTarget.removeEventListener('change', this.toggleClosed)
-    this.open24hTarget.removeEventListener('change', this.toggleOpen24h)
+  toggleOpeningTimes() {
+    this.openingTimesBlockTarget.classList.toggle("hidden")
+    this.toggle_all_for_destroy()
   }
 
-  toggleClosed(e) {
-    if (this.closedTarget.checked) {
-      this.timesBlockTarget.classList.add("hidden")
-      this.open24hBlockTarget.classList.add("hidden")
-      this.clearTimes()
-      this.clearOpen24h()
+  toggleClosedEl(e) {
+    this.toggleClosed(e.target, e.params["index"])
+  }
+
+  toggleOpen24hEl(e) {
+    this.toggleOpen24h(e.target, e.params["index"])
+  }
+
+  toggleClosed(target, index) {
+    this.open24hBlockTargets[index].classList.toggle("hidden")
+    this.timesBlockTargets[index].classList.toggle("hidden")
+
+    if (target.checked) {
+      this.clearTimes(index)
+      this.clearOpen24h(index)
     } else {
-      this.timesBlockTarget.classList.remove("hidden")
-      this.open24hBlockTarget.classList.remove("hidden")
-      this.addDefaultTimes()
+      this.addDefaultTimes(index)
     }
   }
 
-  toggleOpen24h(e) {
-    if (this.open24hTarget.checked) {
-      this.timesBlockTarget.classList.add("hidden")
-      this.closedBlockTarget.classList.add("hidden")
-      this.clearTimes()
-      this.clearClosed()
+  toggleOpen24h(target, index) {
+    this.closedBlockTargets[index].classList.toggle("hidden")
+    this.timesBlockTargets[index].classList.toggle("hidden")
+
+    if (target.checked) {
+      this.clearTimes(index)
+      this.clearClosed(index)
     } else {
-      this.timesBlockTarget.classList.remove("hidden")
-      this.closedBlockTarget.classList.remove("hidden")
-      this.addDefaultTimes()
+      this.addDefaultTimes(index)
     }
   }
 
-  clearTimes() {
-    this.opensAtTarget.value = ""
-    this.closesAtTarget.value = ""
+  clearTimes(index) {
+    this.opensAtTargets[index].value = ""
+    this.closesAtTargets[index].value = ""
   }
 
-  clearOpen24h() {
-    this.open24hTarget.checked = false;
+  clearOpen24h(index) {
+    this.open24hTargets[index].checked = false;
   }
 
-  clearClosed() {
-    this.closedTarget.checked = false;
+  clearClosed(index) {
+    this.closedTargets[index].checked = false;
   }
 
-  addDefaultTimes() {
-    this.opensAtTarget.value = "08:00"
-    this.closesAtTarget.value = "18:00"
+  addDefaultTimes(index) {
+    this.opensAtTargets[index].value = "08:00"
+    this.closesAtTargets[index].value = "18:00"
+  }
+
+  toggle_all_for_destroy() {
+    this.destroyTargets.forEach((target, _index) => {
+      target.value = target.value == "false" ? "true" : "false"
+    }) 
   }
 }
