@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :maps, only: %i[index show] do
       resources :locations
+      resources :location_imports, only: %i[new create]
     end
 
     get "/settings", to: "accounts#settings", as: "account_settings"

@@ -1,0 +1,26 @@
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+  <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css" />
+<% end %>
+
+<%= render "dashboard/layouts/main" do %>
+  <div class="flex flex-col justify-center items-center p-4 text-lg" data-controller="spreadsheet">
+    <h1 class="mt-12 mb-8"><span class="underline-red">Import locations</span></h1>
+    <%= form_with url: dashboard_map_location_imports_path(@map),
+      method: :post,
+      data: { spreadsheet_target: "importForm" } do |form|
+    %>
+      <%= form.hidden_field :import_data, data: { spreadsheet_target: "importData" } %>
+      <%= form.submit "Import", class: "" %>
+    <% end %>
+    <%= button_to "Start import", "",
+       class: "button--main",
+       data: {
+         action: "spreadsheet#importData"
+       }
+    %>
+    <div class="overflow-x-auto w-full flex flex-row justify-center items-center mt-6">
+      <div data-spreadsheet-target="spreadsheet"></div>
+    </div>
+  </div>
+<% end %>
