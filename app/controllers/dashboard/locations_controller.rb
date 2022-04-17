@@ -86,7 +86,7 @@ module Dashboard
       params.require(:location)
             .permit(:name, :description, :address, :latitude, :longitude,
                     opening_times_attributes: \
-                      %i[id location_id day opens_at closes_at closed open_24h])
+                      %i[id location_id day opens_at closes_at closed open_24h _destroy])
     end
   end
 end

@@ -140,7 +140,7 @@ RSpec.describe "Registrations", type: :request do
       end
 
       it "show correct error message in HTML" do
-        expect(flash[:alert]).to include("Password confirmation doesn't match Password")
+        expect(response.body).to include("Password confirmation doesn't match Password")
       end
     end
   end

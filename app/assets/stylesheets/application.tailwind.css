@@ -3,8 +3,36 @@
 @tailwind utilities;
 @tailwind screens;
 
-/* Base styles */
+/* Custom Variables */
+:root {
+  --black: #000;
+}
 
+/* Override default focus colors for tailwindcss-forms
+https://github.com/tailwindlabs/tailwindcss-forms */
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='checkbox']:focus,
+[type='radio']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  color: var(--black);
+  --tw-ring-color: var(--black);
+  border-color: var(--black);
+}
+
+/* Base styles */
 h1 {
   @apply text-3xl leading-7 font-bold
 }
@@ -43,13 +71,11 @@ code {
 }
 
 /* Emphasis */
-
 .underline-red {
   @apply border-b-4 border-mapzy-red-light
 }
 
 /* Flash messages */
-
 .flash {
   @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
@@ -83,7 +109,7 @@ code {
 }
 
 .input--default {
-  @apply block w-full rounded py-3 px-4 mb-1 leading-tight border-2
+  @apply block w-full rounded py-3 px-4 mb-1 leading-tight
 }
 
 .input-info {
@@ -95,7 +121,7 @@ code {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  @apply pr-4 pl-2 rounded bg-white text-gray-700 border-2
+  @apply pr-4 pl-2 rounded bg-white text-gray-700
 }
 
 .checkbox-label--default {
@@ -104,18 +130,24 @@ code {
 
 /* Mapbox */
 .mapboxgl-ctrl-geocoder {
-  border-width: 2px !important;
+  border-width: 1px !important;
   width: 100% !important;
   max-width: none !important;
-  box-shadow: none !important;
-  padding-left: 20px;
+  padding-left: 30px !important;
+  box-shadow: none;
+  border-color: #6b7280;
 }
 
 .mapboxgl-ctrl-geocoder:focus-within {
-  border-color: #2563eb;
+  border-color: #000;
+  --tw-ring-color: #000;
+  box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 }
 
-.mapboxgl-ctrl-geocoder--input:focus {
-  box-shadow: none;
-  outline: none;
+.mapboxgl-ctrl-geocoder--input {
+  border-radius: .25rem;
+  display: block;
+  line-height: 1.25;
+  width: 100%;
+  box-shadow: none !important;
 }
