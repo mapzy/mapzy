@@ -89,9 +89,12 @@ export default class extends Controller {
         anchor: "bottom"
       });
 
-      anchor.appendChild(marker.getElement())
+      let markerElement = marker.getElement();
 
+      anchor.appendChild(markerElement);
       anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
+      markerElement.addEventListener('mouseenter', this.toggleHighlightMarker.bind(this));
+      markerElement.addEventListener('mouseleave', this.toggleHighlightMarker.bind(this));
 
       new mapboxgl.Marker({ 
         element: anchor,
@@ -115,5 +118,16 @@ export default class extends Controller {
     } else if (this.isMobile() && event.y > panelHeight * 0.9) {
       this.map.panBy([0, event.y - panelHeight + 35]);
     }
+  }
+
+  toggleHighlightMarker(event) {
+    let markerElement = event.target;
+    let svg = markerElement.firstChild;
+    let path = svg.querySelector('path');
+    let currentColor = path.getAttribute('fill');
+    let normalColor = "#E74D67";
+    let highlightColor = "#F99B46"
+
+    path.setAttribute('fill', currentColor === normalColor ? highlightColor : normalColor);
   }
 }
