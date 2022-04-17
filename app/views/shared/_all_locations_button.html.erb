@@ -1,4 +1,5 @@
-<%= link_to shared_locations_path do %>
-   <%= image_tag "icons8-list-64.png",
-       class: "absolute bottom-12 bg-mapzy-red left-3 z-10 rounded-full w-10 p-2" %>
+<%= link_to shared_locations_path,
+    data: { "turbo-frame": "side_panel", "action": "side-panel#showPanel" } do %>
+  <%= image_tag "icons8-list-64.png",
+      class: "absolute bottom-12 bg-mapzy-red left-3 z-10 rounded-full w-10 p-2" %>
 <% end %>

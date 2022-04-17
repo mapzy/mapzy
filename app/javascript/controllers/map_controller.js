@@ -81,7 +81,7 @@ export default class extends Controller {
       let anchor = document.createElement("a");
 
       anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
-      anchor.setAttribute("data-turbo-frame", "locations_show");
+      anchor.setAttribute("data-turbo-frame", "side_panel");
       anchor.setAttribute("data-action", "side-panel#showPanel");
 
       let marker = new mapboxgl.Marker({

@@ -1,16 +1,7 @@
-<div class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
-            inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20">
-  <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-    <div class="relative w-full">
-      <div class="flex flex-row justify-end mb-12">
-        <a>Close</a>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 divide-y-2">
-      <% @locations.each do |location| %>
-        <%= render "shared/location_short", map: @map, location: location, dashboard: true %>
-      <% end %>
-    </div>
+<turbo-frame id="side_panel">
+  <div class="grid grid-cols-1 divide-y-2">
+    <% @locations.each do |location| %>
+      <%= render "shared/location_short", map: @map, location: location, dashboard: true %>
+    <% end %>
   </div>
-</div>
+</turbo-frame>
