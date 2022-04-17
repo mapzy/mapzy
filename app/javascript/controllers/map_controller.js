@@ -77,12 +77,16 @@ export default class extends Controller {
   }
 
   createMarkers() {
+    this.markerAnchors = [];
+
     for (var feature of this.markersValue.features) {
+      let locationId = feature.properties.hashid;
       let anchor = document.createElement("a");
 
-      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
+      anchor.href = `${this.locationBaseUrlValue}/${locationId}`;
       anchor.setAttribute("data-turbo-frame", "side_panel");
       anchor.setAttribute("data-action", "side-panel#showPanel");
+      anchor.setAttribute("data-location-id", locationId);
 
       let marker = new mapboxgl.Marker({
         color: "#E74D67",
@@ -93,8 +97,10 @@ export default class extends Controller {
 
       anchor.appendChild(markerElement);
       anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
-      markerElement.addEventListener('mouseenter', this.toggleHighlightMarker.bind(this));
-      markerElement.addEventListener('mouseleave', this.toggleHighlightMarker.bind(this));
+      anchor.addEventListener('mouseenter', () => this.toggleHighlightMarker(markerElement));
+      anchor.addEventListener('mouseleave', () => this.toggleHighlightMarker(markerElement));
+
+      this.markerAnchors.push(anchor);
 
       new mapboxgl.Marker({ 
         element: anchor,
@@ -120,8 +126,11 @@ export default class extends Controller {
     }
   }
 
-  toggleHighlightMarker(event) {
-    let markerElement = event.target;
+  findMarker(locationId) {
+    return this.markerAnchors.find(marker => marker.getAttribute("data-location-id") === locationId);
+  }
+
+  toggleHighlightMarker(markerElement) {
     let svg = markerElement.firstChild;
     let path = svg.querySelector('path');
     let currentColor = path.getAttribute('fill');
