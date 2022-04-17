@@ -10,7 +10,6 @@ module Dashboard
 
     def show
       @map = Map.find(params[:id])
-      @location_base_url = dashboard_map_locations_path(@map)
       @ask_location_permission = false
     end
 

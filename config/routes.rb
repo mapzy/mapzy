@@ -22,8 +22,9 @@ Rails.application.routes.draw do
       passwords: "users/passwords"
     }
 
-  resources :maps, only: %i[index show]
-  resources :locations, only: %i[index show]
+  resources :maps, only: %i[index show] do
+    resources :locations, only: %i[index show]
+  end
 
   namespace :dashboard do
     resources :maps, only: %i[index show] do
