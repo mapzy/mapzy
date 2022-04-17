@@ -1,11 +1,14 @@
 <div data-side-panel-target="panel"
-      class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
+     class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
             inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden">
   <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-    <div class="relative w-full">
-      <div class="flex flex-row justify-end mb-12">
-        <a data-action="side-panel#hidePanel">Close</a>
-      </div>
+    <div class="flex flex-row justify-end mb-4">
+      <a data-action="side-panel#hidePanel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+          <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+        </svg>
+      </a>
     </div>
 
     <%= yield %>
