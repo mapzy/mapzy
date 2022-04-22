@@ -47,7 +47,7 @@ class Location < ApplicationRecord
   scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
 
   def eligible_for_geocoding?
-    address_changed? && !latitude && !longitude
+    !skip_geocoding && address_changed? && !latitude && !longitude
   end
 
   def geocode_as_pending

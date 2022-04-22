@@ -11,32 +11,16 @@ const days = [
   "Sunday"
 ]
 
-const sampleData = [
-  [
-    "Joe's Pasta Shop",
-    "Fresh pasta from the legendary recipe which has been passed down from generation to generation to Joe",
-    "200 Kent Ave, Brooklyn, NY 11249, United States",
-    "",
-    "08:00", "18:00", // monday
-    "08:00", "18:00", // tuesday
-    "", "", // wednesday
-    "08:00", "18:00",// thursday
-    "24", "24", // friday
-    "08:00", "16:00",// saturday
-    "", "", // sunday
-  ], [], [], [], [], [], [], [], [], []
-]
-
 const generateCols = () => {
   return [
-    { type: "text", title: "Name", width: 240 },
+    { type: "text", title: "Name", width: 220 },
     { type: "text", title: "Description", width: 240 },
-    { type: "text", title: "Address", width: 300 },
-    { type: "text", title: "No opening times?", width: 200 },
+    { type: "text", title: "Address", width: 330 },
+    { type: "text", title: "No opening times?", width: 140 },
     ...days.reduce((prevArray, _day) => {
       const currentArray = [
-        { type: "text", title: "Opening time", width: 160 },
-        { type: "text", title: "Closing time", width: 160 }
+        { type: "text", title: "Opens at", width: 80 },
+        { type: "text", title: "Closes at", width: 80 }
       ]
       return prevArray.concat(currentArray)
     }, []),
@@ -63,6 +47,17 @@ const generateNestedHeaders = () => {
   ]
 }
 
+const generateErrorStyles = (errors) => {
+  const table = document.getElementsByClassName("jexcel")[0];
+
+  Object.keys(errors).forEach((row) => {
+    table.rows[row].classList.add("spreadsheet-error-row")
+    errors[row]["cells"].forEach(cell => {
+      table.rows[row].cells[cell].classList.add("spreadsheet-error-cell")
+    });
+  });
+}
+
 export default class extends Controller {
   static targets = [
     "spreadsheet",
@@ -70,13 +65,19 @@ export default class extends Controller {
     "importForm"
   ]
 
+  static values = {
+    errors: Object,
+    spreadsheetData: Array
+  }
+
   connect() {
-    this.initSpreadsheet()
+    this.initSpreadsheet();
+    generateErrorStyles(this.errorsValue);
   }
 
   initSpreadsheet() {
     this.spreadsheet = jspreadsheet(this.spreadsheetTarget, {
-      data: sampleData,
+      data: this.spreadsheetDataValue,
       columns: generateCols(),
       nestedHeaders: generateNestedHeaders(),
       // disable the right-click menu

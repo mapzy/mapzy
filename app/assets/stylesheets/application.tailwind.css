@@ -164,3 +164,15 @@ code {
   width: 100%;
   box-shadow: none !important;
 }
+
+.jexcel {
+  @apply text-sm;
+}
+
+.spreadsheet-error-row {
+  @apply bg-rose-200;
+}
+
+.spreadsheet-error-cell {
+  @apply bg-mapzy-red;
+}

@@ -1,26 +1,57 @@
 <% content_for :head do %>
-  <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
-  <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css" />
+  <%= stylesheet_link_tag "jsuites", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "jexcel", "data-turbo-track": "reload" %>
 <% end %>
 
 <%= render "dashboard/layouts/main" do %>
-  <div class="flex flex-col justify-center items-center p-4 text-lg" data-controller="spreadsheet">
+  <div
+    data-controller="spreadsheet"
+    data-spreadsheet-errors-value="<%= @errors.to_json %>"
+    data-spreadsheet-spreadsheet-data-value="<%= @spreadsheet_data.to_json %>"
+    class="flex flex-col justify-center items-center p-4 text-lg"
+  >
     <h1 class="mt-12 mb-8"><span class="underline-red">Import locations</span></h1>
+    <div class="max-w-prose mb-6">
+      <p>
+        To import locations, copy and paste your locations into the spreadsheet below and hit "Start import".
+      </p>
+      <p>
+        <h3 class="mt-4">💡 A few things to keep in mind:</h3>
+        <ul class="list-disc list-inside">
+          <li>Rows are added automatically when you paste your data (up to 500 per import)</li>
+          <li><span class="italic font-medium">Description</span> is optional</li>
+          <li>If you don't want to display opening times, enter <span class="italic font-medium">yes</span> for <span class="italic font-medium">"No opening times?"</span></li>
+          <li>If the location is closed that day, leave <span class="italic font-medium">"Opens at"</span> and <span class="italic font-medium">"Closes at"</span> empty</li>
+          <li>If the location is open 24 hours, enter <span class="italic font-medium">24</span> for both, <span class="italic font-medium">"Opens at"</span> and <span class="italic font-medium">"Closes at"</span></li>
+          <li>Format the opening times like this: HH:MM, e.g., 18:00 for 6 pm</li>
+        </ul>
+      </p>
+    </div>
     <%= form_with url: dashboard_map_location_imports_path(@map),
       method: :post,
       data: { spreadsheet_target: "importForm" } do |form|
     %>
-      <%= form.hidden_field :import_data, data: { spreadsheet_target: "importData" } %>
-      <%= form.submit "Import", class: "" %>
+      <%= form.hidden_field :spreadsheet_data, data: { spreadsheet_target: "importData" } %>
     <% end %>
     <%= button_to "Start import", "",
-       class: "button--main",
-       data: {
-         action: "spreadsheet#importData"
-       }
+      class: "button--main",
+      data: {
+        action: "spreadsheet#importData"
+      }
     %>
     <div class="overflow-x-auto w-full flex flex-row justify-center items-center mt-6">
       <div data-spreadsheet-target="spreadsheet"></div>
+    </div>
+
+    <div class="w-full max-w-prose mt-6 p-4 border-2 text-mapzy-violet bg-blue-50 rounded">
+      <h3>Error Messages</h3>
+      <ul class="list-disc list-inside">
+        <% @errors.each do |row, error| %>
+            <% error[:full_message].each do |message| %>
+              <li>Row <%= row - @row_offset %>: <%= message %></li>
+            <% end %>
+        <% end %>
+      </ul>
     </div>
   </div>
 <% end %>

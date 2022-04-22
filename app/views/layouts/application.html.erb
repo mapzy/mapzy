@@ -7,13 +7,11 @@
     <%= csp_meta_tag %>
     <%= favicon_link_tag asset_path('favicon.ico') %>
 
-    <%= yield :head %>
-
-    
-
-
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <%= yield :head %>
+
     <%= javascript_importmap_tags %>
 
     
