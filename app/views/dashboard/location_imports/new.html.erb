@@ -43,15 +43,17 @@
       <div data-spreadsheet-target="spreadsheet"></div>
     </div>
 
-    <div class="w-full max-w-prose mt-6 p-4 border-2 text-mapzy-violet bg-blue-50 rounded">
-      <h3>Error Messages</h3>
-      <ul class="list-disc list-inside">
-        <% @errors.each do |row, error| %>
-            <% error[:full_message].each do |message| %>
-              <li>Row <%= row - @row_offset %>: <%= message %></li>
-            <% end %>
-        <% end %>
-      </ul>
-    </div>
+    <% if @errors.present? %>
+      <div class="w-full max-w-prose mt-6 p-4 border-2 text-mapzy-violet bg-blue-50 rounded">
+        <h3>Error Messages</h3>
+        <ul class="list-disc list-inside">
+          <% @errors.each do |row, error| %>
+              <% error[:full_message].each do |message| %>
+                <li>Row <%= row - @row_offset %>: <%= message %></li>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 <% end %>
