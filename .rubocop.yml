@@ -75,6 +75,9 @@ RSpec/AnyInstance:
 RSpec/LetSetup:
   Enabled: false
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
 Rails/LexicallyScopedActionFilter:
   Exclude:
    - app/controllers/users/**/*

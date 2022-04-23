@@ -11,7 +11,6 @@ module Dashboard
     def create
       @spreadsheet_data = JSON.parse(params[:spreadsheet_data])
       @errors = LocationImport.validate_csv(@map, @spreadsheet_data)
-      puts @errors
 
       if @errors.present?
         flash.now[:error] = "There were some errors. Please check the highlighted rows and "\

@@ -4,8 +4,6 @@ module Dashboard
   class LocationsController < DashboardController
     include Trackable
 
-    skip_authorize_resource only: %i[new create]
-
     before_action :set_map
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
@@ -25,12 +23,10 @@ module Dashboard
 
     def new
       @location = @map.locations.new
-      authorize! :new, @location
     end
 
     def create
       @location = @map.locations.build(location_params)
-      authorize! :create, @location
 
       if @location.save
         redirect_to dashboard_map_path(@map)

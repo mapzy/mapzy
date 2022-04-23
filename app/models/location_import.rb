@@ -3,7 +3,7 @@
 class LocationImport
   ROW_OFFSET = 1
   COL_OFFSET = 2
-  TRUTHY = %w[yes true jep y].freeze
+  TRUTHY = %w[yes true jep y ja oui si evet].freeze
 
   def initialize(**args)
     map = args[:map]
@@ -79,27 +79,30 @@ class LocationImport
 
   def self.opening_times_from_csv(row_data)
     opening_times = []
-    return opening_times if TRUTHY.include?(row_data["3"].strip.downcase)
+    return opening_times if TRUTHY.include?(row_data["3"]&.strip&.downcase)
 
     # remove non opening time data
     opening_times_csv = row_data.except("0", "1", "2", "3").values
     index = 0
     OpeningTime::ALL_DAYS.each do |day|
-      opens_at = opening_times_csv[index]
-      closes_at = opening_times_csv[index + 1]
-      open_24h = open_24h?(opens_at, closes_at)
-      closed = closed?(opens_at, closes_at)
       opening_times.push(
-        {
-          day: day,
-          opens_at: !closed && !open_24h ? opens_at : "",
-          closes_at: !closed && !open_24h ? closes_at : "",
-          open_24h: open_24h,
-          closed: closed
-        }
+        format_opening_time(day, opening_times_csv[index], opening_times_csv[index + 1])
       )
       index += 2
     end
     opening_times
+  end
+
+  def self.format_opening_time(day, opens_at, closes_at)
+    # creates corretly formatted opening time
+    open_24h = open_24h?(opens_at, closes_at)
+    closed = closed?(opens_at, closes_at)
+    {
+      day: day,
+      opens_at: !closed && !open_24h ? opens_at : "",
+      closes_at: !closed && !open_24h ? closes_at : "",
+      open_24h: open_24h,
+      closed: closed
+    }
   end
 end
