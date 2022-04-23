@@ -3,19 +3,16 @@
 require "rails_helper"
 
 RSpec.describe "Locations", type: :request do
-  let(:location) { create(:location) }
+  let(:map) { create(:map) }
+  let(:location) { create(:location, map_id: map.id) }
 
   describe "GET locations/show" do
     before do
-      get location_path(location.id)
+      get map_location_path(map.id, location.id)
     end
 
     it "responds with a HTTP 200" do
       expect(response).to be_successful
-    end
-
-    it "contains the correct turbo-frame" do
-      expect(response.body).to include('<turbo-frame id="locations_show">')
     end
   end
 end
