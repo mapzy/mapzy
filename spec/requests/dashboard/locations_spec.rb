@@ -55,19 +55,6 @@ RSpec.describe "Locations", type: :request do
 
   describe "POST locations/create" do
     before do
-      Geocoder.configure(lookup: :test, ip_lookup: :test)
-      Geocoder::Lookup::Test.add_stub(
-        "Hohlstrasse 117, 8002 Zürich, Switzerland", [
-          {
-            "coordinates": [40.7143528, -74.0059731],
-            "address": "Hohlstrasse 117, 8002 Zürich, Switzerland",
-            "state": "Zurich",
-            "state_code": "ZH",
-            "country": "Switzerland",
-            "country_code": "CH"
-          }
-        ]
-      )
       sign_in user
     end
 

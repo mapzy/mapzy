@@ -51,20 +51,6 @@ RSpec.describe Location, type: :model do
 
     let(:new_address) { "Kashaldenstrasse 41, 8052" }
 
-    before do
-      new_address_stub = [new_address, [{
-        "latitude" => 40.7143528,
-        "longitude" => -74.0059731,
-        "address" => "New York, NY, USA",
-        "state" => "New York",
-        "state_code" => "NY",
-        "country" => "United States",
-        "country_code" => "US"
-      }]]
-
-      Geocoder::Lookup::Test.add_stub(new_address_stub[0], new_address_stub[1])
-    end
-
     context "when latitude & longitude are present" do
       let(:location) { create(:location, latitude: 52.4937207, longitude: 13.4171431) }
 
@@ -88,38 +74,46 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe "#set_geocoding_status" do
-    let(:location) { create(:location, geocoding_status: :pending) }
+  describe "#geocode" do
+    let(:location) do
+      create(:location, latitude: nil, longitude: nil, address: "Paris", geocoding_status: :pending)
+    end
 
-    context "when not eligible for geocoding" do
-      before do
-        allow(location).to receive(:eligible_for_geocoding?).and_return(false)
+    context "when the geocoding works" do
+      it "adds the latitude" do
+        location.geocode
+        expect(location.latitude).not_to be_nil
       end
 
-      it "does not change the geocoding_status" do
-        location.save!
-        expect(location.geocoding_status).to eq("pending")
+      it "adds the longitude" do
+        location.geocode
+        expect(location.longitude).not_to be_nil
+      end
+
+      it "changes the geocoding_status to :success" do
+        location.geocode
+        expect(location.geocoding_status).to eq("success")
       end
     end
 
-    context "when eligible for geocoding" do
+    context "when the geocoding doesn't work" do
       before do
-        allow(location).to receive(:eligible_for_geocoding?).and_return(true)
-        allow(location).to receive(:geocode)
+        Geocoder::Lookup::Test.add_stub("Paris", [{ coordinates: [nil, nil] }])
       end
 
-      context "when latitude and longitude are present" do
-        it "changes the geocoding_status to :success" do
-          location.update!(latitude: 52.4937207, longitude: 13.4171431)
-          expect(location.geocoding_status).to eq("success")
-        end
+      it "does not add the latitude" do
+        location.geocode
+        expect(location.latitude).to be_nil
       end
 
-      context "when latitude or longitude are missing" do
-        it "changes the geocoding_status to :error" do
-          location.update!(latitude: nil, longitude: nil)
-          expect(location.geocoding_status).to eq("error")
-        end
+      it "does not add the longitude" do
+        location.geocode
+        expect(location.longitude).to be_nil
+      end
+
+      it "changes the geocoding_status to :error" do
+        location.geocode
+        expect(location.geocoding_status).to eq("error")
       end
     end
   end
