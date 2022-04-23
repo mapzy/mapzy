@@ -33,9 +33,10 @@ FactoryBot.define do
     end
 
     description { "Founded by King Aegon I Targaryen, King of the Andals and the First Men." }
-    address { "Hohlstrasse 117, 8004 Zürich, Switzerland" }
+    address { "Hohlstrasse 117, 8004 Zurich, Switzerland" }
     latitude { 12.222211 }
     longitude { 8.433332 }
+    geocoding_status { :success }
 
     association :map
   end

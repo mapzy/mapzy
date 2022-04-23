@@ -4,19 +4,21 @@
 #
 # Table name: locations
 #
-#  id          :bigint           not null, primary key
-#  address     :string
-#  description :text
-#  latitude    :decimal(15, 10)
-#  longitude   :decimal(15, 10)
-#  name        :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  map_id      :bigint           not null
+#  id               :bigint           not null, primary key
+#  address          :string
+#  description      :text
+#  geocoding_status :integer          default("pending"), not null
+#  latitude         :decimal(15, 10)
+#  longitude        :decimal(15, 10)
+#  name             :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  map_id           :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_map_id  (map_id)
+#  index_locations_on_geocoding_status  (geocoding_status)
+#  index_locations_on_map_id            (map_id)
 #
 # Foreign Keys
 #
@@ -25,6 +27,13 @@
 require "rails_helper"
 
 RSpec.describe Location, type: :model do
+  describe "attributes" do
+    it do
+      is_expected.to define_enum_for(:geocoding_status) \
+        .with_values(pending: 0, success: 1, error: 2)
+    end
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:map) }
   end
@@ -32,19 +41,15 @@ RSpec.describe Location, type: :model do
   describe "validations" do
     before { create(:location) }
 
-    context "with address" do
-      it { is_expected.to validate_presence_of :address }
-    end
-
-    context "with name" do
-      it { is_expected.to validate_presence_of :name }
-    end
+    it { is_expected.to validate_presence_of :address }
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :geocoding_status }
   end
 
-  describe ".eligible_for_geocoding?" do
+  describe "#eligible_for_geocoding?" do
     subject { location.eligible_for_geocoding? }
 
-    let(:new_address) { "Käshaldenstrasse 41, 8052" }
+    let(:new_address) { "Kashaldenstrasse 41, 8052" }
 
     before do
       new_address_stub = [new_address, [{
@@ -78,6 +83,42 @@ RSpec.describe Location, type: :model do
         it "is eligible_for_geocoding" do
           location.address = new_address
           expect(subject).to be(true)
+        end
+      end
+    end
+  end
+
+  describe "#set_geocoding_status" do
+    let(:location) { create(:location, geocoding_status: :pending) }
+
+    context "when not eligible for geocoding" do
+      before do
+        allow(location).to receive(:eligible_for_geocoding?).and_return(false)
+      end
+
+      it "does not change the geocoding_status" do
+        location.save!
+        expect(location.geocoding_status).to eq("pending")
+      end
+    end
+
+    context "when eligible for geocoding" do
+      before do
+        allow(location).to receive(:eligible_for_geocoding?).and_return(true)
+        allow(location).to receive(:geocode)
+      end
+
+      context "when latitude and longitude are present" do
+        it "changes the geocoding_status to :success" do
+          location.update!(latitude: 52.4937207, longitude: 13.4171431)
+          expect(location.geocoding_status).to eq("success")
+        end
+      end
+
+      context "when latitude or longitude are missing" do
+        it "changes the geocoding_status to :error" do
+          location.update!(latitude: nil, longitude: nil)
+          expect(location.geocoding_status).to eq("error")
         end
       end
     end
