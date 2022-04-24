@@ -18,6 +18,12 @@ Metrics/AbcSize:
 
 Layout/LineLength:
   Max: 100
+  Exclude:
+    - app/helpers/icons_helper.rb
+
+Rails/OutputSafety:
+  Exclude:
+    - app/helpers/icons_helper.rb
 
 Metrics/ClassLength:
   Max: 120
