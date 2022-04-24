@@ -32,7 +32,7 @@ class Location < ApplicationRecord
 
   accepts_nested_attributes_for :opening_times, allow_destroy: true
 
-  enum geocoding_status: { pending: 0, success: 1, error: 2 }, _prefix: :geocoding
+  enum geocoding_status: { pending: 0, error: 1, success: 2 }, _prefix: :geocoding
 
   validates :address, presence: true
   validates :name, presence: true
@@ -42,8 +42,10 @@ class Location < ApplicationRecord
 
   geocoded_by :address
 
+  attr_accessor :skip_geocoding
+
   def eligible_for_geocoding?
-    address_changed? && !latitude && !longitude
+    !skip_geocoding && address_changed? && !latitude && !longitude
   end
 
   def geocode

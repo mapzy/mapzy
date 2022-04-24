@@ -11,7 +11,7 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = @map.locations
+    @locations = @map.locations.geocoding_success
   end
 
   private

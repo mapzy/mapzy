@@ -20,7 +20,7 @@ module Dashboard
     end
 
     def index
-      @locations = @map.locations
+      @locations = @map.locations.order(:geocoding_status)
     end
 
     def new
