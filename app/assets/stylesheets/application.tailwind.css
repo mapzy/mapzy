@@ -80,6 +80,19 @@ code {
   @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
 
+/* Dashboard notifications */
+.notification {
+  @apply w-full p-2 border-2 rounded
+}
+
+.notification-error {
+  @apply text-mapzy-red bg-red-50
+}
+
+.notification-info {
+  @apply text-mapzy-violet bg-blue-50
+}
+
 /* Buttons */
 .button--main {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white font-medium shadow

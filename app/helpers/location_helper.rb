@@ -54,4 +54,12 @@ module LocationHelper
   def edit_or_finalise(location)
     location.geocoding_error? ? "Finalize" : "Edit"
   end
+
+  def error_message
+    "Unfortunately, we were not able to geocode all of your locations. Please finalize them from the list below."
+  end
+
+  def pending_message
+    "Your locations are being processed in the background. This may take a couple of minutes."
+  end
 end
