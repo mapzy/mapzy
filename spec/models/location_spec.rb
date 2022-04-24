@@ -30,7 +30,8 @@ RSpec.describe Location, type: :model do
   describe "attributes" do
     it do
       is_expected.to define_enum_for(:geocoding_status) \
-        .with_values(pending: 0, error: 1, success: 2)
+        .with_values(pending: 0, error: 1, success: 2) \
+        .with_prefix(:geocoding)
     end
   end
 
