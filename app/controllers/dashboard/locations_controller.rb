@@ -47,6 +47,7 @@ module Dashboard
 
     def update
       if @location.update(location_params)
+        @location.update(geocoding_status: :success)
         flash[:notice] = "The location #{@location.name} has been successfully updated."
         redirect_to dashboard_map_path(@map)
       else
