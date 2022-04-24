@@ -10,6 +10,7 @@ module Dashboard
 
     def show
       @map = Map.find(params[:id])
+      @locations = @map.locations
       @ask_location_permission = false
     end
 

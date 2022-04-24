@@ -7,7 +7,6 @@ module Dashboard
     skip_authorize_resource only: %i[new create]
 
     before_action :set_map
-    before_action :set_bounds, only: %i[new edit create update]
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
 
@@ -68,10 +67,6 @@ module Dashboard
 
     def set_map
       @map = Map.find(params[:map_id])
-    end
-
-    def set_bounds
-      @bounds = @map.bounds
     end
 
     def set_address

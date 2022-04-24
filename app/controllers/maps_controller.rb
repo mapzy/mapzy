@@ -8,6 +8,7 @@ class MapsController < ApplicationController
 
   def show
     @map = Map.find(params[:id])
+    @locations = @map.locations.where(geocoding_status: :success)
     @ask_location_permission = true
   end
 
