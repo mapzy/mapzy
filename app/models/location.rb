@@ -44,6 +44,8 @@ class Location < ApplicationRecord
   scope :geocoding_error, -> { where(latitude: nil).or(where(longitude: nil)) }
   scope :geocoding_pending, -> { where(latitude: 0, longitude: 0) }
 
+  scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
+
   def eligible_for_geocoding?
     address_changed? && !latitude && !longitude
   end
