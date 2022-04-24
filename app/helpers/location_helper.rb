@@ -50,4 +50,8 @@ module LocationHelper
   def no_opening_times?(location)
     location.id.present? && location.opening_times.empty?
   end
+
+  def edit_or_finalise(location)
+    location.geocoding_error? ? "Finalize" : "Edit"
+  end
 end
