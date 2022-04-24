@@ -84,6 +84,7 @@ RSpec.configure do |config|
 
   # Stub Geocoder
   Geocoder.configure(lookup: :test)
+  Geocoder::Lookup::Test.set_default_stub([{ coordinates: [40.7143528, -74.0059731] }])
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false

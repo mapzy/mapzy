@@ -4,19 +4,21 @@
 #
 # Table name: locations
 #
-#  id          :bigint           not null, primary key
-#  address     :string
-#  description :text
-#  latitude    :decimal(15, 10)
-#  longitude   :decimal(15, 10)
-#  name        :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  map_id      :bigint           not null
+#  id               :bigint           not null, primary key
+#  address          :string
+#  description      :text
+#  geocoding_status :integer          default("pending"), not null
+#  latitude         :decimal(15, 10)
+#  longitude        :decimal(15, 10)
+#  name             :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  map_id           :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_map_id  (map_id)
+#  index_locations_on_geocoding_status  (geocoding_status)
+#  index_locations_on_map_id            (map_id)
 #
 # Foreign Keys
 #
@@ -30,8 +32,11 @@ class Location < ApplicationRecord
 
   accepts_nested_attributes_for :opening_times, allow_destroy: true
 
+  enum geocoding_status: { pending: 0, success: 1, error: 2 }
+
   validates :address, presence: true
   validates :name, presence: true
+  validates :geocoding_status, presence: true
 
   after_validation :geocode, if: :eligible_for_geocoding?
 
@@ -39,5 +44,15 @@ class Location < ApplicationRecord
 
   def eligible_for_geocoding?
     address_changed? && !latitude && !longitude
+  end
+
+  def geocode
+    super
+    self.geocoding_status = \
+      if latitude.present? && longitude.present?
+        :success
+      else
+        :error
+      end
   end
 end
