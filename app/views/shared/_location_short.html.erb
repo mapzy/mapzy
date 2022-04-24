@@ -43,9 +43,9 @@
   <% if dashboard %>
     <% unless location.geocoding_pending? %>
       <div class="mt-4 flex flex-row justify-between">
-        <%= link_to edit_or_finalise(location), edit_dashboard_map_location_path(map_id: map.id, id: location.id),
+        <%= link_to edit_or_finalise(location), edit_dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
               data: { turbo_frame: "_top" } %>
-        <%= button_to "Delete", dashboard_map_location_path(map_id: map.id, id: location.id),
+        <%= button_to "Delete", dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
               method: :delete,
               form: { data: { turbo_confirm:
                 "Once deleted, it's deleted! Are you sure you want to delete this location?"
