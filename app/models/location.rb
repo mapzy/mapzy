@@ -70,4 +70,8 @@ class Location < ApplicationRecord
   def null_island
     latitude&.zero? && longitude&.zero?
   end
+
+  def bbox
+    geocoding_success? ? self : map.locations.geocoding_success
+  end
 end

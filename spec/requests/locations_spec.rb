@@ -8,7 +8,7 @@ RSpec.describe "Locations", type: :request do
 
   describe "GET locations/show" do
     before do
-      get map_location_path(map.id, location.id)
+      get map_location_path(map.hashid, location.hashid)
     end
 
     it "responds with a HTTP 200" do

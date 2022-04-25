@@ -8,14 +8,14 @@
           <span class="h-3">
             <%= pending_icon(size: 12) %>
           </span>
-          <span class="text-sm text-italic pl-2">Geocoding in progress...</span>
+          <span class="text-sm text-italic pl-2">Import in progress...</span>
         </div>
       <% elsif location.geocoding_error? %>
         <div class="flex flex-row items-center text-mapzy-red">
           <span class="h-3">
             <%= error_icon(size: 12) %>
           </span>
-          <span class="text-sm text-italic pl-2">Geocoding error</span>
+          <span class="text-sm text-italic pl-2">Import error</span>
         </div>
       <% end %>
     <% end %>

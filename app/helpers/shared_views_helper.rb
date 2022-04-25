@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module SharedViewsHelper
-  # rubocop:disable Rails/HelperInstanceVariable
-  def shared_locations_path
+  def shared_locations_path(map_id)
     if controller.controller_path.include?("dashboard")
-      send :dashboard_map_locations_path, @map
+      send :dashboard_map_locations_path, map_id
     else
-      send :map_locations_path, @map
+      send :map_locations_path, map_id
     end
   end
-  # rubocop:enable Rails/HelperInstanceVariable
 end

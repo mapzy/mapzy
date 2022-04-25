@@ -56,8 +56,8 @@ module LocationHelper
   end
 
   def error_message
-    "Unfortunately, we were not able to geocode all of your locations.
-    Please finalize them from the list below."
+    "Unfortunately, we were not able to find all your addresses.
+    Please finalize them in the list below."
   end
 
   def pending_message
