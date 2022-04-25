@@ -15,7 +15,7 @@ RSpec.describe "interacting with the map", type: :feature, js: true do
   end
 
   it "shows location view on pin click" do
-    page.scroll_to(page.find_link(href: location_path(location.hashid))).click
+    page.scroll_to(page.find_link(href: map_location_path(map.hashid, location.hashid))).click
     expect(page).to have_content(location.name)
   end
 end
