@@ -8,6 +8,8 @@ Geocoder.configure(
   use_https: true,
   mapbox: {
     types: "address",
+    autocomplete: false,
+    fuzzyMatch: false,
     limit: 1
   }
 )
