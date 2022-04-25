@@ -108,8 +108,25 @@ RSpec.describe Account, type: :model do
         expect(LocationImport.opening_times_from_csv(csv_row)[6]).to eq(sunday)
       end
     end
+  end
 
-    describe ".validate_csv" do
+  describe "instance methods" do
+    def location_import(csv_row)
+      LocationImport.new(map, csv_row)
+    end
+
+    # let(:location_import) do
+    #   LocationImport.new(
+    #     skip_geocoding: true,
+    #     map: map,
+    #     name: csv_row["0"],
+    #     description: csv_row["1"],
+    #     address: csv_row["2"],
+    #     opening_times: LocationImport.opening_times_from_csv(csv_row)
+    #   )
+    # end
+
+    describe ".initialize" do
       let(:name_error) do
         { 2 => { cells: [1], full_message: ["Name can't be blank"] } }
       end
@@ -128,51 +145,28 @@ RSpec.describe Account, type: :model do
         }
       end
 
-      it "returns no errors for valid input data" do
-        expect(LocationImport.validate_csv(map, [csv_row])).to be_empty
+      it "validates correctly after initialization" do
+        expect(location_import([csv_row]).errors).to be_empty
       end
 
       it "returns name error if no location name provided" do
         csv_row["0"] = ""
-        expect(LocationImport.validate_csv(map, [csv_row])).to eq(name_error)
+        expect(location_import([csv_row]).errors).to eq(name_error)
       end
 
       it "returns address error if no address name provided" do
         csv_row["2"] = ""
-        expect(LocationImport.validate_csv(map, [csv_row])).to eq(address_error)
+        expect(location_import([csv_row]).errors).to eq(address_error)
       end
 
       it "returns opening time error if opens_at missing provided" do
         csv_row["4"] = ""
-        expect(LocationImport.validate_csv(map, [csv_row])).to eq(opening_time_error)
+        expect(location_import([csv_row]).errors).to eq(opening_time_error)
       end
 
       it "returns opening time error if non-time input provided" do
         csv_row["4"] = "bla"
-        expect(LocationImport.validate_csv(map, [csv_row])).to eq(opening_time_error)
-      end
-    end
-  end
-
-  describe "instance methods" do
-    let(:location_import) do
-      LocationImport.new(
-        skip_geocoding: true,
-        map: map,
-        name: csv_row["0"],
-        description: csv_row["1"],
-        address: csv_row["2"],
-        opening_times: LocationImport.opening_times_from_csv(csv_row)
-      )
-    end
-
-    describe ".initialize" do
-      it "initializes correctly" do
-        expect(location_import.instance_variable_get(:@location).name).to eq(csv_row["0"])
-      end
-
-      it "is a valid Location" do
-        expect(location_import.valid?).to be(true)
+        expect(location_import([csv_row]).errors).to eq(opening_time_error)
       end
     end
   end

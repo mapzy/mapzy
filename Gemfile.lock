@@ -47,6 +47,8 @@ GEM
     activerecord (6.1.5)
       activemodel (= 6.1.5)
       activesupport (= 6.1.5)
+    activerecord-import (1.4.0)
+      activerecord (>= 4.2)
     activestorage (6.1.5)
       actionpack (= 6.1.5)
       activejob (= 6.1.5)
@@ -378,6 +380,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-import (~> 1.4.0)
   annotate
   bootsnap (>= 1.4.4)
   brakeman (~> 5.1)

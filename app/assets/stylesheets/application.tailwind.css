@@ -170,9 +170,9 @@ code {
 }
 
 .spreadsheet-error-row {
-  @apply bg-rose-200;
+  @apply bg-blue-100;
 }
 
 .spreadsheet-error-cell {
-  @apply bg-mapzy-red;
+  @apply bg-mapzy-violet;
 }

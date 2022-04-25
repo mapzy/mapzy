@@ -10,18 +10,27 @@ module Dashboard
 
     def create
       @spreadsheet_data = JSON.parse(params[:spreadsheet_data])
-      @errors = LocationImport.validate_csv(@map, @spreadsheet_data)
+      location_import = LocationImport.new(@map, @spreadsheet_data)
 
-      if @errors.present?
-        flash.now[:error] = "There were some errors. Please check the highlighted rows and "\
-                            "see below the spreadsheet for detailed error messages."
+      if location_import.errors.present?
+        @errors = location_import.errors
         @row_offset = LocationImport::ROW_OFFSET
         render :new, status: :unprocessable_entity
       else
-        # kick off async job and redirect to map view with flash
-        flash.now[:success] = "Great! We're importing your locations. "\
-                              "We'll send you an email when it's done. "\
-                              "You don't need to keep this window open."
+        # bulk insert all locations to database
+        result = location_import.insert_all
+        if result.failed_instances.empty?
+          # kick off async job and redirect to map view with flash
+          flash[:success] = "Great! We're importing your locations. "\
+                                "We'll send you an email when it's done. "\
+                                "You don't need to keep this window open."
+
+          redirect_to dashboard_map_path(@map)
+        else
+          flash.now[:alert] = "We couldn't create your locations. "\
+                              "Please try again or reach out to bonjour@mapzy.io"
+          render :new, status: :unprocessable_entity
+        end
       end
     end
 

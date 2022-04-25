@@ -5,26 +5,47 @@ class LocationImport
   COL_OFFSET = 2
   TRUTHY = %w[yes true jep y ja oui si evet].freeze
 
-  def initialize(**args)
-    map = args[:map]
+  attr_reader :errors
 
-    @location = map.locations.build(
-      skip_geocoding: true,
-      name: args[:name],
-      description: args[:description],
-      address: args[:address],
-      opening_times_attributes: args[:opening_times]
-    )
+  def initialize(map, spreadsheet_data)
+    @map = map
+    @spreadsheet_data = spreadsheet_data
+    @errors = {}
+    @locations = []
+
+    validate_csv
   end
 
-  def valid?
-    @location.valid?
+  def validate_csv
+    @spreadsheet_data.each_with_index do |d, i|
+      next if LocationImport.row_empty?(d)
+
+      location = @map.locations.build(
+        skip_geocoding: true,
+        name: d["0"],
+        description: d["1"],
+        address: d["2"],
+        opening_times_attributes: LocationImport.opening_times_from_csv(d)
+      )
+      if location.valid?
+        @locations.push(location)
+      else
+        @errors[i + COL_OFFSET] = LocationImport.errors_to_spreadsheet(location)
+      end
+    end
   end
 
-  def errors_to_spreadsheet
+  def insert_all
+    # insert all doesn't do validations, therefore we need to make sure that we have no errors
+    return if @errors.present?
+
+    Location.import(@locations, validate: false, all_or_none: true, recursive: true)
+  end
+
+  def self.errors_to_spreadsheet(location)
     # maps errors to spreadsheet columns
     cells = []
-    @location.errors.attribute_names.each do |attr|
+    location.errors.attribute_names.each do |attr|
       case attr
       when :name
         cells.push(0 + ROW_OFFSET)
@@ -41,7 +62,7 @@ class LocationImport
     end
     {
       cells: cells,
-      full_message: @location.errors.full_messages
+      full_message: location.errors.full_messages
     }
   end
 
@@ -51,25 +72,6 @@ class LocationImport
 
   def self.closed?(opens_at, closes_at)
     opens_at.blank? && closes_at.blank?
-  end
-
-  def self.validate_csv(map, data)
-    errors = {}
-    data.each_with_index do |d, i|
-      next if row_empty?(d)
-
-      location_import = LocationImport.new(
-        skip_geocoding: true,
-        map: map,
-        name: d["0"],
-        description: d["1"],
-        address: d["2"],
-        opening_times: opening_times_from_csv(d)
-      )
-      errors[i + COL_OFFSET] = location_import.errors_to_spreadsheet unless location_import.valid?
-    end
-
-    errors
   end
 
   def self.row_empty?(row_data)
@@ -86,7 +88,11 @@ class LocationImport
     index = 0
     OpeningTime::ALL_DAYS.each do |day|
       opening_times.push(
-        format_opening_time(day, opening_times_csv[index], opening_times_csv[index + 1])
+        LocationImport.format_opening_time(
+          day,
+          opening_times_csv[index],
+          opening_times_csv[index + 1]
+        )
       )
       index += 2
     end
@@ -95,8 +101,8 @@ class LocationImport
 
   def self.format_opening_time(day, opens_at, closes_at)
     # creates corretly formatted opening time
-    open_24h = open_24h?(opens_at, closes_at)
-    closed = closed?(opens_at, closes_at)
+    open_24h = LocationImport.open_24h?(opens_at, closes_at)
+    closed = LocationImport.closed?(opens_at, closes_at)
     {
       day: day,
       opens_at: !closed && !open_24h ? opens_at : "",
