@@ -115,17 +115,6 @@ RSpec.describe Account, type: :model do
       LocationImport.new(map, csv_row)
     end
 
-    # let(:location_import) do
-    #   LocationImport.new(
-    #     skip_geocoding: true,
-    #     map: map,
-    #     name: csv_row["0"],
-    #     description: csv_row["1"],
-    #     address: csv_row["2"],
-    #     opening_times: LocationImport.opening_times_from_csv(csv_row)
-    #   )
-    # end
-
     describe ".initialize" do
       let(:name_error) do
         { 2 => { cells: [1], full_message: ["Name can't be blank"] } }
@@ -167,6 +156,18 @@ RSpec.describe Account, type: :model do
       it "returns opening time error if non-time input provided" do
         csv_row["4"] = "bla"
         expect(location_import([csv_row]).errors).to eq(opening_time_error)
+      end
+
+      it "sets longitude corretly" do
+        expect(
+          location_import([csv_row]).instance_variable_get(:@locations).first.longitude
+        ).to eq(0)
+      end
+
+      it "sets latitude corretly" do
+        expect(
+          location_import([csv_row]).instance_variable_get(:@locations).first.latitude
+        ).to eq(0)
       end
     end
   end
