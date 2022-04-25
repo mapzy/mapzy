@@ -6,8 +6,6 @@ module Dashboard
 
     before_action :set_map
     before_action :set_location, only: %i[show edit update destroy]
-    #before_action :set_address, only: %i[new edit create update]
-    #before_action :set_opening_times, only: %i[new edit create update]
 
     after_action -> { track_event("Viewed Add Location") }, only: %i[new]
     after_action -> { track_event("Added Location") }, only: %i[create]
