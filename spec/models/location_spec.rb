@@ -41,6 +41,10 @@ RSpec.describe Location, type: :model do
 
     let(:new_address) { "Kashaldenstrasse 41, 8052" }
 
+    before do
+      allow(location).to receive(:skip_geocoding).and_return(false)
+    end
+
     context "when latitude & longitude are present" do
       let(:location) { create(:location, latitude: 52.4937207, longitude: 13.4171431) }
 
@@ -66,7 +70,7 @@ RSpec.describe Location, type: :model do
 
   describe "#geocode" do
     let(:location) do
-      create(:location, latitude: nil, longitude: nil, address: "Paris", skip_geocoding: true)
+      create(:location, latitude: nil, longitude: nil, address: "Paris")
     end
 
     context "when the geocoding works" do
@@ -82,7 +86,7 @@ RSpec.describe Location, type: :model do
 
       it "sets geocoding_success? to true" do
         location.geocode
-        expect(location.geocoding_success?).to be_true
+        expect(location.geocoding_success?).to be true
       end
     end
 
@@ -103,7 +107,131 @@ RSpec.describe Location, type: :model do
 
       it "sets geocoding_error? to true" do
         location.geocode
-        expect(location.geocoding_error?).to be_true
+        expect(location.geocoding_error?).to be true
+      end
+    end
+  end
+
+  describe "#geocode_as_pending" do
+    subject { location.geocode_as_pending }
+
+    let(:location) { build(:location, latitude: nil, longitude: nil) }
+
+    it "sets latitude to 0" do
+      subject
+      expect(location.latitude).to eq(0)
+    end
+
+    it "sets longitude to 0" do
+      subject
+      expect(location.longitude).to eq(0)
+    end
+  end
+
+  describe "#skip_geocoding" do
+    context "when skip_geocoding is true" do
+      let(:location) { build(:location, skip_geocoding: true) }
+
+      it "doesn't call #geocode" do
+        expect(location).not_to receive(:geocode)
+        location.save
+      end
+
+      it "calls #geocode_as_pending" do
+        expect(location).to receive(:geocode_as_pending)
+        location.save
+      end
+    end
+
+    context "when skip_geocoding is null or false" do
+      before do
+        allow(location).to receive(:eligible_for_geocoding?).and_return(true)
+      end
+
+      let(:location) { build(:location) }
+
+      it "doesn't call #geocode_as_pending" do
+        expect(location).not_to receive(:geocode_as_pending)
+        location.save
+      end
+
+      it "calls #geocode" do
+        expect(location).to receive(:geocode)
+        location.save
+      end
+    end
+  end
+
+  describe "geocoding_error?" do
+    context "when latitude or longitude are blank" do
+      let(:location) { create(:location, latitude: nil, longitude: 1) }
+
+      it "returns true" do
+        expect(location.geocoding_error?).to be true
+      end
+    end
+
+    context "when both latitude and longitude are not null" do
+      let(:location) { create(:location, latitude: 1, longitude: 1) }
+
+      it "returns false" do
+        expect(location.geocoding_error?).to be false
+      end
+    end
+  end
+
+  describe "geocoding_success?" do
+    context "when latitude or longitude is blank" do
+      let(:location) { create(:location, latitude: nil, longitude: 1) }
+
+      it "returns false" do
+        expect(location.geocoding_success?).to be false
+      end
+    end
+
+    context "when else" do
+      context "when it's null island" do
+        let(:location) { create(:location, latitude: 0, longitude: 0) }
+
+        it "returns false" do
+          expect(location.geocoding_success?).to be false
+        end
+      end
+
+      context "when it's not null island" do
+        let(:location) { create(:location, latitude: 1, longitude: 1) }
+
+        it "returns true" do
+          expect(location.geocoding_success?).to be true
+        end
+      end
+    end
+  end
+
+  describe "geocoding_pending?" do
+    context "when latitude or longitude is blank" do
+      let(:location) { create(:location, latitude: nil, longitude: 1) }
+
+      it "returns false" do
+        expect(location.geocoding_pending?).to be false
+      end
+    end
+
+    context "when else" do
+      context "when it's not null island" do
+        let(:location) { create(:location, latitude: 1, longitude: 1) }
+
+        it "returns false" do
+          expect(location.geocoding_pending?).to be false
+        end
+      end
+
+      context "when it's null island" do
+        let(:location) { create(:location, latitude: 0, longitude: 0) }
+
+        it "returns true" do
+          expect(location.geocoding_pending?).to be true
+        end
       end
     end
   end
