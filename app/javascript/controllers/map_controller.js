@@ -80,20 +80,20 @@ export default class extends Controller {
     this.markerAnchors = [];
 
     for (var feature of this.markersValue.features) {
-      let locationId = feature.properties.hashid;
-      let anchor = document.createElement("a");
+      const locationId = feature.properties.hashid;
+      const anchor = document.createElement("a");
 
       anchor.href = `${this.locationBaseUrlValue}/${locationId}`;
       anchor.setAttribute("data-turbo-frame", "side_panel");
       anchor.setAttribute("data-action", "side-panel#showPanel");
       anchor.setAttribute("data-location-id", locationId);
 
-      let marker = new mapboxgl.Marker({
+      const marker = new mapboxgl.Marker({
         color: "#E74D67",
         anchor: "bottom"
       });
 
-      let markerElement = marker.getElement();
+      const markerElement = marker.getElement();
 
       anchor.appendChild(markerElement);
       anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
@@ -131,11 +131,11 @@ export default class extends Controller {
   }
 
   toggleHighlightMarker(markerElement) {
-    let svg = markerElement.firstChild;
-    let path = svg.querySelector('path');
-    let currentColor = path.getAttribute('fill');
-    let normalColor = "#E74D67";
-    let highlightColor = "#F99B46"
+    const svg = markerElement.firstChild;
+    const path = svg.querySelector('path');
+    const currentColor = path.getAttribute('fill');
+    const normalColor = "#E74D67";
+    const highlightColor = "#F99B46"
 
     path.setAttribute('fill', currentColor === normalColor ? highlightColor : normalColor);
   }

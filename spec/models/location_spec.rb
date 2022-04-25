@@ -189,7 +189,7 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    context "when else" do
+    context "when latitude and longitude are present" do
       context "when it's null island" do
         let(:location) { create(:location, latitude: 0, longitude: 0) }
 
@@ -217,7 +217,7 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    context "when else" do
+    context "when latitude and longitude are present" do
       context "when it's not null island" do
         let(:location) { create(:location, latitude: 1, longitude: 1) }
 

@@ -3,7 +3,7 @@
   data-map-mapbox-access-token-value="<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
   data-map-markers-value="<%= to_geo_json(@locations).to_json %>"
   data-map-bounds-value="<%= bounds(@locations) %>"
-  data-map-location-base-url-value="<%= shared_locations_path %>"
+  data-map-location-base-url-value="<%= shared_locations_path(@map.id) %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>"
   data-map-dashboard-value="<%= controller.controller_path.include?('dashboard') %>"
   data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>">
