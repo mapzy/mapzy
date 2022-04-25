@@ -4,21 +4,19 @@
 #
 # Table name: locations
 #
-#  id               :bigint           not null, primary key
-#  address          :string
-#  description      :text
-#  geocoding_status :integer          default("pending"), not null
-#  latitude         :decimal(15, 10)
-#  longitude        :decimal(15, 10)
-#  name             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  map_id           :bigint           not null
+#  id          :bigint           not null, primary key
+#  address     :string
+#  description :text
+#  latitude    :decimal(15, 10)
+#  longitude   :decimal(15, 10)
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  map_id      :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_geocoding_status  (geocoding_status)
-#  index_locations_on_map_id            (map_id)
+#  index_locations_on_map_id  (map_id)
 #
 # Foreign Keys
 #
@@ -32,29 +30,44 @@ class Location < ApplicationRecord
 
   accepts_nested_attributes_for :opening_times, allow_destroy: true
 
-  enum geocoding_status: { pending: 0, error: 1, success: 2 }, _prefix: :geocoding
-
   validates :address, presence: true
   validates :name, presence: true
-  validates :geocoding_status, presence: true
 
-  after_validation :geocode, if: :eligible_for_geocoding?
+  before_validation :geocode_as_pending, if: :skip_geocoding
+  after_validation :geocode, if: :eligible_for_geocoding?, unless: :skip_geocoding
 
   geocoded_by :address
 
   attr_accessor :skip_geocoding
 
+  scope :geocoding_success, -> { where.not(latitude: [nil, 0]).where.not(longitude: [nil, 0]) }
+  scope :geocoding_error, -> { where(latitude: nil).or(where(longitude: nil)) }
+  scope :geocoding_pending, -> { where(latitude: 0, longitude: 0) }
+
+  scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
+
   def eligible_for_geocoding?
-    !skip_geocoding && address_changed? && !latitude && !longitude
+    address_changed? && !latitude && !longitude
   end
 
-  def geocode
-    super
-    self.geocoding_status = \
-      if latitude.present? && longitude.present?
-        :success
-      else
-        :error
-      end
+  def geocode_as_pending
+    self.latitude = 0
+    self.longitude = 0
+  end
+
+  def geocoding_error?
+    latitude.blank? || longitude.blank?
+  end
+
+  def geocoding_success?
+    latitude.present? && longitude.present? && !null_island
+  end
+
+  def geocoding_pending?
+    latitude.present? && longitude.present? && null_island
+  end
+
+  def null_island
+    latitude&.zero? && longitude&.zero?
   end
 end

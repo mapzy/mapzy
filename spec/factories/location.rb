@@ -36,7 +36,6 @@ FactoryBot.define do
     address { "Hohlstrasse 117, 8004 Zurich, Switzerland" }
     latitude { 12.222211 }
     longitude { 8.433332 }
-    geocoding_status { :success }
 
     association :map
   end
