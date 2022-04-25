@@ -49,7 +49,7 @@ i {
   @apply text-sm text-gray-800
 }
 
-a, .button_to>[type="submit"] {
+a {
   text-underline-position: under;
   @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
 }
