@@ -1,9 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [
-    "locationView"
-  ]
   static values = {
     "mapboxAccessToken" : String,
     "markers": Object,
@@ -80,21 +77,30 @@ export default class extends Controller {
   }
 
   createMarkers() {
+    this.markerAnchors = [];
+
     for (var feature of this.markersValue.features) {
+      let locationId = feature.properties.hashid;
       let anchor = document.createElement("a");
 
-      anchor.href = `${this.locationBaseUrlValue}/${feature.properties.hashid}`;
-      anchor.setAttribute("data-turbo-frame", "locations_show");
-      anchor.setAttribute("data-action", "map#showLocationView");
+      anchor.href = `${this.locationBaseUrlValue}/${locationId}`;
+      anchor.setAttribute("data-turbo-frame", "side_panel");
+      anchor.setAttribute("data-action", "side-panel#showPanel");
+      anchor.setAttribute("data-location-id", locationId);
 
       let marker = new mapboxgl.Marker({
         color: "#E74D67",
         anchor: "bottom"
       });
 
-      anchor.appendChild(marker.getElement())
+      let markerElement = marker.getElement();
 
+      anchor.appendChild(markerElement);
       anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
+      anchor.addEventListener('mouseenter', () => this.toggleHighlightMarker(markerElement));
+      anchor.addEventListener('mouseleave', () => this.toggleHighlightMarker(markerElement));
+
+      this.markerAnchors.push(anchor);
 
       new mapboxgl.Marker({ 
         element: anchor,
@@ -104,14 +110,6 @@ export default class extends Controller {
         .setLngLat(feature.geometry.coordinates)
         .addTo(this.map);
     }
-  }
-
-  hideLocationView() {
-    this.locationViewTarget.classList.add("hidden");
-  }
-
-  showLocationView() {
-    this.locationViewTarget.classList.remove("hidden");
   }
 
   isMobile() {
@@ -126,5 +124,19 @@ export default class extends Controller {
     } else if (this.isMobile() && event.y > panelHeight * 0.9) {
       this.map.panBy([0, event.y - panelHeight + 35]);
     }
+  }
+
+  findMarker(locationId) {
+    return this.markerAnchors.find(marker => marker.getAttribute("data-location-id") === locationId);
+  }
+
+  toggleHighlightMarker(markerElement) {
+    let svg = markerElement.firstChild;
+    let path = svg.querySelector('path');
+    let currentColor = path.getAttribute('fill');
+    let normalColor = "#E74D67";
+    let highlightColor = "#F99B46"
+
+    path.setAttribute('fill', currentColor === normalColor ? highlightColor : normalColor);
   }
 }

@@ -1,0 +1,5 @@
+<%= link_to shared_locations_path,
+    data: { "turbo-frame": "side_panel", "action": "side-panel#showPanel" },
+    class: "absolute bottom-12 left-3 z-10 p-3 rounded-full text-xl text-white bg-mapzy-red hover:text-white hover:bg-mapzy-red-light" do %>
+  <%= close_icon(size: 16) %>
+<% end %>

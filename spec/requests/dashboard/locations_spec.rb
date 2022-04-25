@@ -47,27 +47,10 @@ RSpec.describe "Locations", type: :request do
     it "responds with a HTTP 200" do
       expect(response).to be_successful
     end
-
-    it "contains the correct turbo-frame" do
-      expect(response.body).to include('<turbo-frame id="locations_show">')
-    end
   end
 
   describe "POST locations/create" do
     before do
-      Geocoder.configure(lookup: :test, ip_lookup: :test)
-      Geocoder::Lookup::Test.add_stub(
-        "Hohlstrasse 117, 8002 Zürich, Switzerland", [
-          {
-            "coordinates": [40.7143528, -74.0059731],
-            "address": "Hohlstrasse 117, 8002 Zürich, Switzerland",
-            "state": "Zurich",
-            "state_code": "ZH",
-            "country": "Switzerland",
-            "country_code": "CH"
-          }
-        ]
-      )
       sign_in user
     end
 

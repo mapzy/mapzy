@@ -1,11 +1,5 @@
-<turbo-frame id="locations_show">
-  <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-    <div class="relative w-full text-right mb-8">
-      <a class="pointer text-sm" data-action="click->map#hideLocationView">Close</a>
-    </div>
-
-    <div class="relative w-full flex-grow">
-      <%= render "shared/location" %>
-    </div>
+<turbo-frame id="side_panel">
+  <div class="relative w-full flex-grow">
+    <%= render "shared/location" %>
   </div>
 </turbo-frame>

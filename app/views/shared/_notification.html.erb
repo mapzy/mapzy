@@ -1,0 +1,9 @@
+<% type = type.to_s || "info" %>
+<div class="<%="notification notification-#{type}"%>">
+  <div class="flex flex-row items-center">
+    <span class="h-6">
+      <%= icon %>
+    </span>
+    <span class="text-sm pl-4"><%= message %></span>
+  </div>
+</div>

@@ -1,16 +1,24 @@
-<div>
-  <h1 class="text-center text-xl pb-3">
-    <%= @location.name %>
-  </h1>
-  <div class="flex flex-col justify-between">
-    <p class="text-base my-2"><%= @location.description %></p>
-    <p class="text-sm my-2">📍 <%=@location.address %></p>
-    <div class="text-sm my-2">
-      <% @location.opening_times.each do |ot| %>
-        🕛
-        <%= ot.to_s %>
-        <br>
-      <% end %>
+<h1 class="text-center text-xl mb-4">
+  <%= @location.name %>
+</h1>
+<div class="flex flex-col justify-between">
+  <p class="text-base my-2"><%= @location.description %></p>
+  <div class="text-sm my-2">
+    <div class="flex flex-row items-center">
+      <span class="h-4">
+        <%= geo_icon(size: 16) %>
+      </span>
+      <span class="pl-2"><%= @location.address %></span>
     </div>
+  </div>
+  <div class="text-sm my-2">
+    <% @location.opening_times.each do |ot| %>
+      <div class="flex flex-row items-center leading-relaxed">
+        <span class="h-4">
+          <%= clock_icon(size: 16) %>
+        </span>
+        <span class="pl-2"><%= ot.to_s %></span>
+      </div>
+    <% end %>
   </div>
 </div>

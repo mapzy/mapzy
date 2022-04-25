@@ -38,3 +38,27 @@ addresses = ["Hohlstrasse 117, 8004, Zürich, Switzerland", "Langstrasse 102, 80
 addresses.each_with_index do |addr, i|
   map.locations.create!(name: "Zürich Store #{i}", description: "This is a fun lil store!", address: addr)
 end
+
+# Map 4: Paris
+# Locations are pending or erroneous
+
+user = User.create!(email: "jorah@mapzy.io", password: "ilovedanny", password_confirmation: "ilovedanny")
+user.create_account
+
+map = user.maps.create!(name: "Paris")
+
+pending_addresses = ["Place de la République, Paris, France", "10 avenue de la Bastille, Paris, France"]
+success_addresses = ["25 avenue des Champs Elysées, Paris, France", "3 rue Mouffetard, Paris, France"]
+error_addresses = %w[popopopopo pipipipipi pupupupupu papapapapa]
+
+pending_addresses.each_with_index do |addr, i|
+  map.locations.create(name: "Paris Store #{i}", description: "This is a fun lil store!", address: addr, skip_geocoding: true)
+end
+
+success_addresses.each_with_index do |addr, i|
+  map.locations.create(name: "Paris Store #{i}", description: "This is a fun lil store!", address: addr)
+end
+
+error_addresses.each_with_index do |addr, i|
+  map.locations.create(name: "Weird Store #{i}", description: "This is weird.", address: addr)
+end

@@ -34,22 +34,22 @@ select:focus {
 
 /* Base styles */
 h1 {
-	@apply text-3xl leading-7 font-bold
+  @apply text-3xl leading-7 font-bold
 }
 
 h2 {
-	@apply text-2xl leading-7 font-bold
+  @apply text-2xl leading-7 font-bold
 }
 
 h3 {
-	@apply text-xl leading-7 font-bold
+  @apply text-xl leading-7 font-bold
 }
 
 i {
-	@apply text-sm text-gray-800
+  @apply text-sm text-gray-800
 }
 
-a {
+a, .button_to>[type="submit"] {
   text-underline-position: under;
   @apply no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
 }
@@ -78,6 +78,19 @@ code {
 /* Flash messages */
 .flash {
   @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
+}
+
+/* Dashboard notifications */
+.notification {
+  @apply w-full p-2 border-2 rounded
+}
+
+.notification-error {
+  @apply text-mapzy-red bg-red-50
+}
+
+.notification-info {
+  @apply text-mapzy-violet bg-blue-50
 }
 
 /* Buttons */

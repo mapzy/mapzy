@@ -1,0 +1,49 @@
+<% dashboard ||= false %>
+<div class="py-3">
+  <div class="mb-4">
+
+    <% if dashboard %>
+      <% if location.geocoding_pending? %>
+        <div class="flex flex-row items-center">
+          <span class="h-3">
+            <%= pending_icon(size: 12) %>
+          </span>
+          <span class="text-sm text-italic pl-2">Geocoding in progress...</span>
+        </div>
+      <% elsif location.geocoding_error? %>
+        <div class="flex flex-row items-center text-mapzy-red">
+          <span class="h-3">
+            <%= error_icon(size: 12) %>
+          </span>
+          <span class="text-sm text-italic pl-2">Geocoding error</span>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="<%= "opacity-50" if !location.geocoding_success? %>">
+      <p class="text-lg font-semibold"><%= location.name %></p>
+      <p class="text-sm"><%= location.description %></p>
+      <div class="flex flex-row items-center">
+        <span class="h-4">
+          <%= geo_icon(size: 16) %>
+        </span>
+        <span class="text-sm pl-2"><%= location.address %></span>
+      </div>
+    </div>
+  </div>
+
+  <% if dashboard %>
+    <% unless location.geocoding_pending? %>
+      <div class="mt-4 flex flex-row justify-between">
+        <%= link_to edit_or_finalise(location), edit_dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
+              data: { turbo_frame: "_top" } %>
+        <%= button_to "Delete", dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
+              method: :delete,
+              form: { data: { turbo_confirm:
+                "Once deleted, it's deleted! Are you sure you want to delete this location?"
+              }},
+              data: { turbo_frame: "_top" } %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

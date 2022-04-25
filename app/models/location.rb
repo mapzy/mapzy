@@ -33,11 +33,41 @@ class Location < ApplicationRecord
   validates :address, presence: true
   validates :name, presence: true
 
-  after_validation :geocode, if: :eligible_for_geocoding?
+  before_validation :geocode_as_pending, if: :skip_geocoding
+  after_validation :geocode, if: :eligible_for_geocoding?, unless: :skip_geocoding
 
   geocoded_by :address
 
+  attr_accessor :skip_geocoding
+
+  scope :geocoding_success, -> { where.not(latitude: [nil, 0]).where.not(longitude: [nil, 0]) }
+  scope :geocoding_error, -> { where(latitude: nil).or(where(longitude: nil)) }
+  scope :geocoding_pending, -> { where(latitude: 0, longitude: 0) }
+
+  scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
+
   def eligible_for_geocoding?
     address_changed? && !latitude && !longitude
+  end
+
+  def geocode_as_pending
+    self.latitude = 0
+    self.longitude = 0
+  end
+
+  def geocoding_error?
+    latitude.blank? || longitude.blank?
+  end
+
+  def geocoding_success?
+    latitude.present? && longitude.present? && !null_island
+  end
+
+  def geocoding_pending?
+    latitude.present? && longitude.present? && null_island
+  end
+
+  def null_island
+    latitude&.zero? && longitude&.zero?
   end
 end

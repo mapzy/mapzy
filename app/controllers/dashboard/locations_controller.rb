@@ -7,7 +7,6 @@ module Dashboard
     skip_authorize_resource only: %i[new create]
 
     before_action :set_map
-    before_action :set_bounds, only: %i[new edit create update]
     before_action :set_address, only: %i[new edit create update]
     before_action :set_opening_times, only: %i[new edit create update]
 
@@ -15,6 +14,14 @@ module Dashboard
     after_action -> { track_event("Added Location") }, only: %i[create]
     after_action -> { track_event("Updated Location") }, only: %i[update]
     after_action -> { track_event("Viewed Dash Location") }, only: %i[show]
+
+    def show
+      @location = @map.locations.find(params[:id])
+    end
+
+    def index
+      @locations = @map.locations.order_by_unfinished
+    end
 
     def new
       @location = @map.locations.new
@@ -32,10 +39,6 @@ module Dashboard
         flash.now[:error] = @location.errors.full_messages
         render :new, status: :unprocessable_entity
       end
-    end
-
-    def show
-      @location = @map.locations.find(params[:id])
     end
 
     def edit
@@ -64,10 +67,6 @@ module Dashboard
 
     def set_map
       @map = Map.find(params[:map_id])
-    end
-
-    def set_bounds
-      @bounds = @map.bounds
     end
 
     def set_address

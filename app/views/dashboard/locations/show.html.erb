@@ -1,17 +1,14 @@
-<turbo-frame id="locations_show">
-  <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-    <div class="relative w-full">
-      <div class="flex flex-row justify-end mb-12">
-        <a data-action="map#hideLocationView">Close</a>
-      </div>
-    </div>
-
+<turbo-frame id="side_panel">
+  <div class="relative h-full">
     <div class="relative w-full flex-grow">
       <%= render "shared/location" %>
     </div>
 
-    <div class="relative w-full mt-8">
+    <div class="relative w-full mt-4">
       <div class="flex-auto flex space-x-6">
+        <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.hashid, id: @location.hashid),
+              data: { turbo_frame: "_top" },
+              class: "w-1/2 button--main" %>
         <%= button_to "Delete", dashboard_map_location_path(map_id: @map.hashid, id: @location.hashid),
             data: { turbo_frame: "_top" },
             form: {
@@ -19,13 +16,8 @@
               class: "w-1/2"
             },
             method: :delete,
-            target: "_top",
             class: "w-full button--secondary"
         %>
-
-        <%= link_to "Edit", edit_dashboard_map_location_path(map_id: @map.hashid, id: @location.hashid),
-              target: "_top",
-              class: "w-1/2 button--main" %>
       </div>
     </div>
   </div>

@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   devise_for \
     :users,
     path: "account",
@@ -23,8 +22,9 @@ Rails.application.routes.draw do
       passwords: "users/passwords"
     }
 
-  resources :maps, only: %i[index show]
-  resources :locations
+  resources :maps, only: %i[index show] do
+    resources :locations, only: %i[index show]
+  end
 
   namespace :dashboard do
     resources :maps, only: %i[index show] do
