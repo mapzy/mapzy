@@ -8,7 +8,7 @@ RSpec.describe BatchGeocodeWorker, type: :worker do
   describe "perform" do
     context "with a map not found" do
       it "returns nil" do
-        expect(subject.perform(9999999999999)).to be_nil
+        expect(subject.perform(999_999)).to be_nil
       end
     end
 
@@ -23,18 +23,21 @@ RSpec.describe BatchGeocodeWorker, type: :worker do
         let!(:pending_location) { create(:location, map_id: map.id, latitude: 0, longitude: 0) }
 
         it "decreases the geocoding_pending count" do
-          expect { subject.perform(map.id) }.
-            to change { map.locations.geocoding_pending.count }.by(-1)
+          expect { subject.perform(map.id) }.to change {
+            map.locations.geocoding_pending.count
+          }.by(-1)
         end
 
         it "increases the geocoding_success count" do
-          expect { subject.perform(map.id) }.
-            to change { map.locations.geocoding_success.count }.by(1)
+          expect { subject.perform(map.id) }.to change {
+            map.locations.geocoding_success.count
+          }.by(1)
         end
 
         it "doesn't change the geocoding_error count" do
-          expect { subject.perform(map.id) }.
-            not_to change { map.locations.geocoding_error.count }
+          expect { subject.perform(map.id) }.not_to change {
+            map.locations.geocoding_error.count
+          }
         end
 
         context "when there are still pending locations after" do
