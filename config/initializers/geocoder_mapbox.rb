@@ -1,6 +1,6 @@
 # Mapbox relevance is defined from 0 to 1, where 0 is the least relevant and 1 is the most relevant
 # @see https://docs.mapbox.com/api/search/geocoding/#geocoding-response-object
-RELEVANCE_LIMIT = 1
+RELEVANCE_LIMIT = 0.9
 Geocoder::Lookup.get(:mapbox)
 
 Geocoder::Lookup::Mapbox.class_eval do
