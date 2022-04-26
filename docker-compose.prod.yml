@@ -13,6 +13,28 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
   redis:
     image: "redis:alpine"
+  sidekiq:
+    depends_on:
+      - db
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    entrypoint: ""
+    command: bundle exec sidekiq -q default -q mailers
+    environment:
+      - RAILS_ENV=production
+      - RACK_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_URL=postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}
+      - REDIS_URL=redis://redis:${REDIS_PORT}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT}
+      - ALLOW_REGISTRATION=${ALLOW_REGISTRATION}
+      - INIT_USER_EMAIL=${INIT_USER_EMAIL}
+      - INIT_USER_PASSWORD=${INIT_USER_PASSWORD}
+      - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
   web:
     build:
       context: .
@@ -25,6 +47,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
     restart: unless-stopped
     environment:
       - RAILS_ENV=production
