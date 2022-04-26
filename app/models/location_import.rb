@@ -26,8 +26,6 @@ class LocationImport
         description: d["1"],
         address: d["2"],
         opening_times_attributes: LocationImport.opening_times_from_csv(d),
-        latitude: 0,
-        longitude: 0
       )
       if location.valid?
         @locations.push(location)

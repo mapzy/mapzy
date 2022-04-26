@@ -161,13 +161,13 @@ RSpec.describe Account, type: :model do
       it "sets longitude corretly" do
         expect(
           location_import([csv_row]).instance_variable_get(:@locations).first.longitude
-        ).to eq(0)
+        ).to eq(nil)
       end
 
       it "sets latitude corretly" do
         expect(
           location_import([csv_row]).instance_variable_get(:@locations).first.latitude
-        ).to eq(0)
+        ).to eq(nil)
       end
     end
   end

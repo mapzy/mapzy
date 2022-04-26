@@ -95,14 +95,14 @@ RSpec.describe Location, type: :model do
         Geocoder::Lookup::Test.add_stub("Paris", [{ coordinates: [nil, nil] }])
       end
 
-      it "does not add the latitude" do
+      it "sets the latitude to zero" do
         location.geocode
-        expect(location.latitude).to be_nil
+        expect(location.latitude).to be_zero
       end
 
-      it "does not add the longitude" do
+      it "sets the longitude to zero" do
         location.geocode
-        expect(location.longitude).to be_nil
+        expect(location.longitude).to be_zero
       end
 
       it "sets geocoding_error? to true" do
@@ -117,14 +117,14 @@ RSpec.describe Location, type: :model do
 
     let(:location) { build(:location, latitude: nil, longitude: nil) }
 
-    it "sets latitude to 0" do
+    it "sets latitude to nil" do
       subject
-      expect(location.latitude).to eq(0)
+      expect(location.latitude).to be_nil
     end
 
-    it "sets longitude to 0" do
+    it "sets longitude to nil" do
       subject
-      expect(location.longitude).to eq(0)
+      expect(location.longitude).to be_nil
     end
   end
 
@@ -162,12 +162,12 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe "geocoding_error?" do
+  describe "geocoding_pending?" do
     context "when latitude or longitude are blank" do
       let(:location) { create(:location, latitude: nil, longitude: 1) }
 
       it "returns true" do
-        expect(location.geocoding_error?).to be true
+        expect(location.geocoding_pending?).to be true
       end
     end
 
@@ -175,7 +175,7 @@ RSpec.describe Location, type: :model do
       let(:location) { create(:location, latitude: 1, longitude: 1) }
 
       it "returns false" do
-        expect(location.geocoding_error?).to be false
+        expect(location.geocoding_pending?).to be false
       end
     end
   end
@@ -208,12 +208,12 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe "geocoding_pending?" do
+  describe "geocoding_error?" do
     context "when latitude or longitude is blank" do
       let(:location) { create(:location, latitude: nil, longitude: 1) }
 
       it "returns false" do
-        expect(location.geocoding_pending?).to be false
+        expect(location.geocoding_error?).to be false
       end
     end
 
@@ -222,7 +222,7 @@ RSpec.describe Location, type: :model do
         let(:location) { create(:location, latitude: 1, longitude: 1) }
 
         it "returns false" do
-          expect(location.geocoding_pending?).to be false
+          expect(location.geocoding_error?).to be false
         end
       end
 
@@ -230,7 +230,7 @@ RSpec.describe Location, type: :model do
         let(:location) { create(:location, latitude: 0, longitude: 0) }
 
         it "returns true" do
-          expect(location.geocoding_pending?).to be true
+          expect(location.geocoding_error?).to be true
         end
       end
     end

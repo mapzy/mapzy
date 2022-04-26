@@ -20,27 +20,59 @@ RSpec.describe BatchGeocodeWorker, type: :worker do
 
     Sidekiq::Testing.inline! do
       context "when the map has pending locations" do
-        let!(:pending_location) { create(:location, map_id: map.id, latitude: 0, longitude: 0) }
-
-        it "decreases the geocoding_pending count" do
-          expect { subject.perform(map.id) }.to change {
-            map.locations.geocoding_pending.count
-          }.by(-1)
+        let!(:pending_location) do
+          create(:location, map_id: map.id, address: "Paris", skip_geocoding: true)
         end
 
-        it "increases the geocoding_success count" do
-          expect { subject.perform(map.id) }.to change {
-            map.locations.geocoding_success.count
-          }.by(1)
+        context "when the geocoding works" do
+          before do
+            Geocoder::Lookup::Test.add_stub("Paris", [{ coordinates: [1.0, 1.0] }])
+          end
+
+          it "decreases the geocoding_pending count" do
+            expect { subject.perform(map.id) }.to change {
+              map.locations.geocoding_pending.count
+            }.by(-1)
+          end
+
+          it "increases the geocoding_success count" do
+            expect { subject.perform(map.id) }.to change {
+              map.locations.geocoding_success.count
+            }.by(1)
+          end
+
+          it "doesn't change the geocoding_error count" do
+            expect { subject.perform(map.id) }.not_to change {
+              map.locations.geocoding_error.count
+            }
+          end
         end
 
-        it "doesn't change the geocoding_error count" do
-          expect { subject.perform(map.id) }.not_to change {
-            map.locations.geocoding_error.count
-          }
+        context "when the geocoding fails" do
+          before do
+            Geocoder::Lookup::Test.add_stub("Paris", [{ coordinates: [nil, nil] }])
+          end
+
+          it "decreases the geocoding_pending count" do
+            expect { subject.perform(map.id) }.to change {
+              map.locations.geocoding_pending.count
+            }.by(-1)
+          end
+
+          it "doesn't chanhge the geocoding_success count" do
+            expect { subject.perform(map.id) }.not_to change {
+              map.locations.geocoding_success.count
+            }
+          end
+
+          it "increases the geocoding_error count" do
+            expect { subject.perform(map.id) }.to change {
+              map.locations.geocoding_error.count
+            }.by(1)
+          end
         end
 
-        context "when there are still pending locations after" do
+        context "when the geocoder could not be reached" do
           before do
             allow_any_instance_of(Location).to receive(:geocode).and_return(nil)
           end
