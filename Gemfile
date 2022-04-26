@@ -25,9 +25,6 @@ gem "redis", "~> 4.0"
 # Authentication
 gem "devise"
 
-# Authorization
-gem "cancancan", "~> 3.2"
-
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
 
@@ -57,6 +54,8 @@ gem "faraday", "~> 1.8.0"
 gem "hashid-rails", "~> 1.4"
 
 gem "tailwindcss-rails", "~> 2.0.5"
+
+gem "activerecord-import", "~> 1.4.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

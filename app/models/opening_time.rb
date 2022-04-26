@@ -26,6 +26,7 @@
 class OpeningTime < ApplicationRecord
   WEEKDAY = %i[monday tuesday wednesday thursday friday].freeze
   WEEKEND = %i[saturday sunday].freeze
+  ALL_DAYS = WEEKDAY + WEEKEND
 
   belongs_to :location
 
@@ -35,18 +36,12 @@ class OpeningTime < ApplicationRecord
   validates :day, uniqueness: { scope: :location_id }
   validates :closed, inclusion: { in: [true, false] }
   validates :open_24h, inclusion: { in: [true, false] }
-  validate :validate_to_s
+
+  validates :opens_at, presence: true, unless: -> { closed || open_24h? }
+  validates :closes_at, presence: true, unless: -> { closed || open_24h? }
 
   scope :weekday, -> { where(day: WEEKDAY) }
   scope :weekend, -> { where(day: WEEKEND) }
-
-  # Validates that the object can be rendered using the .to_s method
-  #
-  def validate_to_s
-    return if (opens_at.present? && closes_at.present?) || closed? || open_24h?
-
-    errors.add(:opening_time, "is not valid")
-  end
 
   # Render the opening time
   #

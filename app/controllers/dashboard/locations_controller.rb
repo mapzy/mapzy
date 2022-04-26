@@ -4,20 +4,15 @@ module Dashboard
   class LocationsController < DashboardController
     include Trackable
 
-    skip_authorize_resource only: %i[new create]
-
     before_action :set_map
-    before_action :set_address, only: %i[new edit create update]
-    before_action :set_opening_times, only: %i[new edit create update]
+    before_action :set_location, only: %i[show edit update destroy]
 
     after_action -> { track_event("Viewed Add Location") }, only: %i[new]
     after_action -> { track_event("Added Location") }, only: %i[create]
     after_action -> { track_event("Updated Location") }, only: %i[update]
     after_action -> { track_event("Viewed Dash Location") }, only: %i[show]
 
-    def show
-      @location = @map.locations.find(params[:id])
-    end
+    def show; end
 
     def index
       @locations = @map.locations.order_by_unfinished
@@ -25,12 +20,11 @@ module Dashboard
 
     def new
       @location = @map.locations.new
-      authorize! :new, @location
+      @opening_times = @location.opening_times.build_default
     end
 
     def create
       @location = @map.locations.build(location_params)
-      authorize! :create, @location
 
       if @location.save
         redirect_to dashboard_map_path(@map)
@@ -42,7 +36,8 @@ module Dashboard
     end
 
     def edit
-      @location = @map.locations.find(params[:id])
+      @address = @location.address
+      @opening_times = @location.opening_times.presence || @location.opening_times.build_default
     end
 
     def update
@@ -56,7 +51,6 @@ module Dashboard
     end
 
     def destroy
-      @location = @map.locations.find(params[:id])
       @location.destroy
 
       redirect_to dashboard_map_path(@map), notice: \
@@ -69,13 +63,17 @@ module Dashboard
       @map = Map.find(params[:map_id])
     end
 
-    def set_address
-      @address = @location.address
+    def set_location
+      @location = @map.locations.find(params[:id])
     end
 
-    def set_opening_times
-      @opening_times = @location.opening_times.presence || @location.opening_times.build_default
-    end
+    # def set_address
+    #   @address = @location.address
+    # end
+
+    # def set_opening_times
+    #   @opening_times = @location.opening_times.presence || @location.opening_times.build_default
+    # end
 
     def location_params
       params.require(:location)

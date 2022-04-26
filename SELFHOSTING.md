@@ -69,7 +69,7 @@ If you want to use a different `docker-compose` configuration, simply pass its f
 
 ### Elestio
 
-[Elestio](https://elest.io) make deploying open-source software a breeze by offering a fully managed environment. You can select from different providers (e.g., Hetzner, Digital Ocean) or on-premise and then deploy Mapzy (or other open-source software they support) with the click of a button.
+[Elestio](https://elest.io) makes deploying open-source software a breeze by offering a fully managed environment. You can select from different providers (e.g., Hetzner, Digital Ocean) or on-premise and then deploy Mapzy (or other open-source software they support) with the click of a button.
 
 ## Tips
 

@@ -5,11 +5,5 @@ Geocoder.configure(
   lookup: :mapbox,
   api_key: ENV["MAPBOX_ACCESS_TOKEN"],
   units: :km,
-  use_https: true,
-  mapbox: {
-    types: "address",
-    autocomplete: false,
-    fuzzyMatch: false,
-    limit: 1
-  }
+  use_https: true
 )

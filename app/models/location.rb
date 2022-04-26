@@ -41,21 +41,32 @@ class Location < ApplicationRecord
   attr_accessor :skip_geocoding
 
   scope :geocoding_success, -> { where.not(latitude: [nil, 0]).where.not(longitude: [nil, 0]) }
-  scope :geocoding_error, -> { where(latitude: nil).or(where(longitude: nil)) }
-  scope :geocoding_pending, -> { where(latitude: 0, longitude: 0) }
+  scope :geocoding_pending, -> { where(latitude: nil).or(where(longitude: nil)) }
+  scope :geocoding_error, -> { where(latitude: 0, longitude: 0) }
 
   scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
 
+  def geocode
+    super
+
+    geocode_as_error if latitude.nil? || longitude.nil?
+  end
+
   def eligible_for_geocoding?
-    address_changed? && !latitude && !longitude
+    !skip_geocoding && address_changed? && !latitude && !longitude
   end
 
   def geocode_as_pending
+    self.latitude = nil
+    self.longitude = nil
+  end
+
+  def geocode_as_error
     self.latitude = 0
     self.longitude = 0
   end
 
-  def geocoding_error?
+  def geocoding_pending?
     latitude.blank? || longitude.blank?
   end
 
@@ -63,7 +74,7 @@ class Location < ApplicationRecord
     latitude.present? && longitude.present? && !null_island
   end
 
-  def geocoding_pending?
+  def geocoding_error?
     latitude.present? && longitude.present? && null_island
   end
 
