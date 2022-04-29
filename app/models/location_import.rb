@@ -90,8 +90,8 @@ class LocationImport
       opening_times.push(
         LocationImport.format_opening_time(
           day,
-          opening_times_csv[index],
-          opening_times_csv[index + 1]
+          opening_times_csv[index].delete("\0"),
+          opening_times_csv[index + 1].delete("\0")
         )
       )
       index += 2
