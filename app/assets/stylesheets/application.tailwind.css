@@ -63,7 +63,7 @@ code {
 }
 
 .code--multiline {
-  @apply p-4 rounded my-4 w-full bg-gray-900 text-white
+  @apply p-4 rounded my-4 bg-gray-900 text-white
 }
 
 .code--multiline > code {

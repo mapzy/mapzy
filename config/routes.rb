@@ -36,6 +36,12 @@ Rails.application.routes.draw do
     get "/embed", to: "accounts#embed", as: "account_embed"
   end
 
+  namespace :api do
+    namespace :v1 do
+      post "/maps/:id/sync", to: "maps#sync", as: "maps_sync"
+    end
+  end
+
   scope "/stripe" do
     get "/checkout_session/", to: "stripe#checkout_session", as: "stripe_checkout_session"
     get "/success_callback/", to: "stripe#success_callback", as: "stripe_success_callback"

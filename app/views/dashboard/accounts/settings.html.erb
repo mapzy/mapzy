@@ -13,6 +13,18 @@
           <% end %>
         <% end %>
 
+        <h2 class=>API key</h2>
+        <p>
+          You can use your API key to access and modify your Map and Locations through our API.
+          This is an advanced feature, but you can learn more in <a href="https://docs.mapzy.io">our docs</a>.<br>
+          Keep your API key secret and don't share it publicly.
+        </p>
+        <div class="code--multiline w-fit">
+          <code>
+            <%= current_user.map.api_key.key_value %>
+          </code>
+        </div>
+
         <h2 class=>Account</h2>
         <p class="mb-4"><%= current_user.email %></p>
 
