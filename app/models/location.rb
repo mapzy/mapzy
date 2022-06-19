@@ -12,11 +12,13 @@
 #  name        :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  external_id :string
 #  map_id      :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_map_id  (map_id)
+#  index_locations_on_external_id_and_map_id  (external_id,map_id) UNIQUE
+#  index_locations_on_map_id                  (map_id)
 #
 # Foreign Keys
 #
@@ -32,6 +34,7 @@ class Location < ApplicationRecord
 
   validates :address, presence: true
   validates :name, presence: true
+  validates :external_id, uniqueness: { scope: :map_id }
 
   before_validation :geocode_as_pending, if: :skip_geocoding
   after_validation :geocode, if: :eligible_for_geocoding?, unless: :skip_geocoding

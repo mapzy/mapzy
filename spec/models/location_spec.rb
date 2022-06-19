@@ -12,11 +12,13 @@
 #  name        :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  external_id :string
 #  map_id      :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_map_id  (map_id)
+#  index_locations_on_external_id_and_map_id  (external_id,map_id) UNIQUE
+#  index_locations_on_map_id                  (map_id)
 #
 # Foreign Keys
 #

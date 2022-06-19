@@ -3,7 +3,10 @@
 module Api
   class ApiController < ApplicationController
     skip_before_action :verify_authenticity_token
-    around_action :handle_exceptions
+
+    before_action :set_map
+
+    #around_action :handle_exceptions
 
     private
 
@@ -35,18 +38,22 @@ module Api
     end
 
     def authorize_bearer_token
-      return if bearer_token && Map.find(params[:id]).api_key.key_value == bearer_token
+      return if bearer_token && @map.api_key.key_value == bearer_token
 
       render json: {
         error: {
           type: "Unauthorized",
-          message: "The API key you provided is not valid for the map with id '#{params[:id]}'"
+          message: "The API key you provided is not valid for the map with id '#{params[:map_id]}'"
         }
       },
              status: :unauthorized
     rescue StandardError => e
       render json: { error: { type: e.class.to_s, message: e.message } },
              status: :unauthorized
+    end
+
+    def set_map
+      @map = Map.find(params[:map_id])
     end
   end
 end

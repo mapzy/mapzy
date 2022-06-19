@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post "/maps/:id/sync", to: "maps#sync", as: "maps_sync"
+      post "/maps/:map_id/sync", to: "maps#sync", as: "maps_sync"
     end
   end
 
