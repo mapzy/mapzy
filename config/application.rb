@@ -23,7 +23,7 @@ module Mapzy
 
     config.action_mailer.default_url_options = { host: "localhost" }
 
-    config.action_mailer.delivery_method = :ohmysmtp
+    config.action_mailer.delivery_method = :mailpace
     config.action_mailer.mailpace_settings = { api_token: ENV["MAILPACE_TOKEN"] }
 
     config.active_job.queue_adapter = :sidekiq
