@@ -25,6 +25,7 @@ module Dashboard
 
     def create
       @location = @map.locations.build(location_params)
+      @opening_times = @location.opening_times
 
       if @location.save
         redirect_to dashboard_map_path(@map)

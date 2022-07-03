@@ -17,12 +17,6 @@ module Api
         # if valid, dump payload to database and start background job
         payload_dump = Sync::PayloadDump.create!(map: @map, payload: payload)
 
-        Rails.logger.debug "payload init"
-        Rails.logger.debug payload
-
-        Rails.logger.debug "payload from db"
-        Rails.logger.debug payload_dump.payload
-
         SyncWorker.perform_async(payload_dump.id)
       end
     end

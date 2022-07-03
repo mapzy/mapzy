@@ -34,7 +34,7 @@ class Location < ApplicationRecord
 
   validates :address, presence: true
   validates :name, presence: true
-  validates :external_id, uniqueness: { scope: :map_id }
+  validates :external_id, uniqueness: { scope: :map_id }, allow_blank: true
 
   before_validation :geocode_as_pending, if: :skip_geocoding
   after_validation :geocode, if: :eligible_for_geocoding?, unless: :skip_geocoding
