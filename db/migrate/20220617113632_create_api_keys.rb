@@ -5,6 +5,10 @@ class CreateApiKeys < ActiveRecord::Migration[6.1]
       t.references :map, null: false, foreign_key: true
 
       t.timestamps
+
+      t.index :key_value, unique: true
     end
+
+    Rake::Task["mapzy:migration:add_api_key_to_maps"].invoke
   end
 end

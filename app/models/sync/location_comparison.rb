@@ -18,7 +18,8 @@ module Sync
         location_params[:opening_times_attributes] = location_params.delete :opening_times
       end
 
-      location_params.permit(:map_id, :name, :description, :address, :latitude, :longitude, :external_id,
+      location_params.permit(:map_id, :name, :description, :address,
+                             :latitude, :longitude, :external_id,
                              opening_times_attributes: \
                                %i[day opens_at closes_at closed open_24h _destroy])
     end

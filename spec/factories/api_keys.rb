@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: api_keys
@@ -10,7 +12,8 @@
 #
 # Indexes
 #
-#  index_api_keys_on_map_id  (map_id)
+#  index_api_keys_on_key_value  (key_value) UNIQUE
+#  index_api_keys_on_map_id     (map_id)
 #
 # Foreign Keys
 #
@@ -18,7 +21,7 @@
 #
 FactoryBot.define do
   factory :api_key do
-    key_value { "MyString" }
-    map { nil }
+    key_value { "abc15678912ddd" }
+    association :map
   end
 end

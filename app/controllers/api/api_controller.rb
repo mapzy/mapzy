@@ -6,7 +6,7 @@ module Api
 
     before_action :set_map
 
-    #around_action :handle_exceptions
+    around_action :handle_exceptions
 
     private
 

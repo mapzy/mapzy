@@ -2,7 +2,7 @@
 
 module Sync
   # this class expects a locations payload (according to a predefined structure) and a map id
-  # the goal is to synchronize the locations from the payload with the ones that exist in the database
+  # the goal is to sync the locations from the payload with the ones that exist in the database
   # 1) check if location with :id exists, if not add, if yes update info if necessary
   # 2) delete all locations that were not included in this payload
 
@@ -12,10 +12,11 @@ module Sync
       @map = Map.find(map_id)
       @locations_db = @map.locations.includes(:opening_times)
 
-      @locations_stale = calc_stale_locations
+      @stale_locations_external_ids = calc_stale_locations
       @locations_to_insert = []
       @locations_to_update = []
       @opening_times_to_update = []
+      @opening_times_to_destroy = []
     end
 
     def synchronize!
@@ -24,7 +25,7 @@ module Sync
     end
 
     def validate!
-      # just validate without updating database so that we can return errors in response if necessary
+      # validate without updating database so that we can return errors in response if necessary
       @locations_payload.each { |lp| categorize_location(lp) }
     end
 
@@ -35,35 +36,41 @@ module Sync
 
       import_updated_locations!
 
-      import_new_locations!
+      import_new_locations_with_opening_times!
 
       import_new_and_updated_opening_times!
+
+      destroy_stale_opening_times!
     end
 
-    def categorize_location(lp)
+    def categorize_location(location_payload)
       # figure out to insert or update this location, or to update its opening times
       matched = false
-      otp = lp[:opening_times]
-      # update attributes of opening times we got from the payload to compare to database opening times
-
-      lp[:map_id] = @map.id
-      lp[:external_id] = lp.delete :id
+      otp = location_payload[:opening_times]
+      # update attributes of opening times we got from payload to compare to database opening times
+      location_payload[:map_id] = @map.id
+      location_payload[:external_id] = location_payload.delete :id
 
       @locations_db.each do |ld|
-        next unless lp[:external_id] == ld.external_id
+        next unless location_payload[:external_id] == ld.external_id
 
-        # convert locations and opening times from activerecord to hash
+        # convert locations from activerecord to hash
         ld_hash = LocationSync.location_ar_to_hash(ld)
-        otd_hash = LocationSync.opening_times_ar_to_hash(ld.opening_times)
+        include_location_if_changed(location_payload, ld_hash)
 
-        include_location_if_changed(lp, ld_hash)
-        include_opening_times_if_changed(otp, otd_hash, ld)
+        if otp.present?
+          # convert locations from activerecord to hash
+          otd_hash = LocationSync.opening_times_ar_to_hash(ld.opening_times)
+          include_opening_times_if_changed(otp, otd_hash, ld)
+        else
+          include_opening_times_if_empty(ld.id)
+        end
 
         matched = true
         break
       end
       # if location from payload doesn't exist in current database, we will add it
-      include_location_if_new(lp) unless matched
+      include_location_if_new(location_payload) unless matched
     end
 
     def include_location_if_changed(location_payload, location_database)
@@ -75,7 +82,9 @@ module Sync
         return
       end
 
-      @locations_to_update.push(@map.locations.build(LocationComparison.strong_params(location_payload)))
+      @locations_to_update.push(
+        @map.locations.build(LocationComparison.strong_params(location_payload))
+      )
     end
 
     def include_opening_times_if_changed(ot_payload, ot_database, location_database)
@@ -89,20 +98,31 @@ module Sync
     end
 
     def include_location_if_new(location_payload)
-      @locations_to_insert.push(@map.locations.build(LocationComparison.strong_params(lp)))
+      @locations_to_insert.push(
+        @map.locations.build(LocationComparison.strong_params(location_payload))
+      )
+    end
+
+    def include_opening_times_if_empty(location_id)
+      @opening_times_to_destroy.push(location_id)
     end
 
     def destroy_locations_without_id!
       # delete all locations without an external_id
-      @map.locations.where(external_id: [nil, ""]).destroy_all
+      @map.locations.no_external_id.destroy_all
     end
 
     def destroy_stale_locations!
+      Location.where(external_id: @stale_locations_external_ids).destroy_all
+    end
+
+    def destroy_stale_opening_times!
+      OpeningTime.where(location_id: @opening_times_to_destroy).destroy_all
     end
 
     def import_updated_locations!
       # update locations in database
-      updated_locations = Location.import(
+      Location.import(
         @locations_to_update,
         on_duplicate_key_update: {
           conflict_target: %i[map_id external_id],
@@ -111,12 +131,13 @@ module Sync
       )
     end
 
-    def import_new_locations!
+    def import_new_locations_with_opening_times!
+      Location.import(@locations_to_insert, recursive: true)
     end
 
     def import_new_and_updated_opening_times!
       # update opening times in database
-      updated_ots = OpeningTime.import(
+      OpeningTime.import(
         @opening_times_to_update,
         on_duplicate_key_update: {
           conflict_target: %i[location_id day],
@@ -126,7 +147,7 @@ module Sync
     end
 
     def calc_stale_locations
-      @locations_db.map { |l| l[:id] } - @locations_payload.map { |l| l[:id] }
+      @locations_db.map { |l| l[:external_id] } - @locations_payload.map { |l| l[:id] }
     end
 
     def self.location_ar_to_hash(location_active_record)

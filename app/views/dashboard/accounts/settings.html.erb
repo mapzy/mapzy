@@ -13,7 +13,7 @@
           <% end %>
         <% end %>
 
-        <h2 class=>API key</h2>
+        <h2 class>API key (advanced feature)</h2>
         <p>
           You can use your API key to access and modify your Map and Locations through our API.
           This is an advanced feature, but you can learn more in <a href="https://docs.mapzy.io">our docs</a>.<br>
@@ -25,7 +25,34 @@
           </code>
         </div>
 
-        <h2 class=>Account</h2>
+        <h2 class="mt-6">Sync mode (advanced feature)</h2>
+        <p>
+          Turning on sync mode let's you manage your Mapzy locations through our Sync API.
+          This disables adding, removing or editing locations from the dashboard.<br>
+          Learn more about the Sync API in <a href="https://docs.mapzy.io">our docs</a>.
+        </p>
+          
+        <%= form_with model: @map,
+          url: dashboard_map_path(@map),
+          method: :put,
+          data: { turbo_frame: "sync_mode" } do |form| %>
+          <div class="flex flex-row items-center justify-start gap-x-4">
+            <label class="switch">
+              <%= form.check_box :sync_mode, class: "opacity-0 w-0 h-0", onclick: "this.form.requestSubmit()" %>
+              <span class="slider"></span>
+            </label>
+            <div>
+              <%= label_tag "sync_mode", "Sync mode" %>
+            </div>
+          </div>
+        <% end %>
+        <div class="text-mapzy-red mt-2">
+          <turbo-frame id='sync_mode'>
+          </turbo-frame>
+        </div>
+
+
+        <h2 class="mt-6">Account</h2>
         <p class="mb-4"><%= current_user.email %></p>
 
         <%= link_to "Change Email or Password", edit_user_registration_path %> <br>

@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
-    resources :maps, only: %i[index show] do
+    resources :maps, only: %i[index show update] do
       resources :locations
       resources :location_imports, only: %i[new create]
     end

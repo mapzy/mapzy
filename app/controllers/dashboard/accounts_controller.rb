@@ -9,6 +9,8 @@ module Dashboard
     after_action -> { track_event("Viewed Embed Code") }, only: %i[embed]
 
     def settings
+      @map = Map.find_by(user: current_user)
+
       return if current_user.account.trial? || current_user.account.inactive?
       return if stripe_customer.blank? || stripe_subscription.blank?
 

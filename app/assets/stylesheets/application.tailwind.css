@@ -176,3 +176,28 @@ code {
 .spreadsheet-error-cell {
   @apply bg-mapzy-violet;
 }
+
+/* slider toggle*/
+.switch {
+  @apply relative inline-block w-14 h-8;
+}
+
+.slider {
+  @apply absolute cursor-pointer inset-0 rounded-3xl bg-slate-300 duration-300;
+}
+
+.slider:before {
+  @apply absolute content-[''] h-6 w-6 left-1 bottom-1 rounded-full bg-white duration-300;
+}
+
+input:checked + .slider {
+  @apply bg-mapzy-red-light;
+}
+
+input:focus + .slider {
+  @apply shadow;
+}
+
+input:checked + .slider:before {
+  @apply translate-x-6;
+}

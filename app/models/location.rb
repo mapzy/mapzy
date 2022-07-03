@@ -49,6 +49,8 @@ class Location < ApplicationRecord
 
   scope :order_by_unfinished, -> { order("ABS(latitude) ASC NULLS FIRST") }
 
+  scope :no_external_id, -> { where(external_id: [nil, ""]) }
+
   def geocode
     super
 

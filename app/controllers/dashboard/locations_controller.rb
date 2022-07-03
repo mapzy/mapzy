@@ -67,14 +67,6 @@ module Dashboard
       @location = @map.locations.find(params[:id])
     end
 
-    # def set_address
-    #   @address = @location.address
-    # end
-
-    # def set_opening_times
-    #   @opening_times = @location.opening_times.presence || @location.opening_times.build_default
-    # end
-
     def location_params
       params.require(:location)
             .permit(:name, :description, :address, :latitude, :longitude,
