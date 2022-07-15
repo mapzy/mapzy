@@ -12,13 +12,11 @@
 #  name        :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  external_id :string
 #  map_id      :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_external_id_and_map_id  (external_id,map_id) UNIQUE
-#  index_locations_on_map_id                  (map_id)
+#  index_locations_on_map_id  (map_id)
 #
 # Foreign Keys
 #
@@ -34,7 +32,8 @@ class Location < ApplicationRecord
 
   validates :address, presence: true
   validates :name, presence: true
-  validates :external_id, uniqueness: { scope: :map_id }, allow_blank: true
+  validate :opening_time_days_must_be_unique, if: -> { opening_times.present? }
+  validate :opening_times_all_days_must_be_present, if: -> { opening_times.present? }
 
   before_validation :geocode_as_pending, if: :skip_geocoding
   after_validation :geocode, if: :eligible_for_geocoding?, unless: :skip_geocoding
@@ -89,5 +88,22 @@ class Location < ApplicationRecord
 
   def bbox
     geocoding_success? ? self : map.locations.geocoding_success
+  end
+
+  def opening_time_days_must_be_unique
+    # we need even though we have the uniqueness constraint in OpeningTimes
+    # otherwise initiating a Lcation with its openingTimes doesn't raise an error
+    return if opening_times.group_by { |ot| ot[:day] }.values.select { |d| d.size > 1 }.blank?
+
+    errors.add(:opening_times, "can't include one day more than once.")
+  end
+
+  def opening_times_all_days_must_be_present
+    return if OpeningTime.days.keys.sort == opening_times.map { |ot| ot[:day] }.sort
+
+    errors.add(
+      :opening_times,
+      "must include an opening time object for each day of the week (or none at all)"
+    )
   end
 end

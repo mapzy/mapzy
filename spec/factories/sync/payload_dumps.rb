@@ -23,6 +23,8 @@ FactoryBot.define do
   factory :sync_payload_dump, class: "Sync::PayloadDump" do
     payload { { test: "test value" } }
 
+    processing_status { "open" }
+
     association :map
   end
 end

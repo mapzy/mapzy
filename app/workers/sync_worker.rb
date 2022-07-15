@@ -10,6 +10,17 @@ class SyncWorker
     payload_dump = Sync::PayloadDump.find(payload_dump_id)
     return unless payload_dump.open?
 
-    Sync::LocationSync.new(payload_dump.payload, payload_dump.map.id).synchronize!
+    payload_dump.processing!
+
+    begin
+      Sync::LocationSync.new(payload_dump.payload, payload_dump.map.id).synchronize!
+    rescue StandardError => e
+      payload_dump.error!
+      # Also log to Sentry once we have Sentry =D
+      Rails.logger.error("SyncWorker: #{e.message}")
+      return
+    end
+
+    payload_dump.processed!
   end
 end

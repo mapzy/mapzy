@@ -21,18 +21,9 @@ module Dashboard
     end
 
     def update
-      if @map.update(map_params)
-        head :ok, content_type: "text/html"
-      else
-        # rubocop:disable Rails/OutputSafety
-        render html: %(
-          <turbo-frame id="sync_mode">
-            Something went wrong: #{@map.errors.full_messages}<br>
-            Please try again.
-          </turbo-frame>
-        ).html_safe
-        # rubocop:enable Rails/OutputSafety
-      end
+      return head :ok, content_type: "text/html" if @map.update(map_params)
+
+      render "_update_error", status: :unprocessable_entity
     end
 
     private

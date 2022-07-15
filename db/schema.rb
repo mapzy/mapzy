@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 2022_07_03_143031) do
     t.bigint "map_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "external_id"
-    t.index ["external_id", "map_id"], name: "index_locations_on_external_id_and_map_id", unique: true
     t.index ["map_id"], name: "index_locations_on_map_id"
   end
 

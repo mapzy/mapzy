@@ -106,7 +106,7 @@
           </div>
         </div>
         <div data-opening-time-target="openingTimesBlock" class="hidden">
-          <% @opening_times.each_with_index do |opening_time, index| %>
+          <% @opening_times&.each_with_index do |opening_time, index| %>
             <%= f.fields_for "opening_times_attributes[]", opening_time do |fot| %>
               <div>
                 <div class="flex flex-row flex-wrap justify-start items-center mb-4 xl:mb-2">

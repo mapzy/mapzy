@@ -16,7 +16,11 @@ module Api
       rescue ActiveRecord::RecordNotFound => e
         @status = 404
         @error_type = e.class.to_s
-        # @message = 'Record not found'
+      rescue ActionController::UnfilteredParameters => e
+        @status = 422
+        @message = "Your payload contains unpermitted parameters."\
+                   " Please double check with our docs."
+        @error_type = e.class.to_s
       rescue ArgumentError => e
         @status = 422
         @error_type = e.class.to_s
@@ -27,7 +31,7 @@ module Api
 
       return if e.instance_of?(NilClass)
 
-      render json: { error: { type: @error_type, message: e.message } },
+      render json: { error: { type: @error_type, message: @message || e.message } },
              status: @status
     end
 
@@ -41,11 +45,12 @@ module Api
       return if bearer_token && @map.api_key.key_value == bearer_token
 
       render json: {
-        error: {
-          type: "Unauthorized",
-          message: "The API key you provided is not valid for the map with id '#{params[:map_id]}'"
-        }
-      },
+               error: {
+                 type: "Unauthorized",
+                 message: "The API key you provided is not valid"\
+                          " for the map with id '#{params[:map_id]}'"
+               }
+             },
              status: :unauthorized
     rescue StandardError => e
       render json: { error: { type: e.class.to_s, message: e.message } },

@@ -2,6 +2,13 @@
 
   <!-- Top Menu -->
   <header class="relative w-full bg-white">
+      <% if @map&.sync_mode %>
+        <div class="flex flex-row items-center justify-center w-full bg-mapzy-red text-white">
+          <p>
+            You have turned Sync Mode on. In this mode, you can't manage your map through the dashboard.
+          </p>
+        </div>
+      <% end %>
       <div class="flex items-center justify-between py-2 px-8 md:px-12">
           <div class="flex justify-between items-center">
              <div class="text-2xl font-bold text-gray-800 md:text-3xl">

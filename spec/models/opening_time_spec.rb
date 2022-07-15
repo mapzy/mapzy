@@ -54,6 +54,8 @@ RSpec.describe OpeningTime, type: :model do
     end
 
     describe "#validate_to_s" do
+      before { FactoryBot.rewind_sequences }
+
       context "when closed" do
         let(:opening_time) { build(:opening_time, closed: true) }
 

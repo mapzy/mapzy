@@ -24,4 +24,44 @@ RSpec.describe "Maps", type: :request do
       expect(response).to be_successful
     end
   end
+
+  describe "PATCH maps/:id" do
+    context "with setting sync mode to true" do
+      let(:sync_mode_true) { { id: map.id, sync_mode: true } }
+
+      before do
+        map.sync_mode = false
+        map.save
+      end
+
+      it "responds with a HTTP 200" do
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        expect(response).to be_successful
+      end
+
+      it "updates sync mode in database" do
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        expect(Map.find(map.id).sync_mode).to be true
+      end
+    end
+
+    context "with updating sync mode to false" do
+      let(:sync_mode_false) { { id: map.id, sync_mode: false } }
+
+      before do
+        map.sync_mode = true
+        map.save
+      end
+
+      it "responds with a HTTP 200" do
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        expect(response).to be_successful
+      end
+
+      it "updates sync mode in database" do
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        expect(Map.find(map.id).sync_mode).to be false
+      end
+    end
+  end
 end

@@ -6,6 +6,7 @@ module Dashboard
 
     before_action :set_map
     before_action :set_location, only: %i[show edit update destroy]
+    before_action :redirect_to_map, only: %i[new edit], if: -> { @map.sync_mode }
 
     after_action -> { track_event("Viewed Add Location") }, only: %i[new]
     after_action -> { track_event("Added Location") }, only: %i[create]
@@ -47,6 +48,7 @@ module Dashboard
         redirect_to dashboard_map_path(@map)
       else
         flash.now[:error] = @location.errors.full_messages
+        @address = @location.address
         render :edit, status: :unprocessable_entity
       end
     end
@@ -66,6 +68,10 @@ module Dashboard
 
     def set_location
       @location = @map.locations.find(params[:id])
+    end
+
+    def redirect_to_map
+      redirect_to dashboard_map_path(@map)
     end
 
     def location_params

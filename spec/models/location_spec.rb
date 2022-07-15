@@ -12,13 +12,11 @@
 #  name        :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  external_id :string
 #  map_id      :bigint           not null
 #
 # Indexes
 #
-#  index_locations_on_external_id_and_map_id  (external_id,map_id) UNIQUE
-#  index_locations_on_map_id                  (map_id)
+#  index_locations_on_map_id  (map_id)
 #
 # Foreign Keys
 #
@@ -36,6 +34,29 @@ RSpec.describe Location, type: :model do
 
     it { is_expected.to validate_presence_of :address }
     it { is_expected.to validate_presence_of :name }
+  end
+
+  describe "custom validations" do
+    describe "#opening_time_days_must_be_unique" do
+      it "doesn't validate if non-unique days" do
+        FactoryBot.rewind_sequences
+        expect do
+          ot_list = build_list(:opening_time, 7)
+          ot_list.first.day = "tuesday"
+          create(:location, opening_times: ot_list)
+        end.to raise_error(ActiveRecord::RecordInvalid, /one day more than once/)
+      end
+    end
+
+    describe "#opening_times_all_days_must_be_present" do
+      it "doesn't validate if missing days" do
+        FactoryBot.rewind_sequences
+        expect do
+          ot_list = build_list(:opening_time, 6)
+          create(:location, opening_times: ot_list)
+        end.to raise_error(ActiveRecord::RecordInvalid, /object for each day/)
+      end
+    end
   end
 
   describe "#eligible_for_geocoding?" do

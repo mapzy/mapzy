@@ -8,4 +8,10 @@ module SharedViewsHelper
       send :map_locations_path, map_id
     end
   end
+
+  def sync_mode_path(initial_path, sync_mode)
+    return initial_path unless sync_mode
+
+    "#"
+  end
 end
