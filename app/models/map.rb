@@ -30,6 +30,6 @@ class Map < ApplicationRecord
   after_create :create_api_key
 
   def create_api_key
-    ApiKey.create(map: self)
+    api_key || ApiKey.create(map: self)
   end
 end
