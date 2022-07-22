@@ -1,2 +1,4 @@
-<%= link_to "Add Location", new_dashboard_map_location_path(@map),
-    class: "absolute bottom-12 inset-x-0 button--bottom-menu w-48 md:w-64 mx-auto" %>
+<%= link_to "Add Location", sync_mode_path(new_dashboard_map_location_path(@map), @map.sync_mode),
+    class: "absolute bottom-12 inset-x-0 button--bottom-menu w-48 md:w-64 mx-auto
+            #{@map.sync_mode ? "button--disabled" : ""}"
+%>

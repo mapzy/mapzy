@@ -27,13 +27,19 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
-    resources :maps, only: %i[index show] do
+    resources :maps, only: %i[index show update] do
       resources :locations
       resources :location_imports, only: %i[new create]
     end
 
     get "/settings", to: "accounts#settings", as: "account_settings"
     get "/embed", to: "accounts#embed", as: "account_embed"
+  end
+
+  namespace :api do
+    namespace :v1 do
+      post "/maps/:map_id/sync", to: "maps#sync", as: "maps_sync"
+    end
   end
 
   scope "/stripe" do

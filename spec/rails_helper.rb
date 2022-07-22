@@ -113,6 +113,7 @@ RSpec.configure do |config|
   config.include RequestSpecHelper, type: :request
   config.include RequestSpecHelper, type: :feature
   config.include StripeTestHelper,  type: :request
+  config.include SyncTestHelper
 end
 
 # Config for Shoulda Matchers

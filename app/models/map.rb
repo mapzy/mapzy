@@ -6,6 +6,7 @@
 #
 #  id         :bigint           not null, primary key
 #  name       :string
+#  sync_mode  :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
@@ -23,4 +24,12 @@ class Map < ApplicationRecord
 
   belongs_to :user
   has_many :locations, dependent: :destroy
+  has_many :payload_dumps, class_name: "Sync::PayloadDump", dependent: :destroy
+  has_one :api_key, dependent: :destroy
+
+  after_create :create_api_key
+
+  def create_api_key
+    api_key || ApiKey.create(map: self)
+  end
 end

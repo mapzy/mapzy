@@ -2,7 +2,10 @@
 
 FactoryBot.define do
   factory :opening_time do
-    day { :monday }
+    # day { :monday }
+    sequence :day, 0 do |n|
+      OpeningTime.days.keys[n]
+    end
     opens_at { "08:00" }
     closes_at { "18:00" }
     open_24h { false }

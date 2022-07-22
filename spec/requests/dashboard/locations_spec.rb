@@ -6,27 +6,7 @@ RSpec.describe "Locations", type: :request do
   let(:user) { create(:user) }
   let(:map) { create(:map, user: user) }
   let(:location) { create(:location, map: map) }
-
-  let(:opening_times_params) do
-    [
-      {
-        day: "monday",
-        opens_at: "08:00",
-        closes_at: "18:00",
-        open24: false,
-        closed: false
-      }
-    ]
-  end
-
-  let(:location_params) do
-    {
-      name: "Test Location",
-      description: "Lorem Ipsum test description",
-      address: "Hohlstrasse 117, 8002 Zürich, Switzerland",
-      opening_times_attributes: opening_times_params
-    }
-  end
+  let(:location_params) { locations_payload_data.first }
 
   before do
     sign_in user

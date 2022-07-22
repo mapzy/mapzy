@@ -35,14 +35,19 @@
   <% if dashboard %>
     <% unless location.geocoding_pending? %>
       <div class="mt-4 flex flex-row justify-between">
-        <%= link_to edit_or_finalise(location), edit_dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
+        <%= link_to edit_or_finalise(location),
+              sync_mode_path(edit_dashboard_map_location_path(map_id: map.hashid, id: location.hashid), @map.sync_mode),
+              class: "#{@map.sync_mode ? "link--disabled" : ""}",
               data: { turbo_frame: "_top" } %>
-        <%= button_to "Delete", dashboard_map_location_path(map_id: map.hashid, id: location.hashid),
-              class: "no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold",
+        <%= button_to "Delete",
+              sync_mode_path(dashboard_map_location_path(map_id: map.hashid, id: location.hashid), @map.sync_mode),
+              class: "no-underline cursor-pointer text-mapzy-red hover:text-mapzy-red-light font-semibold
+                      #{@map.sync_mode ? "link--disabled" : ""}",
               method: :delete,
               form: { data: { turbo_confirm:
                 "Once deleted, it's deleted! Are you sure you want to delete this location?"
               }},
+              disabled: true,
               data: { turbo_frame: "_top" } %>
       </div>
     <% end %>

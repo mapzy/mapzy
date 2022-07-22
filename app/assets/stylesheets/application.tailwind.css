@@ -63,7 +63,7 @@ code {
 }
 
 .code--multiline {
-  @apply p-4 rounded my-4 w-full bg-gray-900 text-white
+  @apply p-4 rounded my-4 bg-gray-900 text-white
 }
 
 .code--multiline > code {
@@ -114,6 +114,14 @@ code {
   @apply cursor-pointer rounded-full bg-mapzy-red text-white
     hover:bg-mapzy-red-light hover:text-white px-8 py-2 no-underline hover:no-underline
     flex items-center justify-center text-base font-semibold shadow-md
+}
+
+.button--disabled {
+  @apply bg-gray-400 hover:bg-gray-300 cursor-not-allowed
+}
+
+.link--disabled {
+  @apply text-gray-400 hover:text-gray-400 cursor-not-allowed
 }
 
 /* Forms */
@@ -175,4 +183,29 @@ code {
 
 .spreadsheet-error-cell {
   @apply bg-mapzy-violet;
+}
+
+/* slider toggle*/
+.switch {
+  @apply relative inline-block w-14 h-8;
+}
+
+.slider {
+  @apply absolute cursor-pointer inset-0 rounded-3xl bg-slate-300 duration-300;
+}
+
+.slider:before {
+  @apply absolute content-[''] h-6 w-6 left-1 bottom-1 rounded-full bg-white duration-300;
+}
+
+input:checked + .slider {
+  @apply bg-mapzy-red-light;
+}
+
+input:focus + .slider {
+  @apply shadow;
+}
+
+input:checked + .slider:before {
+  @apply translate-x-6;
 }
