@@ -1,14 +1,14 @@
 <div data-side-panel-target="panel"
      class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
             inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden">
+
+  <div class="absolute top-2 right-2">
+    <a class="block" data-action="side-panel#hidePanel">
+      <%= close_icon(size: 20) %>
+    </a>
+  </div>
+
   <div class="w-full h-full p-8 flex flex-col overflow-y-scroll">
-    <div class="flex flex-row justify-end mb-4">
-      <a data-action="side-panel#hidePanel">
-        <%= close_icon(size: 20) %>
-      </a>
-    </div>
-
     <%= yield %>
-
   </div>
 </div>
