@@ -5,5 +5,6 @@ Geocoder.configure(
   lookup: :mapbox,
   api_key: ENV["MAPBOX_ACCESS_TOKEN"],
   units: :km,
-  use_https: true
+  use_https: true,
+  cache: Redis.new
 )
