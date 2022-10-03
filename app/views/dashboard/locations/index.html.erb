@@ -4,7 +4,7 @@
   <% elsif @locations.geocoding_pending.present? %>
     <%= render 'shared/notification', type: "info", icon: pending_icon(size: 24), message: pending_message %>
   <% end %>
-  <div class="grid grid-cols-1 sm:divide-y-2">
+  <div class="grid grid-cols-1 divide-y-2">
     <% @locations.each do |location| %>
       <%= render "shared/location_short", map: @map, location: location, dashboard: true %>
     <% end %>
