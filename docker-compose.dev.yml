@@ -7,10 +7,8 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
-    environment:
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_DB=${DATABASE_NAME}
+    env_file:
+      - .env
   redis:
     image: "redis:alpine"
   web:
@@ -25,23 +23,5 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      - RAILS_ENV=development
-      - RACK_ENV=development
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_HOST=db
-      - DATABASE_NAME=${DATABASE_NAME}
-      - DATABASE_NAME_TEST=${DATABASE_NAME}
-      - ALLOW_REGISTRATION=${ALLOW_REGISTRATION}
-      - MAPBOX_ACCESS_TOKEN=${MAPBOX_ACCESS_TOKEN}
-      - REDIS_URL=redis://redis:6379
-      - MAPZY_CLOUD=${MAPZY_CLOUD}
-      - MAILPACE_TOKEN=${MAILPACE_TOKEN}
-      - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
-      - STRIPE_MAXI_PRICE_ID=${STRIPE_MAXI_PRICE_ID}
-      - STRIPE_MEDIUM_PRICE_ID=${STRIPE_MEDIUM_PRICE_ID}
-      - STRIPE_MINI_PRICE_ID=${STRIPE_MINI_PRICE_ID}
-      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
-      - FUGU_API_KEY=${FUGU_API_KEY}
-      - FUGU_URL=${FUGU_URL}
+    env_file:
+      - .env
