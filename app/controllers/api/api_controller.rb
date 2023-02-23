@@ -29,7 +29,9 @@ module Api
         @error_type = e.class.to_s
       end
 
-      render json: { error: { type: @error_type, message: @message || '' } },
+      return if e.instance_of?(NilClass)
+
+      render json: { error: { type: @error_type, message: @message || e.message } },
              status: @status
     end
 
@@ -50,9 +52,9 @@ module Api
                }
              },
              status: :unauthorized
-    rescue StandardError => ex
-      Sentry.capture_exception(ex)
-      render json: { error: { type: ex.class.to_s, message: ex.message } },
+    rescue StandardError => e
+      Sentry.capture_exception(e)
+      render json: { error: { type: e.class.to_s, message: e.message } },
              status: :unauthorized
     end
 
