@@ -14,10 +14,10 @@ class SyncWorker
 
     begin
       Sync::LocationSync.new(payload_dump.payload, payload_dump.map.id).synchronize!
-    rescue StandardError => e
+    rescue StandardError => ex
       payload_dump.error!
-      # Also log to Sentry once we have Sentry =D
-      Rails.logger.error("SyncWorker: #{e.message}")
+      Sentry.capture_exception(ex)
+      Rails.logger.error("SyncWorker: #{ex.message}")
       return
     end
 
