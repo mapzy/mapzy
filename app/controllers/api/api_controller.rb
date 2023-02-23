@@ -53,6 +53,7 @@ module Api
              },
              status: :unauthorized
     rescue StandardError => e
+      Sentry.capture_exception(e)
       render json: { error: { type: e.class.to_s, message: e.message } },
              status: :unauthorized
     end

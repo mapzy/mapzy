@@ -15,7 +15,8 @@ class StripeController < ApplicationController
   def checkout_session
     session = Stripe::Checkout::Session.create(checkout_session_args)
     redirect_to session.url
-  rescue StandardError
+  rescue StandardError => e
+    Sentry.capture_exception(e)
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
@@ -29,7 +30,8 @@ class StripeController < ApplicationController
     flash[:notice] = "Subscription successful! Enjoy Mapzy!"
 
     redirect_to dashboard_account_settings_url
-  rescue StandardError
+  rescue StandardError => e
+    Sentry.capture_exception(e)
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
@@ -42,7 +44,8 @@ class StripeController < ApplicationController
       }
     )
     redirect_to customer_portal_session.url
-  rescue StandardError
+  rescue StandardError => e
+    Sentry.capture_exception(e)
     flash[:alert] = "Something went wrong. Please try again or contact us at bonjour@mapzy.io"
     redirect_to dashboard_account_settings_url
   end
@@ -67,7 +70,8 @@ class StripeController < ApplicationController
     Stripe::Webhook.construct_event(
       request.raw_post, request.env["HTTP_STRIPE_SIGNATURE"], ENV["STRIPE_ENDPOINT_SECRET"]
     )
-  rescue StandardError
+  rescue StandardError => e
+    Sentry.capture_exception(e)
     head :not_found
   end
 
