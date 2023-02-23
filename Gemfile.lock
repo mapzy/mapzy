@@ -204,6 +204,8 @@ GEM
     multipart-post (2.2.3)
     nenv (0.3.0)
     nio4r (2.5.8)
+    nokogiri (1.13.10-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.10-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.10-x86_64-linux)
@@ -318,6 +320,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.8.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.8.0)
+    sentry-ruby (5.8.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     shellany (0.0.1)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
@@ -341,6 +348,8 @@ GEM
       dante (>= 0.2.0)
       multi_json (~> 1.0)
       stripe (> 5, < 6)
+    tailwindcss-rails (2.0.10-arm64-darwin)
+      railties (>= 6.0.0)
     tailwindcss-rails (2.0.10-x86_64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.10-x86_64-linux)
@@ -377,6 +386,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-darwin-20
   x86_64-linux
 
@@ -419,6 +429,8 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   shoulda-matchers
   sidekiq (~> 6.4)
   spring

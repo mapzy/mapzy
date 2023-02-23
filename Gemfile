@@ -57,6 +57,10 @@ gem "tailwindcss-rails", "~> 2.0.5"
 
 gem "activerecord-import", "~> 1.4.0"
 
+# Sentry to monitor production errors
+gem "sentry-ruby"
+gem "sentry-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
