@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "sidekiq/web"
-
 Rails.application.routes.draw do
   devise_scope :user do
     authenticated do
@@ -49,6 +47,7 @@ Rails.application.routes.draw do
     post "/webhooks/", to: "stripe#webhooks", as: "stripe_webhooks"
   end
 
+  # Mount development tools
   if Rails.env.development?
     namespace :development do
       resources :design, only: [:index]
@@ -56,5 +55,14 @@ Rails.application.routes.draw do
     end
   end
 
+  # Mount the sidekiq dashboard, secured with Basic Auth
+  require "sidekiq/web"
+
+  unless Rails.env.development?
+    Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+      username == ENV["SIDEKIQ_USERNAME"] &&
+        password == ENV["SIDEKIQ_PASSWORD"]
+    end
+  end
   mount Sidekiq::Web => "/sidekiq"
 end
