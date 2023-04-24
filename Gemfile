@@ -46,7 +46,7 @@ gem "foreman", "~> 0.87.2"
 
 gem "mailpace-rails", "~> 0.3.2"
 
-gem "sidekiq", "~> 6.4"
+gem "sidekiq", "~> 7.0"
 
 gem "faraday", "~> 1.8.0"
 
