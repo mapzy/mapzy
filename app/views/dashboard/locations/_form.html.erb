@@ -136,6 +136,7 @@
 
                   <div class="flex flex-row justify-start md:justify-between items-start py-1 text-sm">
                     <div class="mr-4" data-opening-time-target="closedBlock" >
+                      <%= fot.hidden_field :closed, value: false %>
                       <%= fot.check_box :closed,
                           { checked: opening_time.closed,
                             include_hidden: false,
@@ -150,6 +151,7 @@
                     </div>
 
                     <div class="" data-opening-time-target="open24hBlock" >
+                      <%= fot.hidden_field :open_24h, value: false %>
                       <%= fot.check_box :open_24h,
                           { checked: opening_time.open_24h,
                             include_hidden: false,

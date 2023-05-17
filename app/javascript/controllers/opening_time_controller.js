@@ -86,6 +86,8 @@ export default class extends Controller {
   }
 
   addDefaultTimes(index) {
+    this.clearOpen24h(index)
+    this.clearClosed(index)
     this.opensAtTargets[index].value = "08:00"
     this.closesAtTargets[index].value = "18:00"
   }
