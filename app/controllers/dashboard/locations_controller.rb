@@ -26,7 +26,6 @@ module Dashboard
 
     def create
       @location = @map.locations.build(location_params)
-      @opening_times = @location.opening_times
 
       if @location.save
         redirect_to dashboard_map_path(@map)
@@ -39,7 +38,8 @@ module Dashboard
 
     def edit
       @address = @location.address
-      @opening_times = @location.opening_times.presence || @location.opening_times.build_default
+      @opening_times = @location.opening_times.order(:day).presence ||
+                       @location.opening_times.build_default
     end
 
     def update

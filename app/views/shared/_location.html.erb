@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="text-sm my-2">
-    <% @location.opening_times.each do |ot| %>
+    <% @location.opening_times.order(:day).each do |ot| %>
       <div class="flex flex-row items-center leading-relaxed">
         <span class="h-4">
           <%= clock_icon(size: 16) %>
