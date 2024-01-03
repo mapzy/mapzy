@@ -7,7 +7,7 @@ A simple, self-hostable store finder that cares about your privacy.
 
 ## Docs
 
-Visit the [Mapzy Docs](https://docs.mapzy.io).
+Visit the [Mapzy Docs](https://github.com/mapzy/docs/blob/main/docs/intro.md).
 
 ## Self-hosting
 
