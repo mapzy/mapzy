@@ -7,12 +7,11 @@ A simple, self-hostable store finder that cares about your privacy.
 
 ## Docs
 
-Visit the [Mapzy Docs](https://github.com/mapzy/docs/blob/main/docs/intro.md).
+Check out the [Wiki](https://github.com/mapzy/mapzy/wiki).
 
 ## Self-hosting
 
 Mapzy is and will always be free to host on your own server/cloud. Check out the [self-hosting guide](/SELFHOSTING.md) to learn more.
-
 
 ## Contributing
 
