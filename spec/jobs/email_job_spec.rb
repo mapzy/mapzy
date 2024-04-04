@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe EmailWorker, type: :worker do
+RSpec.describe EmailJob, type: :job do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
   let(:mail) { ActionMailer::Base.deliveries.last }

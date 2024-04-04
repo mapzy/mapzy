@@ -21,7 +21,7 @@ RSpec.describe "Maps", type: :request do
         expect do
           post api_v1_maps_sync_path(map.hashid),
                as: :json, params: locations_payload, headers: { Authorization: bearer_token }
-        end.to change(SyncWorker.jobs, :size).by(1)
+        end.to have_enqueued_job(SyncJob).exactly(:once)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe "Maps", type: :request do
         expect do
           post api_v1_maps_sync_path(map.hashid),
                as: :json, params: locations_payload, headers: { Authorization: bearer_token }
-        end.to change(SyncWorker.jobs, :size).by(0)
+        end.to have_enqueued_job(SyncJob).exactly(0).times
       end
     end
 

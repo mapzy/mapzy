@@ -126,17 +126,17 @@
                     <%= fot.select :opens_at,
                         options_for_select(OpeningTime.time_options, opening_time.opens_at&.strftime("%H:%M")),
                         { include_blank: true },
-                        { class: "select--default", "data-opening-time-target": "opensAt", autocomplete: "off" } %>
+                        { class: "select--default", style: "padding-right: 1.5rem;", "data-opening-time-target": "opensAt", autocomplete: "off" } %>
                     <div> &nbsp; &mdash; &nbsp; </div>
                     <%= fot.select :closes_at,
                         options_for_select(OpeningTime.time_options, opening_time.closes_at&.strftime("%H:%M")),
                         { include_blank: true },
-                        { class: "select--default mr-6", "data-opening-time-target": "closesAt", autocomplete: "off" } %>
+                        { class: "select--default mr-6", style: "padding-right: 1.5rem;", "data-opening-time-target": "closesAt", autocomplete: "off" } %>
                   </div>
 
                   <div class="flex flex-row justify-start md:justify-between items-start py-1 text-sm">
                     <div class="mr-4" data-opening-time-target="closedBlock" >
-                      <%= fot.hidden_field :closed, value: false %>
+                      
                       <%= fot.check_box :closed,
                           { checked: opening_time.closed,
                             include_hidden: false,
@@ -151,7 +151,7 @@
                     </div>
 
                     <div class="" data-opening-time-target="open24hBlock" >
-                      <%= fot.hidden_field :open_24h, value: false %>
+                     
                       <%= fot.check_box :open_24h,
                           { checked: opening_time.open_24h,
                             include_hidden: false,

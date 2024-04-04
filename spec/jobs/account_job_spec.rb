@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AccountWorker, type: :worker do
+RSpec.describe AccountJob, type: :job do
   let(:account) { create(:account) }
   let(:user) { create(:user, account: account) }
 

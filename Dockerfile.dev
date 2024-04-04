@@ -1,6 +1,6 @@
 ###############################################################################
 # Stage 1: Build
-FROM ruby:3.0.0 as builder
+FROM ruby:3.3.0 as builder
 
 # Install base packages
 RUN apt-get update -qq && \
@@ -37,7 +37,7 @@ ADD . .
 
 ###############################################################################
 # Stage 2: Run
-FROM ruby:3.0.0
+FROM ruby:3.3.0
 
 ENV RAILS_ENV development
 ENV APP_HOME /app

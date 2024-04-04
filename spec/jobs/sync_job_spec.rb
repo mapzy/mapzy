@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SyncWorker, type: :worker do
+RSpec.describe SyncJob, type: :job do
   let(:user) { create(:user, account: create(:account), map: create(:map)) }
 
   let(:locations_payload) { locations_payload_data }

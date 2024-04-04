@@ -45,7 +45,7 @@ class OpeningTime < ApplicationRecord
 
   # Render the opening time
   #
-  def to_s
+  def format_as_string
     if closed
       "#{day.capitalize}: closed"
     elsif open_24h
