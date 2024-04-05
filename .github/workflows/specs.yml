@@ -60,3 +60,5 @@ jobs:
           STRIPE_ENDPOINT_SECRET: ${{ secrets.STRIPE_ENDPOINT_SECRET }}
           ALLOW_REGISTRATION: true
           MAPZY_CLOUD: true
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test
