@@ -18,7 +18,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:16
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -42,6 +42,9 @@ jobs:
       - name: Setup test database
         run: |
           bin/rails db:setup
+        env:
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test
       
       - name: Build Tailwind
         run: |
