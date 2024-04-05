@@ -30,6 +30,8 @@ module Mapzy
 
     config.active_job.queue_adapter = :solid_queue
 
+    config.mission_control.jobs.base_controller_class = "MissionControlAdminController"
+
     # Use Rspec as test framework
     config.generators do |g|
       g.test_framework :rspec,

@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     post "/webhooks/", to: "stripe#webhooks", as: "stripe_webhooks"
   end
 
+  mount MissionControl::Jobs::Engine, at: "/jobs"
+
   # Mount development tools
   if Rails.env.development?
     namespace :development do
