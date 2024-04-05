@@ -49,6 +49,9 @@ jobs:
       - name: Build Tailwind
         run: |
           bin/rails tailwindcss:build
+        env:
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test
 
       - name: Run specs
         run: |
