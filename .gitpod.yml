@@ -8,8 +8,6 @@ ports:
   # PostgreSQL server
   - port: 5432
     onOpen: ignore
-  # Redis server
-  - port: 6379
     onOpen: ignore
   - port: 4444
     onOpen: ignore
@@ -18,9 +16,6 @@ ports:
     onOpen: ignore
 
 tasks:
-  # Start Redis
-  - command: redis-server
-
   # Install dependencies, prepare dev & test databases
   # Seed dev database
   - init: |

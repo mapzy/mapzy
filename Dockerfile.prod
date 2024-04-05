@@ -21,6 +21,7 @@ ENV BUNDLE_CACHE_ALL true
 ENV APP_HOME /app
 ENV RAILS_ENV production
 ENV RACK_ENV production
+ENV SECRET_KEY_BASE_DUMMY 1
 
 # Set working directory
 WORKDIR $APP_HOME
@@ -37,18 +38,22 @@ RUN bundle config --global frozen 1 && \
 # Copy app files
 COPY . .
 
+RUN echo "yolo ${SECRET_KEY_BASE}"
+
 # Precompile assets
 # SECRET_KEY_BASE=`bin/rake secret` is added here as a workaround for
 # https://github.com/rails/rails/issues/32947
-RUN SECRET_KEY_BASE=`bin/rake secret` rails assets:precompile --trace && \
+RUN rails assets:precompile --trace && \
     rm -rf tmp/cache vendor/assets test
 
 ###############################################################################
 # Stage 2: Run
 FROM ruby:3.3.0
 
+ARG RAILS_SERVE_STATIC_FILES
+
 ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_SERVE_STATIC_FILES $RAILS_SERVE_STATIC_FILES
 ENV APP_HOME /app
 
 RUN mkdir -p $APP_HOME

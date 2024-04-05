@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   db:
-    image: postgres
+    image: postgres:16
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     ports:
@@ -11,17 +11,14 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_DB=${DATABASE_NAME}
-  redis:
-    image: "redis:alpine"
-  sidekiq:
+  solid_queue:
     depends_on:
       - db
-      - redis
     build:
       context: .
       dockerfile: Dockerfile.prod
     entrypoint: ""
-    command: bundle exec sidekiq -q default -q mailers
+    command: bundle exec rake solid_queue:start
     env_file:
       - .env
   web:
@@ -36,7 +33,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      - redis
     restart: unless-stopped
     env_file:
       - .env
