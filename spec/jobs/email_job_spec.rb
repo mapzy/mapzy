@@ -53,7 +53,7 @@ RSpec.describe EmailJob, type: :job do
         subject.perform("reminder_email1", user.id)
       end
 
-      it "won't send an email" do
+      it "doesn't send an email" do
         expect(ActionMailer::Base.deliveries.length).to eq(0)
       end
     end

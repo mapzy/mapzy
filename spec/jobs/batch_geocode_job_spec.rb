@@ -18,7 +18,6 @@ RSpec.describe BatchGeocodeJob, type: :job do
       end
     end
 
-    
     context "when the map has pending locations" do
       let!(:pending_location) do
         create(:location, map_id: map.id, address: "Paris", skip_geocoding: true)

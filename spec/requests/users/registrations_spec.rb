@@ -43,7 +43,6 @@ RSpec.describe "Registrations", type: :request do
         expect do
           post user_registration_path(params: user_params)
         end.to have_enqueued_job(EmailJob).exactly(3).times
-
       end
     end
 

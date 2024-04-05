@@ -69,7 +69,7 @@ group :development, :test do
   gem "rspec-rails", "~> 6.1.0"
 
   # Factories
-  gem "factory_bot_rails",  "~> 6.4.0"
+  gem "factory_bot_rails", "~> 6.4.0"
 
   # Run specs automatically with guard
   gem "guard-rspec", require: false
