@@ -15,10 +15,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: ["sh", "/app/docker-entrypoint.sh"]
+    entrypoint: ["sh", "/rails/docker-entrypoint.sh"]
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec foreman start -f Procfile.docker.dev"
     tty: true
-    working_dir: /app
+    working_dir: /rails
     ports:
       - "3000:3000"
     depends_on:

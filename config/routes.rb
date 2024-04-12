@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     post "/webhooks/", to: "stripe#webhooks", as: "stripe_webhooks"
   end
 
+  get "/up", to: "health_check#up"
+
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
   # Mount development tools
