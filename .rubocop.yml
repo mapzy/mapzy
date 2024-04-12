@@ -51,6 +51,9 @@ Style/Documentation:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
 RSpec/MessageSpies:
   EnforcedStyle: receive
 

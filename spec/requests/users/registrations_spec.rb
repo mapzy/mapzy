@@ -42,7 +42,7 @@ RSpec.describe "Registrations", type: :request do
       it "enqueues correct jobs" do
         expect do
           post user_registration_path(params: user_params)
-        end.to change(EmailWorker.jobs, :size).by(3)
+        end.to have_enqueued_job(EmailJob).exactly(3).times
       end
     end
 

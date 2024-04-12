@@ -53,7 +53,7 @@ RSpec.describe OpeningTime, type: :model do
       expect(duplicate).not_to be_valid
     end
 
-    describe "#validate_to_s" do
+    describe "#validate_format_as_string" do
       before { FactoryBot.rewind_sequences }
 
       context "when closed" do
@@ -135,11 +135,11 @@ RSpec.describe OpeningTime, type: :model do
     end
   end
 
-  describe ".to_s" do
+  describe ".format_as_string" do
     let(:opening_time) { create(:opening_time) }
 
     it "returns a non-empty string" do
-      expect(opening_time.to_s).not_to be_empty
+      expect(opening_time.format_as_string).not_to be_empty
     end
   end
 end

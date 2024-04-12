@@ -21,7 +21,7 @@ module Dashboard
         result = location_import.insert_all
         if result.failed_instances.empty?
           # kick off async job and redirect to map view with flash
-          BatchGeocodeWorker.perform_async(@map.id)
+          BatchGeocodeJob.perform_later(@map.id)
           flash[:success] = "Great! We're importing your locations. "\
                                 "We'll send you an email when it's done. "\
                                 "You don't need to keep this window open."

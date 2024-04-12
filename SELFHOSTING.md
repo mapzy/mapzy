@@ -7,7 +7,7 @@ Mapzy is open-source and can be self-hosted without any feature restrictions. Fo
 Create an `.env` file in the root directory of the app. Use `.env.example` as a template. If you are running on a managed service like Heroku or DigitalOcean, enter the environment variables in their system.
 
 ## Hosting
-Mapzy is a pure Ruby on Rails app requiring a PostgreSQL database and Redis. Therefore, you can host it however you like. Below, we've added short guides detailing a few popular self-hosting options.
+Mapzy is a pure Ruby on Rails app requiring a PostgreSQL database. Therefore, you can host it however you like. Below, we've added short guides detailing a few popular self-hosting options.
 
 ### Heroku, DigitalOcean and other managed services
 Managed services like Heroku, Digital Ocean and Render offer fast a quick and simple way to deploy Ruby on Rails apps directly from GitHub. If you're using a managed service, have a look at their documentation on how to proceed. Normally, this is pretty straight forward.

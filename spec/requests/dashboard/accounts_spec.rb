@@ -28,33 +28,33 @@ RSpec.describe "Accounts", type: :request do
       end
     end
 
-    context "with active account" do
-      let(:stripe_helper) { StripeMock.create_test_helper }
+    # context "with active account" do
+    #   let(:stripe_helper) { StripeMock.create_test_helper }
 
-      before do
-        StripeMock.start
-        stripe_customer = create_stripe_customer
-        product = create_stripe_product
-        create_stripe_checkout_session(stripe_customer.id, create_stripe_price(product.id))
-        user.account.stripe_customer_id = stripe_customer.id
-        user.account.status = "active"
-        get dashboard_account_settings_path
-      end
+    #   before do
+    #     StripeMock.start
+    #     stripe_customer = create_stripe_customer
+    #     product = create_stripe_product
+    #     create_stripe_checkout_session(stripe_customer.id, create_stripe_price(product.id))
+    #     user.account.stripe_customer_id = stripe_customer.id
+    #     user.account.status = "active"
+    #     get dashboard_account_settings_path
+    #   end
 
-      after do
-        StripeMock.stop
-      end
+    #   after do
+    #     StripeMock.stop
+    #   end
 
-      # skip while waiting for new version of stripe-ruby-mock
-      xit "responds with a HTTP 200" do
-        expect(response).to have_http_status(:ok)
-      end
+    #   # skip while waiting for new version of stripe-ruby-mock
+    #   xit "responds with a HTTP 200" do
+    #     expect(response).to have_http_status(:ok)
+    #   end
 
-      # skip while waiting for new version of stripe-ruby-mock
-      xit "contains the start subscription link" do
-        expect(response.body).to include('href="/stripe/checkout_session?sub=mini"')
-      end
-    end
+    #   # skip while waiting for new version of stripe-ruby-mock
+    #   xit "contains the start subscription link" do
+    #     expect(response.body).to include('href="/stripe/checkout_session?sub=mini"')
+    #   end
+    # end
 
     context "with canceled account" do
       before do

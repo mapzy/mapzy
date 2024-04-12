@@ -1,4 +1,4 @@
-<%= render "dashboard/layouts/main" do %>
+d<%= render "dashboard/layouts/main" do %>
   <div class="flex flex-col justify-center items-center p-4 text-lg">
     <h1 class="mt-12 mb-8"><span class="underline-red">Settings</span></h1>
 
@@ -19,7 +19,7 @@
           This disables adding, removing or editing locations from the dashboard.
           To access the Sync API, you will need your API key below. Make sure to keep it
           secret and don't share it publicly.
-          Learn more about the Sync API in <a href="https://docs.mapzy.io">our docs</a>.
+          Learn more about the Sync API in <a href="https://github.com/mapzy/mapzy/wiki/Sync-mode" target="_blank">our docs</a>.
         </p>
           
         <%= form_with model: @map,

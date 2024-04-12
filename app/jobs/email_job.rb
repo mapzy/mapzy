@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class EmailWorker
-  include Sidekiq::Worker
-
+class EmailJob < ApplicationJob
   def perform(email_type, user_id)
     user = User.find(user_id)
     return unless user.account.trial?

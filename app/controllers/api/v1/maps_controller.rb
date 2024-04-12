@@ -19,7 +19,7 @@ module Api
         payload_dump = Sync::PayloadDump.create!(map: @map,
                                                  payload: location_sync.locations_payload)
 
-        SyncWorker.perform_async(payload_dump.id)
+        SyncJob.perform_later(payload_dump.id)
       end
 
       private

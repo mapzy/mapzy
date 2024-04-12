@@ -40,6 +40,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -124,12 +125,12 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new app, browser: :chrome,
-                                      capabilities: Selenium::WebDriver::Chrome::Options.new(
-                                        args: %w[headless no-sandbox disable-dev-shm-usage]
+Capybara.register_driver :headless do |app|
+  Capybara::Selenium::Driver.new app, browser: :selenium_chrome_headless,
+                                      options: Selenium::WebDriver::Chrome::Options.new(
+                                        args: %w[no-sandbox disable-dev-shm-usage]
                                       )
 end
 
-Capybara.javascript_driver = :chrome
-Capybara.default_driver = :chrome
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.default_driver = :selenium_chrome_headless

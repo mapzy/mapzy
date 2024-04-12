@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   db:
-    image: postgres
+    image: postgres:16
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     ports:
@@ -11,16 +11,14 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_DB=${DATABASE_NAME}
-  redis:
-    image: "redis:alpine"
   web:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    entrypoint: ["sh", "/app/docker-entrypoint.sh"]
+    entrypoint: ["sh", "/rails/docker-entrypoint.sh"]
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec foreman start -f Procfile.docker.dev"
     tty: true
-    working_dir: /app
+    working_dir: /rails
     ports:
       - "3000:3000"
     depends_on:

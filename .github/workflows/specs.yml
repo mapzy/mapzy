@@ -18,7 +18,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:16
         env:
           POSTGRES_PASSWORD: postgres
         ports:
@@ -32,7 +32,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.0
+          ruby-version: 3.3.0
           bundler-cache: true
 
       - name: Set up PostgreSQL client
@@ -42,10 +42,16 @@ jobs:
       - name: Setup test database
         run: |
           bin/rails db:setup
+        env:
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test
       
       - name: Build Tailwind
         run: |
           bin/rails tailwindcss:build
+        env:
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test
 
       - name: Run specs
         run: |
@@ -54,3 +60,5 @@ jobs:
           STRIPE_ENDPOINT_SECRET: ${{ secrets.STRIPE_ENDPOINT_SECRET }}
           ALLOW_REGISTRATION: true
           MAPZY_CLOUD: true
+          MISSION_CONTROL_USERNAME: test
+          MISSION_CONTROL_PASSWORD: test

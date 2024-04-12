@@ -118,6 +118,10 @@ RSpec.describe Location, type: :model do
         Geocoder::Lookup::Test.add_stub("Paris", [{ coordinates: [nil, nil] }])
       end
 
+      after do
+        Geocoder::Lookup::Test.delete_stub("Paris")
+      end
+
       it "sets the latitude to zero" do
         location.geocode
         expect(location.latitude).to be_zero

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class BatchGeocodeWorker
-  include Sidekiq::Worker
-  sidekiq_options retry: 25
+class BatchGeocodeJob < ApplicationJob
+  retry_on StandardError, attempts: 10
 
   def perform(map_id)
     map = Map.find_by(id: map_id)

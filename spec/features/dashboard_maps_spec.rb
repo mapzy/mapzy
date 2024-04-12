@@ -20,7 +20,10 @@ RSpec.describe "interacting with the dashboard map", type: :feature, js: true do
     sleep(2)
     page.first(".mapboxgl-ctrl-geocoder--suggestion").first(:xpath, ".//..").click
     sleep(1)
-    expect { click_button("Save") }.to change(Location, :count).by(1)
+    prev_locations_count = Location.count
+    find("[value=Save]").click
+    sleep(2)
+    expect(prev_locations_count + 1).to eq(Location.count)
   end
 
   # rubocop:disable RSpec/MultipleExpectations

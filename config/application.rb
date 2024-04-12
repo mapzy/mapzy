@@ -11,13 +11,15 @@ Bundler.require(*Rails.groups)
 module Mapzy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 7.1
 
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
+
+    config.autoload_lib(ignore: %w(assets tasks))
+    
     config.time_zone = "Europe/Zurich"
     # config.eager_load_paths << Rails.root.join("extras")
 
@@ -26,7 +28,9 @@ module Mapzy
     config.action_mailer.delivery_method = :mailpace
     config.action_mailer.mailpace_settings = { api_token: ENV["MAILPACE_TOKEN"] }
 
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :solid_queue
+
+    config.mission_control.jobs.base_controller_class = "MissionControlAdminController"
 
     # Use Rspec as test framework
     config.generators do |g|
