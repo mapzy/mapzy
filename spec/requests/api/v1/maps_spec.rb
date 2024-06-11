@@ -33,7 +33,7 @@ RSpec.describe "Maps", type: :request do
       it "returns 422" do
         post api_v1_maps_sync_path(map.hashid),
              as: :json, params: locations_payload, headers: { Authorization: bearer_token }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "doesn't start the background job with SyncWorker" do
@@ -59,7 +59,7 @@ RSpec.describe "Maps", type: :request do
 
         post api_v1_maps_sync_path(map.hashid),
              as: :json, params: locations_payload, headers: { Authorization: bearer_token }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

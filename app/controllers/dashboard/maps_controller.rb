@@ -23,7 +23,7 @@ module Dashboard
     def update
       return head :ok, content_type: "text/html" if @map.update(map_params)
 
-      render "_update_error", status: :unprocessable_entity
+      render "_update_error", status: :unprocessable_content
     end
 
     private

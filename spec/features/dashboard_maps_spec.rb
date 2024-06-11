@@ -29,7 +29,7 @@ RSpec.describe "interacting with the dashboard map", type: :feature, js: true do
   # rubocop:disable RSpec/MultipleExpectations
   it "shows opening times per default" do
     click_on("Add Location")
-    expect(page).not_to have_content("MONDAY")
+    expect(page).to have_content("MONDAY")
     expect(page).to have_field(
       "location_opening_times_attributes___destroy",
       type: :hidden,
