@@ -32,7 +32,7 @@ module Dashboard
         flash[:notice] = "Yippie! The location #{@location.name} has been successfully created."
       else
         flash.now[:error] = @location.errors.full_messages
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_content
       end
     end
 
@@ -49,7 +49,7 @@ module Dashboard
       else
         flash.now[:error] = @location.errors.full_messages
         @address = @location.address
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     end
 

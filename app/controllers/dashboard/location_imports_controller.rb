@@ -15,7 +15,7 @@ module Dashboard
       if location_import.errors.present?
         @errors = location_import.errors
         @row_offset = LocationImport::ROW_OFFSET
-        render :new, status: :unprocessable_entity
+        render :new, status: :unprocessable_content
       else
         # bulk insert all locations to database
         result = location_import.insert_all
@@ -30,7 +30,7 @@ module Dashboard
         else
           flash.now[:alert] = "We couldn't create your locations. "\
                               "Please try again or reach out to bonjour@mapzy.io"
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
       end
     end

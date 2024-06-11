@@ -77,10 +77,10 @@ group :development, :test do
   gem "guard-rspec", require: false
 
   # Linting with rubocop
-  gem "rubocop", "~> 1.60.2"
+  gem "rubocop", "~> 1.64.1"
   gem "rubocop-performance", "~> 1.20.2"
-  gem "rubocop-rails", "~> 2.23.1"
-  gem "rubocop-rspec", "~> 2.26.1"
+  gem "rubocop-rails", "~> 2.25.0"
+  gem "rubocop-rspec", "~> 2.31.0"
 
   # Manage env variables with dotenv
   gem "dotenv-rails", "~> 3.0.2"

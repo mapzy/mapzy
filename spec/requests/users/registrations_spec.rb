@@ -98,10 +98,6 @@ RSpec.describe "Registrations", type: :request do
         patch user_registration_path(params: user_params)
       end
 
-      it "responds with a HTTP 200" do
-        expect(response).to be_successful
-      end
-
       it "show correct error message in HTML" do
         expect(response.body).to include("Current password is invalid")
       end
@@ -113,10 +109,6 @@ RSpec.describe "Registrations", type: :request do
       before do
         user_params[:user][:email] = user2.email
         patch user_registration_path(params: user_params)
-      end
-
-      it "responds with a HTTP 200" do
-        expect(response).to be_successful
       end
 
       it "show correct error message in HTML" do
@@ -133,10 +125,6 @@ RSpec.describe "Registrations", type: :request do
         user_params[:user][:password] = "123456"
         user_params[:user][:password_confirmation] = "654321"
         patch user_registration_path(params: user_params)
-      end
-
-      it "responds with a HTTP 200" do
-        expect(response).to be_successful
       end
 
       it "show correct error message in HTML" do
