@@ -4,10 +4,16 @@ export default class extends Controller {
   static targets = ["message"]
 
   connect() {
-    setTimeout(() => this.dismiss(), 30000);
+    this.timer = setTimeout(() => {
+      this.dismiss();
+    }, 10000);
   }
 
   dismiss() {
-    this.messageTarget.classList.add("hidden");
+    this.messageTarget.remove();
+  }
+
+  disconnect() {
+    clearTimeout(this.timer);
   }
 }

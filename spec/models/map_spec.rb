@@ -4,12 +4,14 @@
 #
 # Table name: maps
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  sync_mode  :boolean          default(FALSE), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id                  :bigint           not null, primary key
+#  custom_accent_color :string           default("#f99b46"), not null
+#  custom_color        :string           default("#e74d67"), not null
+#  name                :string
+#  sync_mode           :boolean          default(FALSE), not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  user_id             :bigint           not null
 #
 # Indexes
 #

@@ -1,5 +1,18 @@
+<% content_for :head do %>
+  <style>
+    .all-locations-button {
+      background-color: <%= @map.custom_color %>;
+    }
+
+    .all-locations-button:hover {
+      background-color: <%= @map.custom_accent_color %>;
+      color: #fff;
+    }
+  </style>
+<% end %>
+
 <%= link_to shared_locations_path(@map.id),
     data: { "turbo-frame": "side_panel", "action": "side-panel#showPanel" },
-    class: "absolute bottom-12 left-3 z-10 p-3 rounded-full text-xl text-white bg-mapzy-red hover:text-white hover:bg-mapzy-red-light" do %>
+    class: "absolute bottom-12 left-3 z-10 p-3 rounded-full text-xl text-white all-locations-button" do %>
   <%= list_view_icon(size: 16) %>
 <% end %>

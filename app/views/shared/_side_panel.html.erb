@@ -1,9 +1,25 @@
+<% content_for :head do %>
+  <style>
+    .side-panel-close-button {
+      color: <%= @map.custom_color %>;
+    }
+
+    .side-panel-close-button:hover {
+      color: <%= @map.custom_accent_color %>;
+    }
+  </style>
+<% end %>
+
 <div data-side-panel-target="panel"
      class="absolute w-full md:w-96 bg-white border-gray-200 border-2 md:border-r-0
-            inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden">
+            inset-x-0 bottom-0 md:top-0 md:bottom-0 h-1/2 md:h-auto z-20 hidden"
+>
 
-  <div class="absolute top-2 right-2">
-    <a class="block" data-action="side-panel#hidePanel">
+  <div class="absolute top-4 right-4">
+    <a
+      class="block side-panel-close-button"
+      data-action="side-panel#hidePanel"
+    >
       <%= close_icon(size: 20) %>
     </a>
   </div>

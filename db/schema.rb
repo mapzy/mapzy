@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_04_145648) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_125027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_145648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "sync_mode", default: false, null: false
+    t.string "custom_color", default: "#e74d67", null: false
+    t.string "custom_accent_color", default: "#f99b46", null: false
     t.index ["user_id"], name: "index_maps_on_user_id"
   end
 

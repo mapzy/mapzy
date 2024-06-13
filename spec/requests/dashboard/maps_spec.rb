@@ -35,12 +35,12 @@ RSpec.describe "Maps", type: :request do
       end
 
       it "responds with a HTTP 200" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true }), as: :turbo_stream
         expect(response).to be_successful
       end
 
       it "updates sync mode in database" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true }), as: :turbo_stream
         expect(Map.find(map.id).sync_mode).to be true
       end
     end
@@ -54,13 +54,51 @@ RSpec.describe "Maps", type: :request do
       end
 
       it "responds with a HTTP 200" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false }), as: :turbo_stream
         expect(response).to be_successful
       end
 
       it "updates sync mode in database" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false }), as: :turbo_stream
         expect(Map.find(map.id).sync_mode).to be false
+      end
+    end
+
+    context "with changing main color" do
+      let(:color_map) { { id: map.id, custom_color: "#fff" } }
+
+      before do
+        map.custom_color = "#000"
+        map.save
+      end
+
+      it "responds with a HTTP 200" do
+        patch dashboard_map_path(id: map.id, params: { map: color_map }), as: :turbo_stream
+        expect(response).to be_successful
+      end
+
+      it "updates sync mode in database" do
+        patch dashboard_map_path(id: map.id, params: { custom_color: "#000" }), as: :turbo_stream
+         expect(Map.find(map.id).custom_color).to eq("#000")
+      end
+    end
+
+    context "with changing accent color" do
+      let(:color_map) { { id: map.id, custom_color: "#fff" } }
+
+      before do
+        map.custom_accent_color = "#000"
+        map.save
+      end
+
+      it "responds with a HTTP 200" do
+        patch dashboard_map_path(id: map.id, params: { map: color_map }), as: :turbo_stream
+        expect(response).to be_successful
+      end
+
+      it "updates sync mode in database" do
+        patch dashboard_map_path(id: map.id, params: { custom_accent_color: "#000" }), as: :turbo_stream
+         expect(Map.find(map.id).custom_accent_color).to eq("#000")
       end
     end
   end

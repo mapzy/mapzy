@@ -7,7 +7,9 @@ export default class extends Controller {
     "bounds": Array,
     "locationBaseUrl": String,
     "dashboard": Boolean,
-    "paramNoAccidentalZoom": Boolean
+    "paramNoAccidentalZoom": Boolean,
+    "customColor": String,
+    "customAccentColor": String
   }
 
   initialize() {
@@ -89,16 +91,16 @@ export default class extends Controller {
       anchor.setAttribute("data-location-id", locationId);
 
       const marker = new mapboxgl.Marker({
-        color: "#E74D67",
+        color: this.customColorValue,
         anchor: "bottom"
       });
 
       const markerElement = marker.getElement();
 
       anchor.appendChild(markerElement);
-      anchor.addEventListener('click', this.moveMapOnHiddenMarker.bind(this));
-      anchor.addEventListener('mouseenter', () => this.toggleHighlightMarker(markerElement));
-      anchor.addEventListener('mouseleave', () => this.toggleHighlightMarker(markerElement));
+      anchor.addEventListener("click", this.moveMapOnHiddenMarker.bind(this));
+      anchor.addEventListener("mouseenter", () => this.toggleHighlightMarker(markerElement));
+      anchor.addEventListener("mouseleave", () => this.toggleHighlightMarker(markerElement));
 
       this.markerAnchors.push(anchor);
 
@@ -130,13 +132,11 @@ export default class extends Controller {
     return this.markerAnchors.find(marker => marker.getAttribute("data-location-id") === locationId);
   }
 
-  toggleHighlightMarker(markerElement) {
+  toggleHighlightMarker(markerElement, customColor, customAccentColor) {
     const svg = markerElement.firstChild;
     const path = svg.querySelector('path');
     const currentColor = path.getAttribute('fill');
-    const normalColor = "#E74D67";
-    const highlightColor = "#F99B46"
 
-    path.setAttribute('fill', currentColor === normalColor ? highlightColor : normalColor);
+    path.setAttribute('fill', currentColor === this.customColorValue ? this.customAccentColorValue : this.customColorValue);
   }
 }

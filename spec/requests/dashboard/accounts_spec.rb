@@ -6,7 +6,13 @@ RSpec.describe "Accounts", type: :request do
   let(:user) { create(:user, account: create(:account), map: create(:map)) }
 
   before do
+    @mapzy_cloud_env_before = ENV["MAPZY_CLOUD"]
+    ENV["MAPZY_CLOUD"] = "true" 
     sign_in user
+  end
+
+  after do
+    ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before
   end
 
   describe "GET /dashboard/settings" do
@@ -25,6 +31,14 @@ RSpec.describe "Accounts", type: :request do
 
       it "contains the start subscription link" do
         expect(response.body).to include('href="/stripe/checkout_session?sub=mini"')
+      end
+
+      it "contains the main color text" do
+        expect(response.body).to include("Main color")
+      end
+
+       it "contains the accent color text" do
+        expect(response.body).to include("Accent color")
       end
     end
 

@@ -20,6 +20,12 @@ module Dashboard
 
     def embed; end
 
+    def update
+      return head :ok, content_type: "text/html" if @account.update(acccount_params)
+
+      render "_update_error", status: :unprocessable_content
+    end
+
     private
 
     def format_cancel_time(unix_time)

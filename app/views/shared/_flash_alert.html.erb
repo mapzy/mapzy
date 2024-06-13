@@ -1,0 +1,8 @@
+<div data-controller="flash" data-flash-target="message" class="flash-alert">
+  <div class="sm:inline w-[95%] text-center"><%= message.to_s.html_safe %></div>
+  <div class="w-[5%] text-sm text-center underline cursor-pointer">
+    <button data-action="flash#dismiss">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>

@@ -16,6 +16,15 @@ RSpec.describe "Registrations", type: :request do
       }
     end
 
+    before do
+      @mapzy_cloud_env_before = ENV["MAPZY_CLOUD"]
+      ENV["MAPZY_CLOUD"] = "true" 
+    end
+
+    after do
+      ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before
+    end
+
     context "with valid user" do
       it "responds with a HTTP 302" do
         post user_registration_path(params: user_params)
