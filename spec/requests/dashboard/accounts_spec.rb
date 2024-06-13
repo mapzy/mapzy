@@ -7,12 +7,12 @@ RSpec.describe "Accounts", type: :request do
 
   before do
     @mapzy_cloud_env_before = ENV["MAPZY_CLOUD"]
-    ENV["MAPZY_CLOUD"] = "true" 
+    ENV["MAPZY_CLOUD"] = "true"
     sign_in user
   end
 
   after do
-    ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before
+    ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before # rubocop:disable RSpec/InstanceVariable
   end
 
   describe "GET /dashboard/settings" do
@@ -37,7 +37,7 @@ RSpec.describe "Accounts", type: :request do
         expect(response.body).to include("Main color")
       end
 
-       it "contains the accent color text" do
+      it "contains the accent color text" do
         expect(response.body).to include("Accent color")
       end
     end

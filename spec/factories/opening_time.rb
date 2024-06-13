@@ -2,9 +2,8 @@
 
 FactoryBot.define do
   factory :opening_time do
-    # day { :monday }
     sequence :day, 0 do |n|
-      OpeningTime.days.keys[n]
+      OpeningTime.days.keys[n % 7]
     end
     opens_at { "08:00" }
     closes_at { "18:00" }

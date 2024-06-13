@@ -9,7 +9,8 @@ export default class extends Controller {
     "dashboard": Boolean,
     "paramNoAccidentalZoom": Boolean,
     "customColor": String,
-    "customAccentColor": String
+    "customAccentColor": String,
+    "locale": String
   }
 
   initialize() {
@@ -72,6 +73,7 @@ export default class extends Controller {
           collapsed: false,
           marker: false,
           zoom: 15,
+          language: this.localeValue
         }),
         "top-right"
       );
@@ -85,7 +87,8 @@ export default class extends Controller {
       const locationId = feature.properties.hashid;
       const anchor = document.createElement("a");
 
-      anchor.href = `${this.locationBaseUrlValue}/${locationId}`;
+      anchor.href = `${this.locationBaseUrlValue}/${locationId}?language=${this.localeValue}`;
+
       anchor.setAttribute("data-turbo-frame", "side_panel");
       anchor.setAttribute("data-action", "side-panel#showPanel");
       anchor.setAttribute("data-location-id", locationId);

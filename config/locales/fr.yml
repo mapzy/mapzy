@@ -1,0 +1,12 @@
+fr:
+  days:
+    monday: "Lundi"
+    tuesday: "Mardi"
+    wednesday: "Mercredi"
+    thursday: "Jeudi"
+    friday: "Vendredi"
+    saturday: "Samedi"
+    sunday: "Dimanche"
+  opening_times:
+    closed: "Fermé"
+    open_24h: "Ouvert 24h/24"

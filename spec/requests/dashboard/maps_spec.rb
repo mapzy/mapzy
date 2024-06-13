@@ -79,7 +79,7 @@ RSpec.describe "Maps", type: :request do
 
       it "updates sync mode in database" do
         patch dashboard_map_path(id: map.id, params: { custom_color: "#000" }), as: :turbo_stream
-         expect(Map.find(map.id).custom_color).to eq("#000")
+        expect(Map.find(map.id).custom_color).to eq("#000")
       end
     end
 
@@ -97,8 +97,9 @@ RSpec.describe "Maps", type: :request do
       end
 
       it "updates sync mode in database" do
-        patch dashboard_map_path(id: map.id, params: { custom_accent_color: "#000" }), as: :turbo_stream
-         expect(Map.find(map.id).custom_accent_color).to eq("#000")
+        patch dashboard_map_path(id: map.id, params: { custom_accent_color: "#000" }),
+              as: :turbo_stream
+        expect(Map.find(map.id).custom_accent_color).to eq("#000")
       end
     end
   end

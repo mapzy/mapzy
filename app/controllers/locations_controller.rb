@@ -3,6 +3,8 @@
 class LocationsController < ApplicationController
   include Trackable
 
+  around_action :switch_locale, only: %i[show]
+
   before_action :set_map
   after_action -> { track_event("Viewed Location") }, only: %i[show]
 

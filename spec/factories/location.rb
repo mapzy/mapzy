@@ -38,5 +38,11 @@ FactoryBot.define do
     longitude { 8.433332 }
 
     association :map
+
+    trait :with_opening_times do
+      after(:create) do |opening_time|
+        create_list(:opening_time, 7, location: opening_time)
+      end
+    end
   end
 end

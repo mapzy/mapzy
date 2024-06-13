@@ -18,11 +18,11 @@ RSpec.describe "Registrations", type: :request do
 
     before do
       @mapzy_cloud_env_before = ENV["MAPZY_CLOUD"]
-      ENV["MAPZY_CLOUD"] = "true" 
+      ENV["MAPZY_CLOUD"] = "true"
     end
 
     after do
-      ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before
+      ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before # rubocop:disable RSpec/InstanceVariable
     end
 
     context "with valid user" do
