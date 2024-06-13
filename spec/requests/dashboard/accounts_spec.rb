@@ -32,6 +32,14 @@ RSpec.describe "Accounts", type: :request do
       it "contains the start subscription link" do
         expect(response.body).to include('href="/stripe/checkout_session?sub=mini"')
       end
+
+      it "contains the main color text" do
+        expect(response.body).to include("Main color")
+      end
+
+       it "contains the accent color text" do
+        expect(response.body).to include("Accent color")
+      end
     end
 
     # context "with active account" do
