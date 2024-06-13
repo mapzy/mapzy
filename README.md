@@ -5,7 +5,13 @@
 
 ![The Mapzy logo with the Mapzy text on its right side. The logo looks like an abstract folded paper map.](https://github.com/mapzy/mapzy/assets/1881676/ea377137-3f4a-43b2-adfd-1e049128a338)
 
-## A free, simple, self-hostable, and privay-friendly store finder.
+## A free, simple, self-hostable, and privacy-friendly store finder.
+
+## Mapzy Intro Video
+The best way to see how Mapzy works it to check out this screencast that runs you through the basics:
+
+[![A preview of the Mapzy intro video](https://github.com/mapzy/mapzy/assets/1881676/5ef8241f-eb0f-4d33-b27a-c8068cc99096)](https://share.cleanshot.com/7S1McgFm)
+
 
 ## Here are a few screenshots:
 A public map that you can embed. You can also customize the colours of the pins and buttons.
