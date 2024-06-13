@@ -9,8 +9,8 @@ export default class extends Controller {
     "dashboard": Boolean,
     "paramNoAccidentalZoom": Boolean,
     "customColor": String,
-    "customAccentColor": String
-    "locale": String,
+    "customAccentColor": String,
+    "locale": String
   }
 
   initialize() {
