@@ -35,12 +35,12 @@ RSpec.describe "Maps", type: :request do
       end
 
       it "responds with a HTTP 200" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true }), as: :turbo_stream
         expect(response).to be_successful
       end
 
       it "updates sync mode in database" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_true }), as: :turbo_stream
         expect(Map.find(map.id).sync_mode).to be true
       end
     end
@@ -54,12 +54,12 @@ RSpec.describe "Maps", type: :request do
       end
 
       it "responds with a HTTP 200" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false }), as: :turbo_stream
         expect(response).to be_successful
       end
 
       it "updates sync mode in database" do
-        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false })
+        patch dashboard_map_path(id: map.id, params: { map: sync_mode_false }), as: :turbo_stream
         expect(Map.find(map.id).sync_mode).to be false
       end
     end

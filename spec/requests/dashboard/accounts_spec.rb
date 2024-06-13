@@ -6,7 +6,13 @@ RSpec.describe "Accounts", type: :request do
   let(:user) { create(:user, account: create(:account), map: create(:map)) }
 
   before do
+    @mapzy_cloud_env_before = ENV["MAPZY_CLOUD"]
+    ENV["MAPZY_CLOUD"] = "true" 
     sign_in user
+  end
+
+  after do
+    ENV["MAPZY_CLOUD"] = @mapzy_cloud_env_before
   end
 
   describe "GET /dashboard/settings" do

@@ -29,7 +29,6 @@ class Map < ApplicationRecord
   has_many :payload_dumps, class_name: "Sync::PayloadDump", dependent: :destroy
   has_one :api_key, dependent: :destroy
 
-
   validates :custom_color, presence: true
   validates :custom_accent_color, presence: true
 

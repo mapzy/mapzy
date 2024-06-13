@@ -21,21 +21,21 @@ module Dashboard
     end
 
     def update
-      if @map.update(map_params)
-        streams = [
-        render_turbo_stream_flash_message(
-          "notice",
-          "Settings saved!"
-        )
-      ]
-      else
-        streams = [
-        render_turbo_stream_flash_message(
-          "alert",
-          "Error saving settings: #{@map.errors.full_messages}"
-        )
-      ]
-      end
+      streams = if @map.update(map_params)
+                  [
+                    render_turbo_stream_flash_message(
+                      "notice",
+                      "Settings saved!"
+                    )
+                  ]
+                else
+                  [
+                    render_turbo_stream_flash_message(
+                      "alert",
+                      "Error saving settings: #{@map.errors.full_messages}"
+                    )
+                  ]
+                end
 
       respond_to do |format|
         format.turbo_stream do
