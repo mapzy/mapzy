@@ -32,6 +32,25 @@ select:focus {
   border-color: var(--black);
 }
 
+input[type="color"] {
+  border-start-start-radius: 0.25rem;
+  padding: 0;
+  border: 0.25rem solid rgb(226 232 240);
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
 /* Base styles */
 h1 {
   @apply text-3xl leading-7 font-bold
@@ -76,7 +95,11 @@ code {
 }
 
 /* Flash messages */
-.flash {
+.flash-alert {
+  @apply flex flex-row items-center justify-between w-full p-4 border-2 text-black bg-red-100 rounded
+}
+
+.flash-notice {
   @apply flex flex-row items-center justify-between w-full p-4 border-2 text-mapzy-violet bg-blue-50 rounded
 }
 

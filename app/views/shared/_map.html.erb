@@ -6,7 +6,12 @@
   data-map-location-base-url-value="<%= shared_locations_path(@map.hashid) %>"
   data-map-ask-location-permission-value="<%= @ask_location_permission %>"
   data-map-dashboard-value="<%= controller.controller_path.include?('dashboard') %>"
-  data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>">
+  data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>"
+  data-map-custom-color-value="<%= @map.custom_color %>"
+  data-map-custom-accent-color-value="<%= @map.custom_accent_color %>"
+  data-side-panel-custom-color-value="<%= @map.custom_color %>"
+  data-side-panel-custom-accent-color-value="<%= @map.custom_accent_color %>"
+>
 
   <%= render "shared/mapbox" %>
 

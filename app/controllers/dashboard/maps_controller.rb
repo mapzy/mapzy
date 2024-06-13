@@ -21,9 +21,27 @@ module Dashboard
     end
 
     def update
-      return head :ok, content_type: "text/html" if @map.update(map_params)
+      if @map.update(map_params)
+        streams = [
+        render_turbo_stream_flash_message(
+          "notice",
+          "Settings saved!"
+        )
+      ]
+      else
+        streams = [
+        render_turbo_stream_flash_message(
+          "alert",
+          "Error saving settings: #{@map.errors.full_messages}"
+        )
+      ]
+      end
 
-      render "_update_error", status: :unprocessable_content
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: streams
+        end
+      end
     end
 
     private
@@ -33,7 +51,7 @@ module Dashboard
     end
 
     def map_params
-      params.require(:map).permit(:id, :sync_mode)
+      params.require(:map).permit(:id, :sync_mode, :custom_color, :custom_accent_color)
     end
   end
 end
