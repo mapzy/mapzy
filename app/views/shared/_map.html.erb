@@ -9,9 +9,7 @@
   data-map-param-no-accidental-zoom-value="<%= params[:no_accidental_zoom] == "true" %>"
   data-map-custom-color-value="<%= @map.custom_color %>"
   data-map-custom-accent-color-value="<%= @map.custom_accent_color %>"
-  data-side-panel-custom-color-value="<%= @map.custom_color %>"
-  data-side-panel-custom-accent-color-value="<%= @map.custom_accent_color %>"
->
+  data-map-locale-value="<%= I18n.locale %>">
 
   <%= render "shared/mapbox" %>
 

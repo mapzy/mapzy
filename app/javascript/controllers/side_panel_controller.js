@@ -5,11 +5,6 @@ export default class extends Controller {
     "panel"
   ]
 
-  static values = {
-    "customColor": String,
-    "customAccentColor": String
-  }
-
   hidePanel() {
     this.panelTarget.classList.add("hidden");
   }

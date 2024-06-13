@@ -32,6 +32,9 @@ module Mapzy
 
     config.mission_control.jobs.base_controller_class = "MissionControlAdminController"
 
+    config.i18n.default_locale = :en
+    config.i18n.fallbacks = [:en]
+
     # Use Rspec as test framework
     config.generators do |g|
       g.test_framework :rspec,

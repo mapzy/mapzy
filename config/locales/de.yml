@@ -1,0 +1,12 @@
+de:
+  days:
+    monday: "Montag"
+    tuesday: "Dienstag"
+    wednesday: "Mittwoch"
+    thursday: "Donnerstag"
+    friday: "Freitag"
+    saturday: "Samstag"
+    sunday: "Sonntag"
+  opening_times:
+    closed: "Geschlossen"
+    open_24h: "Ganztags offen"

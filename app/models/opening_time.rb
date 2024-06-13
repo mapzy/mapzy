@@ -44,14 +44,13 @@ class OpeningTime < ApplicationRecord
   scope :weekend, -> { where(day: WEEKEND) }
 
   # Render the opening time
-  #
   def format_as_string
     if closed
-      "#{day.capitalize}: closed"
+      "#{I18n.t("days.#{day}")}: #{I18n.t('opening_times.closed')}"
     elsif open_24h
-      "#{day.capitalize}: open 24h"
+      "#{I18n.t("days.#{day}")}: #{I18n.t('opening_times.open_24h')}"
     elsif opens_at && closes_at
-      "#{day.capitalize}: #{opens_at.strftime('%H:%M')} - #{closes_at.strftime('%H:%M')}"
+      "#{I18n.t("days.#{day}")}: #{opens_at.strftime('%H:%M')} - #{closes_at.strftime('%H:%M')}"
     end
   end
 
