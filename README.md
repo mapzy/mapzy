@@ -3,7 +3,9 @@
 
 # Mapzy
 
-![The Mapzy logo with the Mapzy text on its right side. The logo looks like an abstract folded paper map.](https://github.com/mapzy/mapzy/assets/1881676/ea377137-3f4a-43b2-adfd-1e049128a338)
+<img src="https://github.com/mapzy/mapzy/assets/1881676/5daddb8a-746e-48c4-9f79-8ee198512be0" width="300px" alt="The Mapzy logo with the Mapzy text on its right side. The logo looks like an abstract folded paper map." >
+
+
 
 ## A free, simple, self-hostable, and privacy-friendly store finder.
 
