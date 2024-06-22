@@ -14,6 +14,8 @@ The best way to see how Mapzy works it to check out this screencast that runs yo
 
 [![A preview of the Mapzy intro video](https://github.com/mapzy/mapzy/assets/1881676/5ef8241f-eb0f-4d33-b27a-c8068cc99096)](https://share.cleanshot.com/7S1McgFm)
 
+## Websites using Mapzy
+Check out the [Jungkraut Store Finder](https://jungkraut.ch/en/pages/stores) to see Mapzy in action.
 
 ## Here are a few screenshots:
 A public map that you can embed. You can also customize the colours of the pins and buttons.
